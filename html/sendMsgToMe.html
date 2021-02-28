@@ -1,0 +1,15 @@
+$def with (sitekey)
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">  
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <script src="https://www.recaptcha.net/recaptcha/api.js?onload=OnloadRecaptcha" async defer></script>
+        <script src="/js/sendMsgToMe.js"></script>
+    </head>
+    <body>
+        <textarea id="content" style="width: 70%;"></textarea>
+        <div id="captcha2" sitekey="$sitekey"></div><br/>
+        <input id="submit" type="submit" value="Submit">
+    </body>
+</html>
