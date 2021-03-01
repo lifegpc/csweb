@@ -20,5 +20,9 @@ function post(url, data, callback, failedCallback) {
             form.append(key, data[key]);
         })
     } else form = data;
-    xhr.send(form);
+    try {
+        xhr.send(form);
+    } catch (e) {
+        failedCallback();
+    }
 }

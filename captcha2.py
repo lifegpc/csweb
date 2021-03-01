@@ -1,13 +1,16 @@
 import web
 from requests import Session
 from settings import settings
+from lang import getLangFromAcceptLanguage as getlang, getdict
 
 
 def checkCaptcha2() -> (bool, dict):
     """判断验证是否通过"""
+    lan = getlang()
+    i18n = getdict('basic', lan)
     rekey = web.input().get("g-recaptcha-response")
     if rekey is None:
-        return False, {'code': -1, 'msg': 'No response.'}
+        return False, {'code': -1, 'msg': i18n['RECAP2']}
     r = Session()
     se = settings()
     se.ReadSettings()

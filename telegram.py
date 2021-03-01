@@ -7,7 +7,7 @@ def sendMessage(chatId: int, message: str) -> (bool, dict):
     se.ReadSettings()
     key = se.telegrambotkey
     if key is None:
-        return False, {'code': -2, 'msg': 'No Telegram Bot Key.'}
+        return False, {'code': -1, 'msg': 'No Telegram Bot Key.'}
     r = Session()
     re = r.post(f"https://api.telegram.org/bot{key}/sendMessage", {
                 "chat_id": chatId, "text": message})
@@ -15,4 +15,4 @@ def sendMessage(chatId: int, message: str) -> (bool, dict):
     if 'ok' in re and re['ok']:
         return True, {'code': 0, 'result': re}
     else:
-        return True, {'code': -3, 'msg': 'send failed', 'info': re}
+        return True, {'code': -2, 'msg': 'send failed', 'info': re}

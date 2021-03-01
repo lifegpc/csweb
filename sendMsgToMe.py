@@ -3,8 +3,14 @@ from settings import settings
 from captcha2 import checkCaptcha2
 from json import dumps
 from constants import jsonsep as sep
-from tep import getTemplate as getT
+from tep import getTemplate as getT, embScr
 from telegram import sendMessage
+from lang import (
+    getLangFromAcceptLanguage as getlang,
+    getdict,
+    mapToDict,
+    dictToJSON
+)
 
 
 class sendMsgToMe:
@@ -15,7 +21,14 @@ class sendMsgToMe:
         sitekey = se.captcha2sitekey
         if te is None or sitekey is None:
             return 'Error'
-        return te(sitekey)
+        lan = getlang()
+        i18n = getdict('basic', lan)
+        i18n2 = getdict('sendMsgToMe', lan)
+        i18n3 = {}
+        mapToDict(i18n2, i18n3, ['OK', 'FAILED'])
+        mapToDict(i18n, i18n3, ['NETERR'])
+        i18n3 = dictToJSON(i18n3)
+        return te(sitekey, lan, i18n, i18n2, i18n3, embScr)
 
     def POST(self):
         se = settings()
@@ -36,6 +49,8 @@ class sendMsgToMe:
             else:
                 sended, info = sendMessage(se.telegramchatid, content)
                 inf['code'] = 0 if sended else -4
+                if not sended:
+                    inf['msg'] = info['msg']
                 if se.debug:
                     inf['debugInfo2'] = info
         return dumps(inf, ensure_ascii=False, separators=sep)

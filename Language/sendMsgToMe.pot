@@ -1,0 +1,23 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: csweb\n"
+"POT-Creation-Date: 2021-03-01 10:13:00+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
+
+msgctxt "OK"
+msgid "The message has been sent without any errors."
+msgstr ""
+
+msgctxt "TITLE"
+msgid "Send Message To lifegpc"
+msgstr ""
+
+msgctxt "FAILED"
+msgid "Can not send this message.\nError Info: <info>"
+msgstr ""
