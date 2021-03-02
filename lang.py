@@ -5,7 +5,7 @@ import web
 from constants import jsonsep
 from json import dumps
 LanDict = Dict[str, str]
-lanList = ['en', 'zh_CN', 'ja']
+lanList = ['en', 'ja', 'zh_CN', 'zh_TW']
 StrList = List[str]
 
 
@@ -48,8 +48,11 @@ def getLangFromAcceptLanguage(lan: str = None) -> str:
             lanList2[la] = lan
     for q in ql:
         q = q.split(';')[0]
+        q = q.replace('-', '_')
         if q in lanList:
             return q
+        if q in ['zh_Hant', 'zh_HK']:
+            return 'zh_TW'
         if q[:2] in lanList2:
             return lanList2[q[:2]]
     return 'en'
