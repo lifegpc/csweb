@@ -2,3 +2,4 @@
 settings.json
 *.jar
 js/
+__pycache__/

@@ -10,6 +10,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: \n"
 
+# Dear translator: place your name here if you like.
+# You can use , to separate two names
+msgctxt "TRANSLATOR"
+msgid "lifegpc"
+msgstr ""
+
 msgctxt "SUBMIT"
 msgid "Submit"
 msgstr ""
@@ -24,4 +30,8 @@ msgstr ""
 
 msgctxt "RECAP2"
 msgid "You need to complete reCAPTCHA."
+msgstr ""
+
+msgctxt "TRANSBY"
+msgid "Translation by:"
 msgstr ""

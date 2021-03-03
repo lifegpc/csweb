@@ -20,6 +20,9 @@ function post(url, data, callback, failedCallback) {
             form.append(key, data[key]);
         })
     } else form = data;
+    var u = new URL(window.location.href);
+    var hl = u.searchParams.get('hl');
+    if (hl != null && !form.has("hl")) form.append("hl", hl);
     try {
         xhr.send(form);
     } catch (e) {

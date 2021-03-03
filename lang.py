@@ -66,3 +66,29 @@ def mapToDict(source: LanDict, target: LanDict, keyList: StrList):
 
 def dictToJSON(source: LanDict) -> str:
     return dumps(source, ensure_ascii=False, separators=jsonsep)
+
+
+def getTranslator(**d: Dict[str, LanDict]) -> str:
+    basic = d.get('basic')
+    if basic is None:
+        lan = getLangFromAcceptLanguage()
+        basic = getdict('basic', lan)
+    t = basic['TRANSBY'] + " "
+    namedict: Dict[str, StrList] = {}
+    for key in d:
+        ld: LanDict = d[key]
+        names = ld['TRANSLATOR'].split(',')
+        for name in names:
+            name = name.strip()
+            if name not in namedict:
+                namedict[name] = [key]
+            elif key not in namedict[name]:
+                namedict[name].append(key)
+    for name in namedict:
+        t += name + "("
+        for key in namedict[name]:
+            t += key + ", "
+        t = t.rstrip(", ")
+        t += "), "
+    t = t.rstrip(", ")
+    return t

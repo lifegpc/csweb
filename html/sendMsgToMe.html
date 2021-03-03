@@ -1,12 +1,12 @@
-$def with (sitekey, lan, i18n, i18n2, i18n3, embScr)
+$def with (sitekey, lan, i18n, i18n2, i18n3, embScr, trans)
 <!DOCTYPE html>
 <html lang="$lan">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">  
         <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <title>$i18n2['TITLE']</title>
-        <script>var i18n=$i18n3</script>
-        <script src="https://www.recaptcha.net/recaptcha/api.js?onload=OnloadRecaptcha" async defer></script>
+        <script>var i18n=$i18n3;console.log('$trans');</script>
+        <script src="https://www.recaptcha.net/recaptcha/api.js?onload=OnloadRecaptcha&hl=$lan" async defer></script>
         $:embScr("sendMsgToMe")
     </head>
     <body>

@@ -2,13 +2,16 @@
 /// <reference path="i18n.js" />
 window.addEventListener('load', () => {
     document.getElementById('submit').addEventListener('click', () => {
+        /**@type {HTMLTextAreaElement} */
+        var content = document.getElementById('content');
+        var i18n = window['i18n'];
+        if (content.value == "") {
+            alert(i18n['NEEDCON'])
+            return;
+        }
         var grecaptcha = window['grecaptcha'];
         var res = grecaptcha['getResponse']();
         if (res == "") return;
-        /**@type {HTMLTextAreaElement} */
-        var content = document.getElementById('content');
-        if (content.value == "") return;
-        var i18n = window['i18n'];
         post("/sendMsgToMe", { "g-recaptcha-response": res, "content": content.value }, (c) => {
             var c = JSON.parse(c);
             console.log(c);

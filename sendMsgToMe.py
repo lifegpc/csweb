@@ -9,7 +9,8 @@ from lang import (
     getLangFromAcceptLanguage as getlang,
     getdict,
     mapToDict,
-    dictToJSON
+    dictToJSON,
+    getTranslator
 )
 
 
@@ -25,10 +26,11 @@ class sendMsgToMe:
         i18n = getdict('basic', lan)
         i18n2 = getdict('sendMsgToMe', lan)
         i18n3 = {}
-        mapToDict(i18n2, i18n3, ['OK', 'FAILED'])
+        mapToDict(i18n2, i18n3, ['OK', 'FAILED', 'NEEDCON'])
         mapToDict(i18n, i18n3, ['NETERR'])
         i18n3 = dictToJSON(i18n3)
-        return te(sitekey, lan, i18n, i18n2, i18n3, embScr)
+        trans = getTranslator(basic=i18n, sendMsgToMe=i18n2)
+        return te(sitekey, lan, i18n, i18n2, i18n3, embScr, trans)
 
     def POST(self):
         se = settings()
