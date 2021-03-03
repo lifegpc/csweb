@@ -27,7 +27,7 @@ class sendMsgToMe:
         i18n2 = getdict('sendMsgToMe', lan)
         i18n3 = {}
         mapToDict(i18n2, i18n3, ['OK', 'FAILED', 'NEEDCON'])
-        mapToDict(i18n, i18n3, ['NETERR'])
+        mapToDict(i18n, i18n3, ['NETERR', 'RECAP2'])
         i18n3 = dictToJSON(i18n3)
         trans = getTranslator(basic=i18n, sendMsgToMe=i18n2)
         return te(sitekey, lan, i18n, i18n2, i18n3, embScr, trans)
@@ -35,15 +35,19 @@ class sendMsgToMe:
     def POST(self):
         se = settings()
         se.ReadSettings()
+        lan = getlang()
+        i18n = getdict('sendMsgToMe', lan)
         content = web.input().get("content")
         if content is None or len(content) == 0:
-            inf = {'code': -3, 'msg': 'No content.'}
+            inf = {'code': -3, 'msg': i18n['NEEDCON']}
             return dumps(inf, ensure_ascii=False, separators=sep)
         checked, info = checkCaptcha2()
         inf = {}
         inf['code'] = 0 if checked else -1
         if se.debug:
             inf['debugInfo'] = info
+        if not checked:
+            inf['msg'] = info['msg']
         if checked:
             if se.telegramchatid is None:
                 inf['code'] = -2

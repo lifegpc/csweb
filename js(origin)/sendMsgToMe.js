@@ -11,7 +11,10 @@ window.addEventListener('load', () => {
         }
         var grecaptcha = window['grecaptcha'];
         var res = grecaptcha['getResponse']();
-        if (res == "") return;
+        if (res == "") {
+            alert(i18n['RECAP2']);
+            return;
+        }
         post("/sendMsgToMe", { "g-recaptcha-response": res, "content": content.value }, (c) => {
             var c = JSON.parse(c);
             console.log(c);

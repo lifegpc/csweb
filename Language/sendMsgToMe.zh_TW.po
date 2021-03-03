@@ -18,6 +18,10 @@ msgctxt "TRANSLATOR"
 msgid "lifegpc"
 msgstr "lifegpc"
 
+msgctxt "CONTENT"
+msgid "Content:"
+msgstr "內容："
+
 msgctxt "OK"
 msgid "The message has been sent without any errors."
 msgstr "該訊息已傳送，沒有任何錯誤。"

@@ -10,7 +10,7 @@ $def with (sitekey, lan, i18n, i18n2, i18n3, embScr, trans)
         $:embScr("sendMsgToMe")
     </head>
     <body>
-        $i18n['CONTENT']<br/>
+        $i18n2['CONTENT']<br/>
         <textarea id="content" style="width: calc(100% - 10px); height: 100px; margin-left: 5px;"></textarea>
         <div id="captcha2" sitekey="$sitekey"></div><br/>
         <input id="submit" type="submit" value="$i18n['SUBMIT']">

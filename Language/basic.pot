@@ -20,10 +20,6 @@ msgctxt "SUBMIT"
 msgid "Submit"
 msgstr ""
 
-msgctxt "CONTENT"
-msgid "Content:"
-msgstr ""
-
 msgctxt "NETERR"
 msgid "Network Error!"
 msgstr ""
@@ -34,4 +30,12 @@ msgstr ""
 
 msgctxt "TRANSBY"
 msgid "Translation by:"
+msgstr ""
+
+msgctxt "SITEERR"
+msgid "This is a server error. Please contact the owner of the site."
+msgstr ""
+
+msgctxt "RECAP2VE"
+msgid "Verify reCAPTCHA result failed."
 msgstr ""
