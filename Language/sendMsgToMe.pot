@@ -35,3 +35,11 @@ msgstr ""
 msgctxt "NEEDCON"
 msgid "You need input some text."
 msgstr ""
+
+msgctxt "YOURN"
+msgid "Your name:"
+msgstr ""
+
+msgctxt "NEEDN"
+msgid "You need input your name."
+msgstr ""

@@ -26,7 +26,7 @@ class sendMsgToMe:
         i18n = getdict('basic', lan)
         i18n2 = getdict('sendMsgToMe', lan)
         i18n3 = {}
-        mapToDict(i18n2, i18n3, ['OK', 'FAILED', 'NEEDCON'])
+        mapToDict(i18n2, i18n3, ['OK', 'FAILED', 'NEEDCON', 'NEEDN'])
         mapToDict(i18n, i18n3, ['NETERR', 'RECAP2'])
         i18n3 = dictToJSON(i18n3)
         trans = getTranslator(basic=i18n, sendMsgToMe=i18n2)
@@ -37,9 +37,14 @@ class sendMsgToMe:
         se.ReadSettings()
         lan = getlang()
         i18n = getdict('sendMsgToMe', lan)
-        content = web.input().get("content")
+        inp = web.input()
+        content = inp.get("content")
         if content is None or len(content) == 0:
             inf = {'code': -3, 'msg': i18n['NEEDCON']}
+            return dumps(inf, ensure_ascii=False, separators=sep)
+        name = inp.get("name")
+        if name is None or len(name) == 0:
+            inf = {'code': -4, 'msg': i18n['NEEDN']}
             return dumps(inf, ensure_ascii=False, separators=sep)
         checked, info = checkCaptcha2()
         inf = {}
@@ -53,7 +58,15 @@ class sendMsgToMe:
                 inf['code'] = -2
                 inf['debugInfo2'] = {'code': -1, 'msg': 'No Chat Id.'}
             else:
-                sended, info = sendMessage(se.telegramchatid, content)
+                try:
+                    ip = web.ctx['ip']
+                    if ip is None:
+                        ip = ''
+                except:
+                    ip = ''
+                addt = '' if ip == '' else f' ({ip})'
+                text = f"{name}{addt}: {content}"
+                sended, info = sendMessage(se.telegramchatid, text)
                 inf['code'] = 0 if sended else -4
                 if not sended:
                     inf['msg'] = info['msg']
