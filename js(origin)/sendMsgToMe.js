@@ -21,7 +21,10 @@ window.addEventListener('load', () => {
             alert(i18n['RECAP2']);
             return;
         }
-        post("/sendMsgToMe", { "g-recaptcha-response": res, "content": content.value, "name": name.value }, (c) => {
+        /**@type {string|undefined}*/
+        var lan = window['lan'];
+        if (lan == undefined) lan = 'en';
+        post("/sendMsgToMe", { "g-recaptcha-response": res, "content": content.value, "name": name.value, "lan": lan }, (c) => {
             var c = JSON.parse(c);
             console.log(c);
             if (c['code'] == 0) {

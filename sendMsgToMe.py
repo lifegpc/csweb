@@ -64,7 +64,10 @@ class sendMsgToMe:
                         ip = ''
                 except:
                     ip = ''
-                addt = '' if ip == '' else f' ({ip})'
+                ilan = web.input().get("lan")
+                if ilan is None:
+                    ilan = 'Unknown'
+                addt = f' ({ilan})' if ip == '' else f' ({ip}, {ilan})'
                 text = f"{name}{addt}: {content}"
                 sended, info = sendMessage(se.telegramchatid, text)
                 inf['code'] = 0 if sended else -4

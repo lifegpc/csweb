@@ -8,7 +8,7 @@
 function post(url, data, callback, failedCallback) {
     var xhr = new XMLHttpRequest();
     xhr.open("POST", url);
-    if (callback != undefined) xhr.onloadend = () => {
+    if (callback != undefined) xhr.onload = () => {
         callback(xhr.responseText);
     };
     if (failedCallback != undefined) xhr.onerror = failedCallback;
