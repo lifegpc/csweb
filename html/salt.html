@@ -1,0 +1,32 @@
+$def with (lan, trans, i18n, embScr, addWikiLinkToText)
+<!DOCTYPE html>
+<html lang="$lan">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">  
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta name="title" content="$i18n['TITLE']">
+        <meta name="description" content="$i18n['TITLE']">
+        <title>$i18n['TITLE']</title>
+        <script>console.log('$trans');var lan='$lan';</script>
+        $:embScr("clipboard.min")
+        $:embScr("sha512.min")
+        $:embScr("salt")
+    </head>
+    <body>
+        $i18n['PASS']<input id="pas" type="password" minlength="8" autocomplete="new-password"><br/>
+        $:addWikiLinkToText(i18n["SALT2"], "salt", "en:Salt (cryptography)", "Q1500258", i18n["SALT"])<input id="sal"><br/>
+        $:addWikiLinkToText(i18n['HASHF2'], "hashf", "en:Hash function", "Q183427", i18n['HASHF'])<select id="sel">
+            <option value="md5">md5</option>
+            <option value="sha224">sha224</option>
+            <option value="sha256">sha256</option>
+            <option value="sha384">sha384</option>
+            <option value="sha512" selected>sha512</option>
+        </select><br/>
+        <input id="loc" type="checkbox"><label for="loc">$i18n['PUTSALT']</label><br/>
+        <input id="base" type="checkbox"><label for="base">$:addWikiLinkToText(i18n['NOBASE'], "base64", "en:Base64", "Q726780", "Base64")</label><br/>
+        <button id="cl">$i18n['GEN']</button><br/>
+        <button id="bu" data-clipboard-action='copy' data-clipboard-target="#o">$i18n['CPCLIP']</button><br/>
+        $i18n['RESULT']<br/>
+        <textarea id="o" style="width: calc(100% - 20px); margin-left: 10px; height: 40px;"></textarea>
+    </body>
+</html>

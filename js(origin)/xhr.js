@@ -22,10 +22,40 @@ function post(url, data, callback, failedCallback) {
     } else form = data;
     var u = new URL(window.location.href);
     var hl = u.searchParams.get('hl');
-    if (hl != null && !form.has("hl")) form.append("hl", hl);
+    if (hl != null && !form.has("hl") && u.hostname == new URL(url).hostname) form.append("hl", hl);
     try {
         xhr.send(form);
     } catch (e) {
-        failedCallback();
+        if (failedCallback != undefined) failedCallback();
+    }
+}
+/**
+ * 发送GET请求
+ * @param {string} url 网站
+ * @param {Object<string, string>} data 字典
+ * @param {(content: string)=>void} callback 回调函数
+ * @param {()=>void} failedCallback 失败回调函数
+ */
+function get(url, data, callback, failedCallback) {
+    var xhr = new XMLHttpRequest();
+    var uri = new URL(url);
+    Object.getOwnPropertyNames(data).forEach((key) => {
+        uri.searchParams.append(key, data[key]);
+    })
+    var hl = uri.searchParams.get('hl');
+    var louri = new URL(window.location.href);
+    var hl2 = louri.searchParams.get('hl');
+    if (hl == null && hl2 != null && uri.hostname == louri.hostname) {
+        uri.searchParams.append('hl', hl2);
+    }
+    xhr.open("GET", uri.href);
+    if (callback != undefined) xhr.onload = () => {
+        callback(xhr.responseText);
+    };
+    if (failedCallback != undefined) xhr.onerror = failedCallback;
+    try {
+        xhr.send();
+    } catch (e) {
+        if (failedCallback != undefined) failedCallback();
     }
 }

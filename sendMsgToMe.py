@@ -21,6 +21,7 @@ class sendMsgToMe:
         se.ReadSettings()
         sitekey = se.captcha2sitekey
         if te is None or sitekey is None:
+            web.HTTPError('500')
             return 'Error'
         lan = getlang()
         i18n = getdict('basic', lan)

@@ -1,0 +1,64 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: csweb\n"
+"POT-Creation-Date: 2021-03-11 08:01:00+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
+
+# Dear translator: place your name here if you like.
+# You can use , to separate two names
+msgctxt "TRANSLATOR"
+msgid "lifegpc"
+msgstr ""
+
+msgctxt "TITLE"
+msgid "Password generator"
+msgstr ""
+
+msgctxt "PASS"
+msgid "Your Password:"
+msgstr ""
+
+msgctxt "SALT"
+msgid "Salt"
+msgstr ""
+
+# Please do not translate <salt>.
+msgctxt "SALT2"
+msgid "<salt> (such as service name or website's host name):"
+msgstr ""
+
+msgctxt "HASHF"
+msgid "Hash Function"
+msgstr ""
+
+# Please do not translate <hashf>.
+msgctxt "HASHF2"
+msgid "<hashf> (If the result is too long, try to select another one from the list):"
+msgstr ""
+
+msgctxt "PUTSALT"
+msgid "Put the salt before the password."
+msgstr ""
+
+# Please do not translate <base64>.
+msgctxt "NOBASE"
+msgid "Do not use <base64>."
+msgstr ""
+
+msgctxt "GEN"
+msgid "Generate"
+msgstr ""
+
+msgctxt "CPCLIP"
+msgid "Copy to clipboard"
+msgstr ""
+
+msgctxt "RESULT"
+msgid "Result:"
+msgstr ""
