@@ -46,6 +46,7 @@ window.addEventListener('load', () => {
         return Base64.fromUint8Array(hashtounit8(s));
     }
     cl.addEventListener('click', () => {
+        var i18n = window["i18n"];
         if (pas.validationMessage != "") {
             alert(pas.validationMessage);
             return;
@@ -62,7 +63,7 @@ window.addEventListener('load', () => {
         else if (hat == "sha384") hashs = sha512["sha384"](cn);
         else if (hat == "sha512") hashs = sha512["sha512"](cn);
         else {
-            alert("未知的散列算法");
+            alert(i18n["UKNHASH"]);
             return;
         }
         o.value = base.checked ? hashs : base64(hashs);

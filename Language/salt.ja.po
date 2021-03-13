@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: csweb\n"
 "POT-Creation-Date: 2021-03-11 08:01:00+0000\n"
-"PO-Revision-Date: 2021-03-12 16:45+0800\n"
+"PO-Revision-Date: 2021-03-13 08:40+0800\n"
 "Last-Translator: lifegpc <g1710431395@gmail.com>\n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -41,7 +41,8 @@ msgstr ""
 
 # Please do not translate <hashf>.
 msgctxt "HASHF2"
-msgid "<hashf> (If the result is too long, try to select another one from the list):"
+msgid ""
+"<hashf> (If the result is too long, try to select another one from the list):"
 msgstr ""
 
 msgctxt "PUTSALT"
@@ -63,4 +64,23 @@ msgstr ""
 
 msgctxt "RESULT"
 msgid "Result:"
+msgstr ""
+
+msgctxt "UKNHASH"
+msgid "Unknown hash function."
+msgstr ""
+
+msgctxt "SOURCE"
+msgid "Source code:"
+msgstr ""
+
+msgctxt "THIRDLIB"
+msgid "Third party library:"
+msgstr ""
+
+msgctxt "INFO"
+msgid ""
+"The code was compiled by <name>. If you want to compile, make sure enable "
+"\"process_common_js_modules\", set \"module_resolution\" to \"NODE\" and set "
+"\"compilation_level \" to \"ADVANCED\"."
 msgstr ""

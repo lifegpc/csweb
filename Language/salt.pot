@@ -62,3 +62,19 @@ msgstr ""
 msgctxt "RESULT"
 msgid "Result:"
 msgstr ""
+
+msgctxt "UKNHASH"
+msgid "Unknown hash function."
+msgstr ""
+
+msgctxt "SOURCE"
+msgid "Source code:"
+msgstr ""
+
+msgctxt "THIRDLIB"
+msgid "Third party library:"
+msgstr ""
+
+msgctxt "INFO"
+msgid "The code was compiled by <name>. If you want to compile, make sure enable \"process_common_js_modules\", set \"module_resolution\" to \"NODE\" and set \"compilation_level \" to \"ADVANCED\"."
+msgstr ""
