@@ -37,7 +37,8 @@ window.addEventListener('load', () => {
                                 }
                             }
                             if (t.length && name.length) {
-                                ele.href = 'https://' + t + ".wikipedia.org/wiki/" + name;
+                                var w = ["zh_CN", "zh_TW"].indexOf(winlan) > -1 && t == "zh" ? winlan.replace('_', '-').toLowerCase() : "wiki";
+                                ele.href = 'https://' + t + ".wikipedia.org/" + w + "/" + name;
                             }
                         }
                     }
