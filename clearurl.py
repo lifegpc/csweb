@@ -13,8 +13,13 @@ class ClearUrl:
             web.header("Content-Type", "application/json; charset=utf-8")
             s = settings()
             s.ReadSettings()
-            r = get(s.clearUrlOrigin)
-            r = r.json()
+            nod = web.input().get("noda")
+            nod = False if nod is None else True
+            if not nod:
+                r = get(s.clearUrlOrigin)
+                r = r.json()
+            else:
+                r = {"providers": {}}
             li = s.clearUrlCustomList
             h = web.input().get("hash")
             h = False if h is None else True
