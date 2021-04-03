@@ -22,8 +22,9 @@ class ClearUrl:
                 t = dumps(r, separators=jsonsep)
                 return sha256(t) if h else t
             ind: str = web.input().get("t")
+            ind = ind.split(',') if ind is not None and ind != '' else None
             for i in li:
-                if ind is not None and ind != i:
+                if ind is not None and i not in ind:
                     continue
                 with open(li[i], 'r', encoding='utf8') as f:
                     j = loadJson(f)
