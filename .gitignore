@@ -1,7 +1,7 @@
 .vscode/
-settings.json
 *.jar
 js/
 __pycache__/
 node_modules/
-package-lock.json
+*.json
+!package.json

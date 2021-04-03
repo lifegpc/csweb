@@ -1,5 +1,6 @@
 from os.path import exists
 from json import load as loadjson
+from typing import Dict
 
 
 class settings:
@@ -56,4 +57,46 @@ class settings:
         key = 'telegramchatid'
         if key in self.__data and self.__data[key] and self.__data[key] != '':
             return self.__data[key]
+        return None
+
+    @property
+    def clearUrlOrigin(self) -> str:
+        defalut = 'https://rules2.clearurls.xyz/data.minify.json'
+        if self.__data is None:
+            return defalut
+        key = 'clearUrlOrigin'
+        if key in self.__data and self.__data[key]:
+            return self.__data[key]
+        return defalut
+
+    @property
+    def clearUrlCustomList(self) -> Dict[str, str]:
+        if self.__data is None:
+            return None
+        key = 'clearUrlCustomList'
+        if key in self.__data and self.__data[key] is not None:
+            if isinstance(self.__data[key], list):
+                if len(self.__data[key]) > 0:
+                    r = {}
+                    k = 1
+                    for i in self.__data[key]:
+                        if isinstance(i, str) and i != '' and exists(i):
+                            r[str(k)] = i
+                            k += 1
+                    if k > 1:
+                        return r
+            elif isinstance(self.__data[key], dict):
+                r = {}
+                m = self.__data[key]
+                kl = m.keys()
+                z = 0
+                for i in kl:
+                    if isinstance(m[i], str) and m[i] != '' and exists(m[i]):
+                        r[i] = m[i]
+                        z += 1
+                if z >= 1:
+                    return r
+            elif isinstance(self.__data[key], str) and self.__data[key] != '':
+                if exists(self.__data[key]):
+                    return {"1": self.__data[key]}
         return None

@@ -8,10 +8,12 @@ if app_path:
 sys.path.append(abspath("."))
 from sendMsgToMe import sendMsgToMe  # noqa: F401, E402
 from salt import Salt  # noqa: F401, E402
+from clearurl import ClearUrl  # noqa: F401, E402
 
 urls = (
     '/sendMsgToMe', 'sendMsgToMe',
     '/salt', 'Salt',
+    '/clearUrl', 'ClearUrl',
     '(/.*)', 'hello',
 )
 
