@@ -5,6 +5,7 @@ from settings import settings
 from constants import jsonsep
 from json import dumps, load as loadJson
 from hashl import sha256
+from re import search
 
 
 class ClearUrl:
@@ -36,10 +37,16 @@ class ClearUrl:
                     if 'providers' in j:
                         for m in j['providers']:
                             ke = m
+                            te = ke
                             z = 0
+                            re = search(r'^(.+)_(\d+)$', m)
+                            if re is not None:
+                                re = re.groups()
+                                te = re[0]
+                                z = int(re[1])
                             while ke in r['providers']:
                                 z += 1
-                                ke = f"{m}_{z}"
+                                ke = f"{te}_{z}"
                             r['providers'][ke] = j['providers'][m]
             t = dumps(r, separators=jsonsep)
             return sha256(t) if h else t
