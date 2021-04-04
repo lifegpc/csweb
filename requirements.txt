@@ -1,3 +1,5 @@
 polib
 requests
 web.py
+pycairo
+drawsvg

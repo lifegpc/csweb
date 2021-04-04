@@ -100,3 +100,13 @@ class settings:
                 if exists(self.__data[key]):
                     return {"1": self.__data[key]}
         return None
+
+    @property
+    def defaultSvgFont(self) -> str:
+        default = 'Microsoft Sans Serif'
+        if self.__data is None:
+            return None
+        key = 'defaultSvgFont'
+        if key in self.__data and self.__data[key] and self.__data[key] != '':
+            return self.__data[key]
+        return default
