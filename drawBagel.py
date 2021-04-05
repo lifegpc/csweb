@@ -1,4 +1,4 @@
-from drawSvg import Drawing, Rectangle, Mask, Group, Text
+from drawSvg import Drawing, Rectangle, Mask, Group, Text, Raw
 from cairo import (  # pylint: disable=no-name-in-module
     SVGSurface,
     Context,
@@ -11,6 +11,13 @@ from os.path import abspath
 from settings import settings
 import web
 from traceback import format_exc
+from fontForgeF import fontForgeSupported
+if fontForgeSupported:
+    from fontForgeF import generateFontCSS, ASCII_SUPPORT
+
+
+class Style(Raw):
+    TAG_NAME = 'style'
 
 
 def textwidth(text: str, fontSize: int, font: str):
@@ -28,16 +35,25 @@ def textwidth(text: str, fontSize: int, font: str):
 def drawBagel(text: str, text2: str, fontSize: int = 13,
               textColor: str = '#FFF', leftColor: str = '#555',
               rightColor: str = '#08C', spacing: int = 10,
-              height: int = 20) -> str:
+              height: int = 20, fontName: str = None) -> str:
     spacing = max(spacing, 3)
     height = max(20, height)
     fontSize = max(round(height * 0.5), max(round(height * 0.75), fontSize))
     s = settings()
     s.ReadSettings()
-    t1w = textwidth(text, fontSize, s.defaultSvgFont)
-    t2w = textwidth(text2, fontSize, s.defaultSvgFont)
+    if fontName is None:
+        fontName = s.defaultSvgFont
+        fontFamily = 'sans-serif'
+    else:
+        fontFamily = fontName
+    t1w = textwidth(text, fontSize, fontName)
+    t2w = textwidth(text2, fontSize, fontName)
     zw = 4 * spacing + t1w + t2w
     d = Drawing(zw, height)
+    if fontForgeSupported and 'sans-serif' != fontFamily:
+        css = generateFontCSS(fontName, text + text2, genFlags=ASCII_SUPPORT)
+        if css is not None:
+            d.append(Style(css))
     m = Mask(id="m")
     d.append(m)
     rx = round(height * 0.15)
@@ -46,13 +62,13 @@ def drawBagel(text: str, text2: str, fontSize: int = 13,
     g1.append(Rectangle(0, 0, 2 * spacing + t1w, height, fill=leftColor))
     g1.append(Rectangle(2 * spacing + t1w, 0, zw, height, fill=rightColor))
     d.append(g1)
-    g2 = Group(aria_hidden=True, fill=textColor, text_anchor='start',
-               font_family='sans-serif')
+    g2 = Group(aria_hidden="true", fill=textColor, text_anchor='start',
+               font_family=fontFamily)
     g2.append(Text(text, fontSize, spacing, height - fontSize, textLength=t1w))
     g2.append(Text(text2, fontSize, 3 * spacing + t1w, height - fontSize,
                    textLength=t2w))
     d.append(g2)
-    return d.asSvg()
+    return d.asSvg().replace('\n', '')
 
 
 class DrawBagel:
@@ -80,6 +96,9 @@ class DrawBagel:
             rightColor: str = web.input().get("rc")
             if rightColor is None:
                 rightColor = web.input().get("rightColor")
+            fontName: str = web.input().get("fn")
+            if fontName is None:
+                fontName = web.input().get("fontName")
             if text is None or text2 is None:
                 return 'Must have t and t2 parameters.'
             args = {}
@@ -95,6 +114,8 @@ class DrawBagel:
                 args["leftColor"] = leftColor
             if rightColor is not None and rightColor != '':
                 args["rightColor"] = rightColor
+            if fontName is not None and fontName != '':
+                args['fontName'] = fontName
             svg = drawBagel(text, text2, **args)
             web.header('Content-Type', 'image/svg+xml')
             web.header('Cache-Control', 'public, max-age=600')
