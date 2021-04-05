@@ -51,7 +51,6 @@ class ClearUrl:
                             if re is not None:
                                 re = re.groups()
                                 te = re[0]
-                                z = int(re[1])
                             while ke in r['providers']:
                                 z += 1
                                 ke = f"{te}_{z}"
