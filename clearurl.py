@@ -73,6 +73,7 @@ class ClearUrl:
                 svg = drawBagel(lt, rt, leftColor='#555', rightColor='#007ec6',
                                 spacing=3)
                 web.header('Content-Type', 'image/svg+xml')
+                web.header('Cache-Control', 'public, max-age=300')
                 return svg
             else:
                 return t
