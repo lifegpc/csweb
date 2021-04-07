@@ -3,3 +3,4 @@ requests
 web.py
 pycairo
 drawsvg
+PyYAML

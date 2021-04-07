@@ -5,3 +5,4 @@ __pycache__/
 node_modules/
 *.json
 !package.json
+cfw_profile/
