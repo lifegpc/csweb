@@ -70,6 +70,7 @@ try:
                 nf.generate(f"{fn}.woff2")
             if saveType & EOT_TYPE:
                 nf.generate(f"{fn}.eot")
+            nf.close()
             return fn
         except Exception as e:
             s = settings()
