@@ -3,6 +3,7 @@ from yaml import load, CSafeLoader, CSafeDumper, dump
 from settings import settings
 from traceback import format_exc
 from requests import get
+from sign import verifySign
 
 
 def readFile(data: str, isFileName: bool = False):
@@ -76,6 +77,11 @@ def addProfileToTarget(source, target, settings: CfwFileSettings):
 class CfwProfile:
     def GET(self):
         try:
+            s = settings()
+            s.ReadSettings()
+            if s.cfwProfileSecrets and not verifySign(s.cfwProfileSecrets):
+                web.HTTPError('401 Unauthorized')
+                return ''
             origin = web.input().get("o")
             if origin is None or origin == '':
                 origin = web.input().get("origin")

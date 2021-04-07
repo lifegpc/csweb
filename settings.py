@@ -119,3 +119,12 @@ class settings:
         if key in self.__data and self.__data[key] and self.__data[key] != '':
             return self.__data[key]
         return None
+
+    @property
+    def cfwProfileSecrets(self) -> str:
+        if self.__data is None:
+            return None
+        key = 'cfwProfileSecrets'
+        if key in self.__data and self.__data[key] and self.__data[key] != '':
+            return self.__data[key]
+        return None
