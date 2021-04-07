@@ -100,11 +100,19 @@ class CfwProfile:
             if origin is None or origin == '':
                 web.HTTPError('400 Bad Request')
                 return ''
-            r = get(origin)
+            headers = {"User-Agent": "ClashforWindows/0.13.8"}
+            if 'HTTP_USER_AGENT' in web.ctx.env:
+                ua: str = web.ctx.env['HTTP_USER_AGENT']
+                if ua.lower().startswith("clashforwindows"):
+                    headers.update({'User-Agent': ua})
+            r = get(origin, headers=headers)
             if r.status_code >= 400:
                 web.HTTPError('400 Bad Request')
                 return f'status = {r.status_code}\n{r.text}'
             ori = readFile(r.text)
+            if isinstance(ori, str):
+                web.HTTPError('200 Not Supported Type')
+                return ori
             pro = web.input().get("p")
             if pro is None or pro == '':
                 pro = web.input().get("profile")
