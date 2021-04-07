@@ -4,6 +4,7 @@ from settings import settings
 from traceback import format_exc
 from requests import get
 from sign import verifySign
+from typing import List
 
 
 def readFile(data: str, isFileName: bool = False):
@@ -32,11 +33,15 @@ def checkNameInList(li: list, name: str):
     return False
 
 
+def generateNameList(li: list) -> List[str]:
+    r = []
+    for i in li:
+        if 'name' in i:
+            r.append(i['name'])
+    return r
+
+
 def addProfileToTarget(source, target, settings: CfwFileSettings):
-    if 'proxies' in source and 'proxies' in target:
-        target['proxies'] = source['proxies'] + target['proxies']
-    elif 'proxies' in source:
-        target['proxies'] = source['proxies']
     if 'proxy-groups' in source:
         for d in source['proxy-groups']:
             if 'proxies' in d:
@@ -49,13 +54,12 @@ def addProfileToTarget(source, target, settings: CfwFileSettings):
                             i = i.replace("$(default_proxy)",
                                           settings.default_proxy)
                             r.append(i)
+                    elif i == "$(all_origin_proxy)":
+                        if 'proxies' in target:
+                            r += generateNameList(target["proxies"])
                     else:
                         r.append(i)
                 d['proxies'] = r
-    if 'proxy-groups' in source and 'proxy-groups' in target:
-        target['proxy-groups'] = source['proxy-groups'] + target['proxy-groups']  # noqa: E501
-    elif 'proxy-groups' in source:
-        target['proxy-groups'] = source['proxy-groups']
     if 'rules' in source:
         r = []
         for i in source['rules']:
@@ -68,6 +72,14 @@ def addProfileToTarget(source, target, settings: CfwFileSettings):
             else:
                 r.append(i)
         source['rules'] = r
+    if 'proxies' in source and 'proxies' in target:
+        target['proxies'] = source['proxies'] + target['proxies']
+    elif 'proxies' in source:
+        target['proxies'] = source['proxies']
+    if 'proxy-groups' in source and 'proxy-groups' in target:
+        target['proxy-groups'] = source['proxy-groups'] + target['proxy-groups']  # noqa: E501
+    elif 'proxy-groups' in source:
+        target['proxy-groups'] = source['proxy-groups']
     if 'rules' in target and 'rules' in source:
         target['rules'] = source['rules'] + target['rules']
     elif 'rules' in source:
