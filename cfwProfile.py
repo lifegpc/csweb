@@ -57,6 +57,9 @@ def addProfileToTarget(source, target, settings: CfwFileSettings):
                     elif i == "$(all_origin_proxy)":
                         if 'proxies' in target:
                             r += generateNameList(target["proxies"])
+                    elif i == "$(all_new_proxy)":
+                        if 'proxies' in source:
+                            r += generateNameList(source["proxies"])
                     else:
                         r.append(i)
                 d['proxies'] = r
