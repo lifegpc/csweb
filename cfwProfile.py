@@ -5,6 +5,7 @@ from traceback import format_exc
 from requests import get
 from sign import verifySign
 from typing import List
+from json import dumps
 
 
 def readFile(data: str, isFileName: bool = False):
@@ -19,9 +20,12 @@ def readFile(data: str, isFileName: bool = False):
 
 class CfwFileSettings:
     default_proxy: str = None
+    remove_rule_providers: bool = False
 
-    def __init__(self, default_proxy: str = None):
+    def __init__(self, default_proxy: str = None,
+                 remove_rule_providers: bool = False):
         self.default_proxy = default_proxy
+        self.remove_rule_providers = remove_rule_providers
 
 
 def checkNameInList(li: list, name: str):
@@ -39,6 +43,53 @@ def generateNameList(li: list) -> List[str]:
         if 'name' in i:
             r.append(i['name'])
     return r
+
+
+def removeRuleProviders(target, headers: dict):
+    if 'rule-providers' not in target:
+        return
+    if 'rules' not in target:
+        del target['rule-providers']
+        return
+    r = []
+    for i in target['rules']:
+        i: str = i.strip()
+        if i.lower().startswith("rule-set"):
+            li = i.split(',')
+            if len(li) != 3:
+                raise ValueError(f"Unknown RULE-SET rules: {i}")
+            name = li[1]
+            if name not in target["rule-providers"]:
+                continue
+            rp = target['rule-providers'][name]
+            if 'url' not in rp:
+                raise ValueError(f"Unknown Rule Proviers: {dumps(rp)}")
+            re = get(rp["url"], headers=headers)
+            if re.status_code >= 400:
+                raise ValueError(f"Network Error When Downloading Providers: {re.status_code}\n{rp['url']}")  # noqa: E501
+            rules = readFile(re.text)
+            if isinstance(rules, str):
+                raise ValueError(f"Can not parse proviers:\n{rules}")
+            if 'payload' not in rules:
+                raise ValueError(f"Unknown proviers:\n{dumps(rules)}")
+            if rp["behavior"] == "classical":
+                for j in rules["payload"]:
+                    jl = j.split(",")
+                    if jl[0].lower() == "ip-cidr" and len(jl) == 3:
+                        r.append(f"{jl[0]},{jl[1]},{li[2]},{jl[2]}")
+                    else:
+                        r.append(f"{j},{li[2]}")
+            elif rp["behavior"] == "ipcidr":
+                for j in rules["payload"]:
+                    jl = j.split(",")
+                    r.append(f"IP-CIDR,{j},{li[2]}")
+            else:
+                raise ValueError(f"Unknown behavior: {dumps(rp)}")
+        else:
+            r.append(i)
+    del target['rule-providers']
+    target['rules'] = r
+    return
 
 
 def addProfileToTarget(source, target, settings: CfwFileSettings):
@@ -128,7 +179,15 @@ class CfwProfile:
                 default_proxy = web.input().get("default_proxy")
             if default_proxy is not None and default_proxy != '':
                 d['default_proxy'] = default_proxy
+            remove_rule_providers = web.input().get("rrp")
+            if remove_rule_providers is None:
+                remove_rule_providers = web.input().get("remove_rule_providers")  # noqa: E501
+            if remove_rule_providers is not None:
+                d['remove_rule_providers'] = True
             cfws = CfwFileSettings(**d)
+            if cfws.remove_rule_providers:
+                removeRuleProviders(ori, headers)
+                removeRuleProviders(prod, headers)
             addProfileToTarget(prod, ori, cfws)
             t = dump(ori, Dumper=CSafeDumper, allow_unicode=True)
             web.header('Content-Type', 'text/yaml; charset=utf-8')
