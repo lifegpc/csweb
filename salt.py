@@ -7,6 +7,7 @@ from lang import (
     mapToDict,
     dictToJSON
 )
+from ie import ifIEHideContent, isIE
 
 
 class Salt:
@@ -21,4 +22,5 @@ class Salt:
         i18n2 = {}
         mapToDict(i18n, i18n2, ["UKNHASH"])
         i18n2 = dictToJSON(i18n2)
-        return te(lan, trans, i18n, embScr, addWikiLinkToText, i18n2)
+        return te(lan, trans, i18n, embScr, addWikiLinkToText, i18n2,
+                  ifIEHideContent, isIE)

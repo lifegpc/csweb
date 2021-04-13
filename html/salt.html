@@ -1,4 +1,6 @@
-$def with (lan, trans, i18n, embScr, addWikiLinkToText, i18n2)
+$def with (lan, trans, i18n, embScr, addWikiLinkToText, i18n2, ifIEHideContent, isIE)
+$def addBr(reverse = False):
+    $if (not isIE() and not reverse) or (isIE() and reverse): <br>
 <!DOCTYPE html>
 <html lang="$lan">
     <head>
@@ -28,9 +30,9 @@ $def with (lan, trans, i18n, embScr, addWikiLinkToText, i18n2)
         <button id="bu" data-clipboard-action='copy' data-clipboard-target="#o">$i18n['CPCLIP']</button><br/>
         $i18n['RESULT']<br/>
         <textarea id="o" style="width: calc(100% - 20px); margin-left: 10px; height: 40px;"></textarea><br/>
-        $i18n['THIRDLIB']<br/>
+        $i18n['THIRDLIB']$:addBr()
         <a href="https://github.com/blueimp/JavaScript-MD5">JavaScript-MD5</a>
-        <details>
+        <details$:ifIEHideContent()>
             <summary><a href="https://github.com/blueimp/JavaScript-MD5/blob/master/LICENSE.txt">MIT License</a></summary>
             <pre>MIT License
 
@@ -54,7 +56,7 @@ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</pre>
         </details>
         <a href="https://github.com/zenorocha/clipboard.js">clipboard.js</a>
-        <details>
+        <details$:ifIEHideContent()>
             <summary><a href="https://github.com/zenorocha/clipboard.js/blob/master/LICENSE">MIT License</a></summary>
             <pre>MIT License
 
@@ -79,7 +81,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.</pre>
         </details>
         <a href="https://github.com/dankogai/js-base64">js-base64</a>
-        <details>
+        <details$:ifIEHideContent()>
             <summary><a href="https://github.com/dankogai/js-base64/blob/main/LICENSE.md">BSD-3-Clause License</a></summary>
             <pre>Copyright (c) 2014, Dan Kogai
 All rights reserved.
@@ -110,7 +112,7 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</pre>
         </details>
         <a href="https://github.com/emn178/js-sha512">js-sha512</a>
-        <details>
+        <details$:ifIEHideContent()>
             <summary><a href="https://github.com/emn178/js-sha512/blob/master/LICENSE.txt">MIT License</a></summary>
             <pre>Copyright 2014-2018 Chen, Yi-Cyuan
 
@@ -132,7 +134,7 @@ NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
 LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</pre>
-        </details>
+        </details>$:addBr(True)
         $i18n['SOURCE']<a href="https://github.com/lifegpc/csweb/blob/master/js(origin)/salt.js">salt.js</a> <a href="https://github.com/lifegpc/csweb/blob/master/js(origin)/xhr.js">xhr.js</a> <a href="https://github.com/lifegpc/csweb/blob/master/js(origin)/wplink.js">wplink.js</a><br/>
         $i18n['INFO'].replace("<name>", '<a href="https://developers.google.com/closure/compiler">Closure Compiler</a>')
     </body>
