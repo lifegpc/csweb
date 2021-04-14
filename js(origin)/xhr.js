@@ -32,16 +32,28 @@ function post(url, data, callback, failedCallback) {
 /**
  * 发送GET请求
  * @param {string} url 网站
- * @param {Object<string, string>} data 字典
+ * @param {Object<string, string>|Array<Array<string>|string>} data 字典
  * @param {(content: string)=>void} callback 回调函数
  * @param {()=>void} failedCallback 失败回调函数
  */
 function get(url, data, callback, failedCallback) {
     var xhr = new XMLHttpRequest();
-    var uri = new URL(url);
-    Object.getOwnPropertyNames(data).forEach((key) => {
-        uri.searchParams.append(key, data[key]);
-    })
+    var uri = new URL(url, window.location.href);
+    if (Array.isArray(data)) {
+        for (let i = 0; i < data.length; i++) {
+            var pair = data[i];
+            if (Array.isArray(pair)) {
+                uri.searchParams.append(pair[0], pair.length > 1 ? pair[1] : "");
+            } else if (typeof pair == "string") {
+                uri.searchParams.append(pair, "");
+            }
+        }
+    } else {
+        Object.getOwnPropertyNames(data).forEach((key) => {
+            if (typeof data[key] == "string")
+                uri.searchParams.append(key, data[key]);
+        })
+    }
     var hl = uri.searchParams.get('hl');
     var louri = new URL(window.location.href);
     var hl2 = louri.searchParams.get('hl');
