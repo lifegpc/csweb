@@ -4,8 +4,9 @@
  * @param {FormData|Object<string, string>} data 字典
  * @param {(content: string)=>void} callback 回调函数
  * @param {()=>void} failedCallback 失败回调函数
+ *  * @param {Object<string, string>} headers HTTP头部
  */
-function post(url, data, callback, failedCallback) {
+function post(url, data, callback, failedCallback, headers) {
     var xhr = new XMLHttpRequest();
     xhr.open("POST", url);
     if (callback != undefined) xhr.onload = () => {
@@ -14,7 +15,8 @@ function post(url, data, callback, failedCallback) {
     if (failedCallback != undefined) xhr.onerror = failedCallback;
     /**@type {FormData}*/
     var form = null;
-    if (data.constructor.name == "Object") {
+    if (data == undefined);
+    else if (data.constructor.name == "Object") {
         form = new FormData();
         Object.getOwnPropertyNames(data).forEach((key) => {
             form.append(key, data[key]);
@@ -23,8 +25,14 @@ function post(url, data, callback, failedCallback) {
     var u = new URL(window.location.href);
     var hl = u.searchParams.get('hl');
     if (hl != null && !form.has("hl") && u.hostname == new URL(url).hostname) form.append("hl", hl);
+    if (headers != undefined) {
+        Object.getOwnPropertyNames(headers).forEach((key) => {
+            if (typeof headers[key] == "string")
+                xhr.setRequestHeader(key, headers[key])
+        })
+    }
     try {
-        xhr.send(form);
+        form != null ? xhr.send(form) : xhr.send();
     } catch (e) {
         if (failedCallback != undefined) failedCallback();
     }
@@ -35,11 +43,13 @@ function post(url, data, callback, failedCallback) {
  * @param {Object<string, string>|Array<Array<string>|string>} data 字典
  * @param {(content: string)=>void} callback 回调函数
  * @param {()=>void} failedCallback 失败回调函数
+ * @param {Object<string, string>} headers HTTP头部
  */
-function get(url, data, callback, failedCallback) {
+function get(url, data, callback, failedCallback, headers) {
     var xhr = new XMLHttpRequest();
     var uri = new URL(url, window.location.href);
-    if (Array.isArray(data)) {
+    if (data == undefined);
+    else if (Array.isArray(data)) {
         for (let i = 0; i < data.length; i++) {
             var pair = data[i];
             if (Array.isArray(pair)) {
@@ -65,6 +75,12 @@ function get(url, data, callback, failedCallback) {
         callback(xhr.responseText);
     };
     if (failedCallback != undefined) xhr.onerror = failedCallback;
+    if (headers != undefined) {
+        Object.getOwnPropertyNames(headers).forEach((key) => {
+            if (typeof headers[key] == "string")
+                xhr.setRequestHeader(key, headers[key])
+        })
+    }
     try {
         xhr.send();
     } catch (e) {
