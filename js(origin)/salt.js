@@ -1,5 +1,44 @@
-const {Base64} = require("js-base64")
+const { Base64 } = require("js-base64")
 const md5 = require("blueimp-md5")
+
+/**
+ * 比较Query
+ * @param {Array<string>|string} ele1
+ * @param {Array<string>|string} ele2
+*/
+function comparePara(ele1, ele2) {
+    let e1 = typeof ele1 == "string" ? ele1 : ele1[0];
+    let e2 = typeof ele2 == "string" ? ele2 : ele2[0];
+    return e1 == e2 ? 0 : e1 > e2 ? 1 : -1;
+}
+
+/**
+ * 生成Query
+ * @param {Array<Array<string>|string>|Object.<string, string>} para 参数
+ */
+function genParaStr(para) {
+    var r = new URLSearchParams();
+    if (para == undefined) return r.toString();
+    else if (Array.isArray(para)) {
+        para.sort(comparePara)
+        for (let i = 0; i < para.length; i++) {
+            let pair = para[i];
+            if (Array.isArray(pair)) {
+                r.append(pair[0], pair.length > 1 ? pair[1] : "");
+            } else if (typeof pair == "string") {
+                r.append(pair, "");
+            }
+        }
+    }
+    else {
+        Object.getOwnPropertyNames(para).forEach((key) => {
+            if (typeof para[key] == "string")
+                r.append(key, para[key]);
+        })
+    }
+    return r.toString()
+}
+
 window.addEventListener('load', () => {
     var ClipboardJS = window["ClipboardJS"];
     var clipboard = new ClipboardJS('#bu');
@@ -24,6 +63,135 @@ window.addEventListener('load', () => {
     var loc = document.getElementById('loc');
     /**@type {HTMLInputElement}*/
     var base = document.getElementById('base');
+    /**@type {HTMLInputElement}*/
+    var api = document.getElementById('api');
+    /**@type {HTMLDivElement}*/
+    var apid = document.getElementById('apid');
+    /**@type {HTMLDivElement}*/
+    let apidl = document.getElementById('apidl');
+    /**@type {Array<Array<string|number>>}*/
+    let paral = [];
+    /**@type {number} 输入框行数*/
+    let inputc = 0;
+    /**@type {number} 输入框id*/
+    let inputi = 0;
+    /**@type {HTMLLabelElement}*/
+    let apipre = document.getElementById('apipre');
+    /**@type {HTMLInputElement}*/
+    let apiop = document.getElementById('apiop');
+    /**@type {HTMLSpanElement}*/
+    let apiopd = document.getElementById('apiopd');
+    /**@type {HTMLInputElement}*/
+    let apiopn = document.getElementById('apiopn');
+    api.checked ? showElement(apid) : hideElement(apid);
+    api.addEventListener('input', () => {
+        sal.disabled = api.checked;
+        api.checked ? showElement(apid) : hideElement(apid);
+        apiop.disabled = !api.checked;
+        checkApiop();
+        if (api.checked) {
+            if (inputc == 0) {
+                initializeApidl();
+            }
+        }
+    })
+    apiop.addEventListener('input', () => {
+        checkApiop();
+    })
+    function checkApiop() {
+        api.checked && apiop.checked ? showElement(apiopd) : hideElement(apiopd);
+        apiopn.disabled = !api.checked || !apiop.checked;
+    }
+    /**
+     * 增加输入框
+     * @param {number?} index 位置
+     */
+    function addInputDiv(index = null) {
+        let div = document.createElement('div');
+        div.setAttribute('i', inputi);
+        let para = ["", "", inputi];
+        paral.push(para);
+        let inp1 = document.createElement('input');
+        inp1.style.width = "20%";
+        inp1.style.minWidth = "50px";
+        inp1.addEventListener('input', () => {
+            para[0] = inp1.value;
+            preview();
+        })
+        div.append(inp1);
+        div.append(" = ");
+        let inp2 = document.createElement('input');
+        inp2.style.width = "60%";
+        inp2.style.minWidth = "150px";
+        inp2.addEventListener('input', () => {
+            para[1] = inp2.value;
+            preview();
+        })
+        div.append(inp2);
+        let minus = document.createElement('input');
+        minus.type = "button";
+        minus.value = "-";
+        minus.className = "minusb";
+        minus.addEventListener('click', () => {
+            removeInputDiv(div);
+        })
+        div.append(minus);
+        let add = document.createElement('input');
+        add.type = "button";
+        add.value = "+";
+        ((inputi) => {
+            add.addEventListener('click', () => {
+                addInputDiv(inputi);
+            })
+        })(inputi);
+        div.append(add);
+        /**@type {Element}*/
+        let child = null;
+        if (index != null) {
+            for (let i = 0; i < apidl.childElementCount; i++) {
+                child = apidl.children[i];
+                if (parseInt(child.getAttribute("i")) == index) {
+                    child = child.nextElementSibling
+                }
+            }
+        }
+        child ? apidl.insertBefore(div, child) : apidl.append(div);
+        inputc++;
+        inputi++;
+        checkButtonStatus();
+        preview();
+    }
+    function preview() {
+        apipre.innerText = genParaStr(paral);
+    }
+    function initializeApidl() {
+        addInputDiv();
+    }
+    function checkButtonStatus() {
+        /**@type {HTMLCollectionOf<HTMLInputElement>} */
+        let minusl = document.getElementsByClassName('minusb');
+        for (let i = 0; i < minusl.length; i++) {
+            minusl[i].disabled = inputc < 2;
+        }
+    }
+    /**
+     * 移除输入框
+     * @param {HTMLDivElement} ele 父级div元素
+     */
+    function removeInputDiv(ele) {
+        let ind = parseInt(ele.getAttribute("i"));
+        ele.parentElement.removeChild(ele);
+        for (let i = 0; i < paral.length; i++) {
+            let para = paral[i];
+            if (ind == para[2]) {
+                paral.splice(i, 1);
+                inputc--;
+                preview();
+                checkButtonStatus();
+                return;
+            }
+        }
+    }
     /** 将散列值转换为Uint8Array
      *  @param {string} s
      * @returns {Uint8Array}
@@ -52,7 +220,7 @@ window.addEventListener('load', () => {
             return;
         }
         var pass = pas.value;
-        var salt = sal.value;
+        var salt = api.checked ? genParaStr(paral) : sal.value;
         var hat = sel.value;
         var cn = loc.checked ? salt + pass : pass + salt;
         var hashs = "";
@@ -67,5 +235,10 @@ window.addEventListener('load', () => {
             return;
         }
         o.value = base.checked ? hashs : base64(hashs);
+        if (api.checked && apiop.checked) {
+            let sp = new URLSearchParams(salt);
+            sp.append(apiopn.value, o.value);
+            o.value = sp.toString();
+        }
     })
 })

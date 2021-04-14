@@ -17,6 +17,7 @@ $def addBr(reverse = False):
     <body>
         $i18n['PASS']<input id="pas" type="password" minlength="8" autocomplete="new-password"><br/>
         $:addWikiLinkToText(i18n["SALT2"], "salt", "en:Salt (cryptography)", "Q1500258", i18n["SALT"])<input id="sal"><br/>
+        <div id="apid">$i18n['PARA']<div id="apidl"></div>$i18n['PRE']<label id="apipre" style="line-break: anywhere;"></label></div>
         $:addWikiLinkToText(i18n['HASHF2'], "hashf", "en:Hash function", "Q183427", i18n['HASHF'])<select id="sel">
             <option value="md5">md5</option>
             <option value="sha224">sha224</option>
@@ -26,6 +27,8 @@ $def addBr(reverse = False):
         </select><br/>
         <input id="loc" type="checkbox"><label for="loc">$i18n['PUTSALT']</label><br/>
         <input id="base" type="checkbox"><label for="base">$:addWikiLinkToText(i18n['NOBASE'], "base64", "en:Base64", "Q726780", "Base64")</label><br/>
+        <input id="api" type="checkbox"><label for="api">$i18n['APIT']</label><br/>
+        <input id="apiop" type="checkbox" checked disabled><label for="apiop">$i18n['OPP']</label><span id="apiopd" style="margin-left: 50px; display: none;"><label>$i18n['OPPN']</label><input id="apiopn" value="sign" disabled></span><br/>
         <button id="cl">$i18n['GEN']</button><br/>
         <button id="bu" data-clipboard-action='copy' data-clipboard-target="#o">$i18n['CPCLIP']</button><br/>
         $i18n['RESULT']<br/>
@@ -135,7 +138,7 @@ LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</pre>
         </details>$:addBr(True)
-        $i18n['SOURCE']<a href="https://github.com/lifegpc/csweb/blob/master/js(origin)/salt.js">salt.js</a> <a href="https://github.com/lifegpc/csweb/blob/master/js(origin)/xhr.js">xhr.js</a> <a href="https://github.com/lifegpc/csweb/blob/master/js(origin)/wplink.js">wplink.js</a><br/>
+        $i18n['SOURCE']<a href="https://github.com/lifegpc/csweb/blob/master/js(origin)/salt.js">salt.js</a> <a href="https://github.com/lifegpc/csweb/blob/master/js(origin)/element.js">element.js</a> <a href="https://github.com/lifegpc/csweb/blob/master/js(origin)/xhr.js">xhr.js</a> <a href="https://github.com/lifegpc/csweb/blob/master/js(origin)/wplink.js">wplink.js</a><br/>
         $i18n['INFO'].replace("<name>", '<a href="https://developers.google.com/closure/compiler">Closure Compiler</a>')
     </body>
 </html>

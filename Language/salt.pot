@@ -78,3 +78,23 @@ msgstr ""
 msgctxt "INFO"
 msgid "The code was compiled by <name>. If you want to compile, make sure enable \"process_common_js_modules\", set \"module_resolution\" to \"NODE\" and set \"compilation_level \" to \"ADVANCED\"."
 msgstr ""
+
+msgctxt "APIT"
+msgid "Calculate signature for API"
+msgstr ""
+
+msgctxt "PARA"
+msgid "API parameters:"
+msgstr ""
+
+msgctxt "PRE"
+msgid "Preview:"
+msgstr ""
+
+msgctxt "OPP"
+msgid "Output parameters."
+msgstr ""
+
+msgctxt "OPPN"
+msgid "The parameter name of the signature:"
+msgstr ""
