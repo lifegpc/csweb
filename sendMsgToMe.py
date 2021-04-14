@@ -12,6 +12,7 @@ from lang import (
     dictToJSON,
     getTranslator
 )
+from mycache import setCacheControl
 
 
 class sendMsgToMe:
@@ -31,12 +32,18 @@ class sendMsgToMe:
         mapToDict(i18n, i18n3, ['NETERR', 'RECAP2'])
         i18n3 = dictToJSON(i18n3)
         trans = getTranslator(basic=i18n, sendMsgToMe=i18n2)
+        web.header('Content-Language', lan)
+        if web.input().get('hl') is None:
+            web.header('Vary', 'Accept-Language')
+        if se.webpageCacheTime is not None:
+            setCacheControl(se.webpageCacheTime)
         return te(sitekey, lan, i18n, i18n2, i18n3, embScr, trans)
 
     def POST(self):
         se = settings()
         se.ReadSettings()
         lan = getlang()
+        web.header('Content-Language', lan)
         i18n = getdict('sendMsgToMe', lan)
         inp = web.input()
         content = inp.get("content")
