@@ -1,6 +1,11 @@
-$def with (lan, trans, i18n, embScr, addWikiLinkToText, i18n2, ifIEHideContent, isIE)
-$def addBr(reverse = False):
-    $if (not isIE() and not reverse) or (isIE() and reverse): <br>
+$def with (lan, trans, i18n, embScr, addWikiLinkToText, i18n2, isIE)
+$code:
+    def addBr(reverse = False):
+        if (not isIE() and not reverse) or (isIE() and reverse):
+            return '<br>'
+    def ifIEHideContent():
+        if isIE():
+            return ' style="display: none;"'
 <!DOCTYPE html>
 <html lang="$lan">
     <head>
@@ -27,8 +32,8 @@ $def addBr(reverse = False):
         </select><br/>
         <input id="loc" type="checkbox"><label for="loc">$i18n['PUTSALT']</label><br/>
         <input id="base" type="checkbox"><label for="base">$:addWikiLinkToText(i18n['NOBASE'], "base64", "en:Base64", "Q726780", "Base64")</label><br/>
-        <input id="api" type="checkbox"><label for="api">$i18n['APIT']</label><br/>
-        <input id="apiop" type="checkbox" checked disabled><label for="apiop">$i18n['OPP']</label><span id="apiopd" style="margin-left: 50px; display: none;"><label>$i18n['OPPN']</label><input id="apiopn" value="sign" disabled></span><br/>
+        <input id="api" type="checkbox"$:ifIEHideContent()><label for="api"$:ifIEHideContent()>$i18n['APIT']</label>$:addBr()
+        <input id="apiop" type="checkbox" checked disabled$:ifIEHideContent()><label for="apiop"$:ifIEHideContent()>$i18n['OPP']</label><span id="apiopd" style="margin-left: 50px; display: none;"><label>$i18n['OPPN']</label><input id="apiopn" value="sign" disabled></span>$:addBr()
         <button id="cl">$i18n['GEN']</button><br/>
         <button id="bu" data-clipboard-action='copy' data-clipboard-target="#o">$i18n['CPCLIP']</button><br/>
         $i18n['RESULT']<br/>

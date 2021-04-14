@@ -6,8 +6,3 @@ def isIE():
     if ua is None:
         return False
     return ua.find("Trident") > -1
-
-
-def ifIEHideContent():
-    if isIE():
-        return ' style="display: none;"'
