@@ -134,6 +134,6 @@ class settings:
         if self.__data is None:
             return None
         key = 'webpageCacheTime'
-        if key in self.__data and self.__data[key] and self.__data[key] != '':
+        if key in self.__data and self.__data[key] and self.__data[key] > 0:
             return self.__data[key]
         return None
