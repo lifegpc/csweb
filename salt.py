@@ -8,6 +8,8 @@ from lang import (
     dictToJSON
 )
 from ie import isIE
+from mycache import setCacheControl
+from settings import settings
 
 
 class Salt:
@@ -22,4 +24,13 @@ class Salt:
         i18n2 = {}
         mapToDict(i18n, i18n2, ["UKNHASH"])
         i18n2 = dictToJSON(i18n2)
+        s = settings()
+        s.ReadSettings()
+        web.header('Content-Language', lan)
+        vary = 'User-Agent'
+        if web.input().get('hl') is None:
+            vary += ',Accept-Language'
+        web.header('Vary', vary)
+        if s.webpageCacheTime is not None:
+            setCacheControl(s.webpageCacheTime)
         return te(lan, trans, i18n, embScr, addWikiLinkToText, i18n2, isIE)

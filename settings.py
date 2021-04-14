@@ -128,3 +128,12 @@ class settings:
         if key in self.__data and self.__data[key] and self.__data[key] != '':
             return self.__data[key]
         return None
+
+    @property
+    def webpageCacheTime(self) -> int:
+        if self.__data is None:
+            return None
+        key = 'webpageCacheTime'
+        if key in self.__data and self.__data[key] and self.__data[key] != '':
+            return self.__data[key]
+        return None
