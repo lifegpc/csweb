@@ -1,3 +1,12 @@
+import sys
+from os.path import dirname, abspath
+if abspath(dirname(__file__)) not in sys.path:
+    from os import chdir
+    chdir(dirname(__file__))
+    sys.path.append(abspath("."))
+    m = True
+else:
+    m = False
 import web
 from settings import settings
 from captcha2 import checkCaptcha2
@@ -84,3 +93,7 @@ class sendMsgToMe:
                 if se.debug:
                     inf['debugInfo2'] = info
         return dumps(inf, ensure_ascii=False, separators=sep)
+
+
+if m:
+    application = web.application((".*", "sendMsgToMe"), globals()).wsgifunc()

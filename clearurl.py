@@ -1,3 +1,12 @@
+import sys
+from os.path import dirname, abspath
+if abspath(dirname(__file__)) not in sys.path:
+    from os import chdir
+    chdir(dirname(__file__))
+    sys.path.append(abspath("."))
+    m = True
+else:
+    m = False
 import web
 from traceback import format_exc
 from requests import get
@@ -87,3 +96,7 @@ class ClearUrl:
             except:
                 pass
             return ''
+
+
+if m:
+    application = web.application((".*", "ClearUrl"), globals()).wsgifunc()

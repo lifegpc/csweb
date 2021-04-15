@@ -1,3 +1,12 @@
+import sys
+from os.path import dirname, abspath
+if abspath(dirname(__file__)) not in sys.path:
+    from os import chdir
+    chdir(dirname(__file__))
+    sys.path.append(abspath("."))
+    m = True
+else:
+    m = False
 import web
 from tep import getTemplate, embScr, addWikiLinkToText
 from lang import (
@@ -34,3 +43,7 @@ class Salt:
         if s.webpageCacheTime is not None:
             setCacheControl(s.webpageCacheTime)
         return te(lan, trans, i18n, embScr, addWikiLinkToText, i18n2, isIE)
+
+
+if m:
+    application = web.application((".*", "Salt"), globals()).wsgifunc()

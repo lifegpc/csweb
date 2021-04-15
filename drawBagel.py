@@ -1,3 +1,12 @@
+import sys
+from os.path import dirname, abspath
+if abspath(dirname(__file__)) not in sys.path:
+    from os import chdir
+    chdir(dirname(__file__))
+    sys.path.append(abspath("."))
+    m = True
+else:
+    m = False
 from drawSvg import Drawing, Rectangle, Mask, Group, Text, Raw
 from cairo import (  # pylint: disable=no-name-in-module
     SVGSurface,
@@ -130,3 +139,7 @@ class DrawBagel:
             except:
                 pass
             return ''
+
+
+if m:
+    application = web.application((".*", "DrawBagel"), globals()).wsgifunc()
