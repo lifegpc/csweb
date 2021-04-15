@@ -15,7 +15,6 @@ from constants import jsonsep
 from json import dumps, load as loadJson
 from hashl import sha256
 from re import search
-from drawBagel import drawBagel
 
 
 class ClearUrl:
@@ -79,6 +78,7 @@ class ClearUrl:
                 at = ', '.join(adm)
                 at = '' if at == '' else f" ({at})"
                 rt = f'custom rules{at}'
+                from drawBagel import drawBagel
                 svg = drawBagel(lt, rt, leftColor='#555', rightColor='#007ec6',
                                 spacing=3)
                 web.header('Content-Type', 'image/svg+xml')
