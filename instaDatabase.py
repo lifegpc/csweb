@@ -124,7 +124,7 @@ class InstaDatabase:
                 'DELETE FROM insta_cookies WHERE username=?;', (username))
             self._db.commit()
 
-    def save_cache(self, id: str, content):
+    def save_cache(self, id: str, content) -> int:
         if id is None or not isinstance(id, str):
             raise ValueError('id MUST be string.')
         c = b64encode(dumps(content)).decode()
@@ -137,6 +137,7 @@ class InstaDatabase:
             self._db.execute(
                 'INSERT INTO insta_cache VALUES (?, ?, ?);', (id, c, t))
         self._db.commit()
+        return t
 
     def save_cookies(self, username: str, cookies):
         t = b64encode(dumps(cookies)).decode()
