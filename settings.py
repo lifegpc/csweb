@@ -137,3 +137,40 @@ class settings:
         if key in self.__data and self.__data[key] and self.__data[key] > 0:
             return self.__data[key]
         return None
+
+    @property
+    def instagramRSSSecrets(self) -> str:
+        if self.__data is None:
+            return None
+        key = 'instagramRSSSecrets'
+        if key in self.__data and self.__data[key] and self.__data[key] != '':
+            return self.__data[key]
+        return None
+
+    @property
+    def instagramCacheTime(self) -> int:
+        '缓存时间（分），0为禁用'
+        default = 15
+        if self.__data is None:
+            return default
+        key = 'instagramCacheTime'
+        if key in self.__data and self.__data[key] is not None:
+            v = self.__data[key]
+            if isinstance(v, [int, float]):
+                v = round(v)
+                if v >= 0:
+                    return v
+            elif isinstance(v, str):
+                if v.isnumeric():
+                    return int(v)
+        return default
+
+    @property
+    def instagramDatabaseLocation(self) -> str:
+        default = 'data.db'
+        if self.__data is None:
+            return default
+        key = 'instagramDatabaseLocation'
+        if key in self.__data and self.__data[key] and self.__data[key] != '':
+            return self.__data[key]
+        return default

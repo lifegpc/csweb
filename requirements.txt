@@ -4,3 +4,4 @@ web.py
 pycairo
 drawsvg
 PyYAML
+insta_api

@@ -11,14 +11,16 @@ from clearurl import ClearUrl  # noqa: F401
 from drawBagel import DrawBagel  # noqa: F401
 from salt import Salt  # noqa: F401
 from sendMsgToMe import sendMsgToMe  # noqa: F401
+from instaRSS import InstaRSS  # noqa: F401
 
 
 urls = (
-    '^/cfwProfile', 'CfwProfile',
-    '^/clearUrl', 'ClearUrl',
-    '^/drawBagel', 'DrawBagel',
-    '^/salt', 'Salt',
-    '^/sendMsgToMe', 'sendMsgToMe',
+    '^/cfwProfile$', 'CfwProfile',
+    '^/clearUrl$', 'ClearUrl',
+    '^/drawBagel$', 'DrawBagel',
+    '^/InstaRSS$', 'InstaRSS',
+    '^/salt$', 'Salt',
+    '^/sendMsgToMe$', 'sendMsgToMe',
     '(/.*)', 'hello',
 )
 
