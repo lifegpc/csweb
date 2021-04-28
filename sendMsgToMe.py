@@ -53,6 +53,7 @@ class sendMsgToMe:
         se.ReadSettings()
         lan = getlang()
         web.header('Content-Language', lan)
+        web.header('Content-Type', 'application/json; charset=UTF-8')
         i18n = getdict('sendMsgToMe', lan)
         inp = web.input()
         content = inp.get("content")
