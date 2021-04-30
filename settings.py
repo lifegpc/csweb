@@ -174,3 +174,21 @@ class settings:
         if key in self.__data and self.__data[key] and self.__data[key] != '':
             return self.__data[key]
         return default
+
+    @property
+    def instagramUsername(self) -> str:
+        if self.__data is None:
+            return None
+        key = 'instagramUsername'
+        if key in self.__data and self.__data[key] and self.__data[key] != '':
+            return self.__data[key]
+        return None
+
+    @property
+    def instagramPassword(self) -> str:
+        if self.__data is None:
+            return None
+        key = 'instagramPassword'
+        if key in self.__data and self.__data[key] and self.__data[key] != '':
+            return self.__data[key]
+        return None

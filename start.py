@@ -12,13 +12,15 @@ from drawBagel import DrawBagel  # noqa: F401
 from salt import Salt  # noqa: F401
 from sendMsgToMe import sendMsgToMe  # noqa: F401
 from instaRSS import InstaRSS  # noqa: F401
+from instaVerify import InstaVerify  # noqa: F401
 
 
 urls = (
     '^/cfwProfile$', 'CfwProfile',
     '^/clearUrl$', 'ClearUrl',
     '^/drawBagel$', 'DrawBagel',
-    '^/InstaRSS$', 'InstaRSS',
+    '^/instaRSS$', 'InstaRSS',
+    '^/instaVerify$', 'InstaVerify',
     '^/salt$', 'Salt',
     '^/sendMsgToMe$', 'sendMsgToMe',
     '(/.*)', 'hello',
@@ -26,7 +28,7 @@ urls = (
 
 
 class mywebapp(web.application):
-    def run(self, host: str = "127.0.0.1", port: int = 2500, *middleware):
+    def run(self, host: str = "127.0.0.1", port: int = 2600, *middleware):
         "重写方法以支持指定host和port"
         func = self.wsgifunc(*middleware)
         return web.httpserver.runsimple(func, (host, port))
