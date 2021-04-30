@@ -23,6 +23,20 @@ class InstaRSS:
             s.ReadSettings()
             db = InstaDatabase()
             i = InstaAPI(db, s.instagramUsername, s.instagramPassword)
+            user = web.input().get("user")
+            if user is not None:
+                idd = f"user/{user}/init"
+                r = db.get_cache(idd)
+                c = None
+                if r is None:
+                    r = i.get_user_info(user)
+                    db.save_cache(idd, r)
+                else:
+                    c = r[1]
+                    r = r[0]
+                from json import dumps
+                from constants import jsonsep
+                return dumps(r, ensure_ascii=False, separators=jsonsep)
         except NeedVerifyError as e:
             z = [('gourl', web.ctx.path), ('sign', e.sign)]
             web.HTTPError('302 Found')
