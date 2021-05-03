@@ -4,7 +4,7 @@ window.addEventListener('load', () => {
     /**@type {HTMLInputElement}*/
     let verify = document.getElementById('verify');
     let url = new URL(window.location.href);
-    let sign = url.searchParams.get("sign")
+    let sign = url.searchParams.get("nc")
     let gourl = url.searchParams.get("gourl");
     if (sign == null) window.location.href = '/';
     if (gourl == null) gourl = '/';
