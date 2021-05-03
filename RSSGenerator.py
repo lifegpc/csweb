@@ -519,8 +519,10 @@ class RSSGen:
     def genRSS2(self):
         r = ET.Element("rss")
         r.attrib['version'] = '2.0'
-        self.meta.genRSS2(r)
+        c = ET.Element("channel")
+        r.append(c)
+        self.meta.genRSS2(c)
         for i in self.list:
             if isinstance(i, RSSItem):
-                r.append(i.genRSS2())
+                c.append(i.genRSS2())
         return ET.tostring(r, encoding='UTF8').decode()
