@@ -54,7 +54,7 @@ class InstaRSS:
                 else:
                     c = r[1]
                     r = r[0]
-                sendCacheInfo(cacheTime * 60, c, True)
+                sendCacheInfo(cacheTime * 60, c)
                 if typ == 'json':
                     web.header("Content-Type",
                                "application/json; charset=UTF-8")
