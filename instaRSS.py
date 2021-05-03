@@ -41,9 +41,10 @@ class InstaRSS:
             if contain_id is None:
                 contain_id = web.input().get("contain_id")
             contain_id = contain_id is not None
+            cacheTime = 15
             if user is not None:
                 idd = f"user/{user}/init"
-                r = db.get_cache(idd)
+                r = db.get_cache(idd, cacheTime)
                 new_cache = False
                 if r is None:
                     i._get_init_csrftoken()
@@ -53,7 +54,7 @@ class InstaRSS:
                 else:
                     c = r[1]
                     r = r[0]
-                sendCacheInfo(15 * 60, c, True)
+                sendCacheInfo(cacheTime * 60, c, True)
                 if typ == 'json':
                     web.header("Content-Type",
                                "application/json; charset=UTF-8")
@@ -76,6 +77,7 @@ class InstaRSS:
                     g.meta.description = r['biography']
                     g.meta.image = r['profile_pic_url_hd']
                     g.meta.lastBuildDate = c / 1E9
+                    g.meta.ttl = cacheTime
                     g.list = genItemList(r, RSS2_TYPE)
                     web.header("Content-Type",
                                "application/xml; charset=UTF-8")

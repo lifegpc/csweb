@@ -76,10 +76,11 @@ def dealWithNode(d: dict, typ: int) -> RSSItem:
             r.comments = url
             r.guid = url
             r.description = desc
-            if len(t) < 20:
-                r.title = t
+            ti = t.split('<br>')[0]
+            if len(ti) > 20:
+                r.title = ti[:17] + '...'
             else:
-                r.title = t[17:] + '...'
+                r.title = ti
             r.pubDate = n['taken_at_timestamp']
             return r
 
