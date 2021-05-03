@@ -192,3 +192,12 @@ class settings:
         if key in self.__data and self.__data[key] and self.__data[key] != '':
             return self.__data[key]
         return None
+
+    @property
+    def isntagramCacheRSS(self) -> bool:
+        if self.__data is None:
+            return False
+        key = 'isntagramCacheRSS'
+        if key in self.__data and self.__data[key]:
+            return True
+        return False

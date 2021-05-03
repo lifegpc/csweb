@@ -41,7 +41,7 @@ class InstaRSS:
             if contain_id is None:
                 contain_id = web.input().get("contain_id")
             contain_id = contain_id is not None
-            cacheTime = 15
+            cacheTime = s.instagramCacheTime
             if user is not None:
                 idd = f"user/{user}/init"
                 r = db.get_cache(idd, cacheTime)
@@ -60,28 +60,39 @@ class InstaRSS:
                                "application/json; charset=UTF-8")
                     return dumps(r, ensure_ascii=False, separators=jsonsep)
                 elif typ == "rss":
-                    from RSSGenerator import RSSGen, RSS2_TYPE
-                    from instaHTMLGen import genItemList
-                    g = RSSGen(RSS2_TYPE)
-                    if not contain_id:
-                        ti = f"Instagram {r['full_name']}(@{r['username']})"
-                    else:
-                        ti = f"Instagram {r['full_name']}(@{r['username']}, {r['id']})"  # noqa: E501
-                    g.meta.title = ti
-                    url = f"https://www.instagram.com/{r['username']}/"
-                    if 'external_url' in r:
-                        te = r['external_url']
-                        if te is not None and isinstance(te, str) and len(te):
-                            url = te
-                    g.meta.link = url
-                    g.meta.description = r['biography']
-                    g.meta.image = r['profile_pic_url_hd']
-                    g.meta.lastBuildDate = c / 1E9
-                    g.meta.ttl = cacheTime
-                    g.list = genItemList(r, RSS2_TYPE)
+                    r2 = None
+                    if s.isntagramCacheRSS and not new_cache:
+                        d = {"contain_id": str(contain_id)}
+                        idd2 = f"user/{user}/rss?" + urlencode(d)
+                        r2 = db.get_cache(idd2, cacheTime)
+                        if r2 is not None:
+                            r2 = r2[0]
+                    if r2 is None:
+                        from RSSGenerator import RSSGen, RSS2_TYPE
+                        from instaHTMLGen import genItemList
+                        g = RSSGen(RSS2_TYPE)
+                        if not contain_id:
+                            ti = f"Instagram {r['full_name']}(@{r['username']})"  # noqa: E501
+                        else:
+                            ti = f"Instagram {r['full_name']}(@{r['username']}, {r['id']})"  # noqa: E501
+                        g.meta.title = ti
+                        url = f"https://www.instagram.com/{r['username']}/"
+                        if 'external_url' in r:
+                            te = r['external_url']
+                            if te is not None and isinstance(te, str) and len(te):  # noqa: E501
+                                url = te
+                        g.meta.link = url
+                        g.meta.description = r['biography']
+                        g.meta.image = r['profile_pic_url_hd']
+                        g.meta.lastBuildDate = c / 1E9
+                        g.meta.ttl = cacheTime
+                        g.list = genItemList(r, RSS2_TYPE)
+                        r2 = g.generate()
+                        if s.isntagramCacheRSS:
+                            db.save_cache(idd2, r2)
                     web.header("Content-Type",
                                "application/xml; charset=UTF-8")
-                    return g.generate()
+                    return r2
         except NeedVerifyError as e:
             z = [('gourl', web.ctx.path), ('nc', e.sign)]
             web.HTTPError('302 Found')
