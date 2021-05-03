@@ -58,8 +58,11 @@ def dealWithNode(d: dict, typ: int) -> RSSItem:
         if n is not None:
             tn = n['__typename']
             t = desc = getText(n)
+            if t == '':
+                if 'title' in n and n['title'] is not None:
+                    t = n['title']
             if tn == 'GraphImage' or tn == "GraphVideo":
-                desc += dealWithSingleEdge(n)
+                desc += dealWithSingleEdge(d)
             elif tn == "GraphSidecar":
                 if 'edge_sidecar_to_children' in n:
                     c = n['edge_sidecar_to_children']
@@ -71,7 +74,10 @@ def dealWithNode(d: dict, typ: int) -> RSSItem:
             else:
                 raise ValueError("Unkown Type.")
             r = RSSItem(typ)
-            url = f"https://www.instagram.com/p/{n['shortcode']}/"
+            if 'product_type' in n and n['product_type'] == 'igtv':
+                url = f"https://www.instagram.com/tv/{n['shortcode']}/"
+            else:
+                url = f"https://www.instagram.com/p/{n['shortcode']}/"
             r.link = url
             r.comments = url
             r.guid = url
@@ -89,6 +95,15 @@ def genItemList(d: dict, typ: int) -> List[RSSItem]:
     rl = []
     if 'edge_owner_to_timeline_media' in d:
         tl = d['edge_owner_to_timeline_media']
+        if tl is not None and 'edges' in tl:
+            edges = tl['edges']
+            if edges is not None and isinstance(edges, list):
+                for i in edges:
+                    r = dealWithNode(i, typ)
+                    if r is not None:
+                        rl.append(r)
+    if 'edge_felix_video_timeline' in d:
+        tl = d['edge_felix_video_timeline']
         if tl is not None and 'edges' in tl:
             edges = tl['edges']
             if edges is not None and isinstance(edges, list):
