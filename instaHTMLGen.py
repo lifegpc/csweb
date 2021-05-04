@@ -1,5 +1,6 @@
 from RSSGenerator import RSSItem
 from typing import List
+from html import escape, unescape
 
 
 def escapeQuote(s: str) -> str:
@@ -21,6 +22,7 @@ def getText(d: dict) -> str:
                                 r += n['text']
                             else:
                                 raise ValueError("Unknown node.")
+                r = escape(r)
                 r = r.replace('\r\n', '\n')
                 return r.replace('\n', '<br>')
     return ''
@@ -60,7 +62,7 @@ def dealWithNode(d: dict, typ: int) -> RSSItem:
             t = desc = getText(n)
             if t == '':
                 if 'title' in n and n['title'] is not None:
-                    t = n['title']
+                    t = desc = escape(n['title'])
             if tn == 'GraphImage' or tn == "GraphVideo":
                 desc += dealWithSingleEdge(d)
             elif tn == "GraphSidecar":
@@ -82,9 +84,9 @@ def dealWithNode(d: dict, typ: int) -> RSSItem:
             r.comments = url
             r.guid = url
             r.description = desc
-            ti = t.split('<br>')[0]
-            if len(ti) > 20:
-                r.title = ti[:17] + '...'
+            ti = unescape(t.split('<br>')[0])
+            if len(ti) > 50:
+                r.title = ti[:47] + '...'
             else:
                 r.title = ti
             r.pubDate = n['taken_at_timestamp']
