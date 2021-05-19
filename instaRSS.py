@@ -105,6 +105,8 @@ class InstaRSS:
                             r3 = g.generate()
                             if s.isntagramCacheRSS:
                                 db.save_cache(idd3, r3)
+                        web.header("Content-Type",
+                                   "application/xml; charset=UTF-8")
                         return r3
                     return
                 sendCacheInfo(cacheTime * 60, c)
