@@ -10,7 +10,6 @@ from insta_api.endpoints import (
 from insta_api.utils import login_required
 from instaDatabase import InstaDatabase
 from requests.exceptions import HTTPError
-from urllib.parse import urlencode
 from constants import jsonsep
 from json import dumps
 
