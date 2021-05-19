@@ -43,6 +43,8 @@ class InstaRSS:
             contain_id = contain_id is not None
             tagged = web.input().get("tagged")
             tagged = True if tagged is not None else False
+            fetch_post = web.input().get("fetch_post")
+            fetch_post = True if fetch_post is not None else False
             cacheTime = s.instagramCacheTime
             if user is not None:
                 idd = f"user/{user}/init"
@@ -69,6 +71,19 @@ class InstaRSS:
                         c = db.save_cache(idd2, r2)
                         new_cache = True
                     sendCacheInfo(cacheTime * 60, c)
+                    if fetch_post:
+                        edges = r2['edge_user_to_photos_of_you']['edges']
+                        for e in edges:
+                            if e['node']['__typename'] == 'GraphSidecar':
+                                shortCode = e['node']['shortcode']
+                                idd4 = f"post/{shortCode}"
+                                r4 = db.get_cache(idd4, cacheTime)
+                                if r4 is not None:
+                                    r4 = r4[0]
+                                if r4 is None:
+                                    r4 = i.get_post(shortCode)
+                                    db.save_cache(idd4, r4)
+                                e['node'] = r4
                     if typ == "json":
                         web.header("Content-Type",
                                    "application/json; charset=UTF-8")

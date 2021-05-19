@@ -108,6 +108,22 @@ class InstaAPI(_InstaAPI):
             msg="Get User Tagged")
         return resp.json()['data']['user']
 
+    @login_required
+    def get_post(self, shortCode: str, childCommentCount: int = 3,
+                 fetchCommentCount: int = 40, parentCommentCount: int = 24,
+                 hasThreadedComments: bool = True):
+        QUERY = 'b50b0d45cfef62edc991692fde84f6bd'
+        json = {'shortcode': shortCode,
+                'child_comment_count': childCommentCount,
+                'fetch_comment_count': fetchCommentCount,
+                'parent_comment_count': parentCommentCount,
+                'has_threaded_comments': hasThreadedComments}
+        p = dumps(json, ensure_ascii=False, separators=jsonsep)
+        resp = self._make_request(
+            '/graphql/query/', params={"variables": p, "query_hash": QUERY},
+            msg="Get Post Info")
+        return resp.json()['data']['shortcode_media']
+
     def login(self):
         username = self._try_username
         password = self._try_password
