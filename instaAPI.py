@@ -7,11 +7,16 @@ from insta_api.endpoints import (
     challenge_endpoint,
     login_endpoint
 )
+from insta_api.utils import login_required
 from instaDatabase import InstaDatabase
 from requests.exceptions import HTTPError
+from urllib.parse import urlencode
+from constants import jsonsep
+from json import dumps
 
 
 shared_data = '/data/shared_data/'
+FEED_QUERY_ID = '92e44d9fc579ba10a84fd6dde2018f7d'  # 硬编码在js中
 
 
 class NeedVerifyError(Exception):
@@ -93,6 +98,16 @@ class InstaAPI(_InstaAPI):
         data = resp.json()
         self.key_id = data['encryption']['key_id']
         self.public_key = data['encryption']['public_key']
+
+    @login_required
+    def get_user_tagged(self, id: str):
+        QUERY = '31fe64d9463cbbe58319dced405c6206'  # 硬编码在js中
+        json = {"id": id, "first": 12}
+        p = dumps(json, ensure_ascii=False, separators=jsonsep)
+        resp = self._make_request(
+            "/graphql/query/", params={"variables": p, "query_hash": QUERY},
+            msg="Get User Tagged")
+        return resp.json()['data']['user']
 
     def login(self):
         username = self._try_username

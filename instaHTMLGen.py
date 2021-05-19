@@ -95,22 +95,15 @@ def dealWithNode(d: dict, typ: int) -> RSSItem:
 
 def genItemList(d: dict, typ: int) -> List[RSSItem]:
     rl = []
-    if 'edge_owner_to_timeline_media' in d:
-        tl = d['edge_owner_to_timeline_media']
-        if tl is not None and 'edges' in tl:
-            edges = tl['edges']
-            if edges is not None and isinstance(edges, list):
-                for i in edges:
-                    r = dealWithNode(i, typ)
-                    if r is not None:
-                        rl.append(r)
-    if 'edge_felix_video_timeline' in d:
-        tl = d['edge_felix_video_timeline']
-        if tl is not None and 'edges' in tl:
-            edges = tl['edges']
-            if edges is not None and isinstance(edges, list):
-                for i in edges:
-                    r = dealWithNode(i, typ)
-                    if r is not None:
-                        rl.append(r)
+    for i in ['edge_owner_to_timeline_media', 'edge_felix_video_timeline',
+              'edge_user_to_photos_of_you']:
+        if i in d:
+            tl = d[i]
+            if tl is not None and 'edges' in tl:
+                edges = tl['edges']
+                if edges is not None and isinstance(edges, list):
+                    for k in edges:
+                        r = dealWithNode(k, typ)
+                        if r is not None:
+                            rl.append(r)
     return rl
