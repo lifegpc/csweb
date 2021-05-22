@@ -68,7 +68,7 @@ def dealWithSingleEdge(d: dict, **kwargs) -> str:
                 vurl = n["video_url"]
                 if proxy:
                     vurl = genUrl(vurl, ser, genSign, urlencode, hd)
-                return f'<video src="{escapeQuote(vurl)}"{p}{p2}>'
+                return f'<video src="{escapeQuote(vurl)}"{p}{p2} controls="controls">'  # noqa: E501
             elif tn == 'GraphImage':
                 alt = None
                 if 'accessibility_caption' in n:
