@@ -45,6 +45,8 @@ class InstaRSS:
             tagged = True if tagged is not None else False
             fetch_post = web.input().get("fetch_post")
             fetch_post = True if fetch_post is not None else False
+            proxy = web.input().get("proxy")
+            proxy = True if proxy is not None else False
             cacheTime = s.instagramCacheTime
             if user is not None:
                 idd = f"user/{user}/init"
@@ -92,7 +94,8 @@ class InstaRSS:
                     elif typ == "rss":
                         r3 = None
                         if s.isntagramCacheRSS and not new_cache:
-                            d = {"contain_id": str(contain_id)}
+                            d = {"contain_id": str(contain_id),
+                                 "proxy": str(proxy)}
                             idd3 = f"user/{user}/tagged/rss?" + urlencode(d)
                             r3 = db.get_cache(idd3, cacheTime)
                             if r3 is not None:
@@ -116,7 +119,7 @@ class InstaRSS:
                             g.meta.image = r['profile_pic_url_hd']
                             g.meta.lastBuildDate = c / 1E9
                             g.meta.ttl = cacheTime
-                            g.list = genItemList(r2, RSS2_TYPE)
+                            g.list = genItemList(r2, RSS2_TYPE, proxy=proxy)
                             r3 = g.generate()
                             if s.isntagramCacheRSS:
                                 db.save_cache(idd3, r3)
@@ -132,7 +135,8 @@ class InstaRSS:
                 elif typ == "rss":
                     r2 = None
                     if s.isntagramCacheRSS and not new_cache:
-                        d = {"contain_id": str(contain_id)}
+                        d = {"contain_id": str(contain_id),
+                             "proxy": str(proxy)}
                         idd2 = f"user/{user}/rss?" + urlencode(d)
                         r2 = db.get_cache(idd2, cacheTime)
                         if r2 is not None:
@@ -156,7 +160,7 @@ class InstaRSS:
                         g.meta.image = r['profile_pic_url_hd']
                         g.meta.lastBuildDate = c / 1E9
                         g.meta.ttl = cacheTime
-                        g.list = genItemList(r, RSS2_TYPE)
+                        g.list = genItemList(r, RSS2_TYPE, proxy=proxy)
                         r2 = g.generate()
                         if s.isntagramCacheRSS:
                             db.save_cache(idd2, r2)
