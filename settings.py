@@ -51,11 +51,11 @@ class settings:
         return None
 
     @property
-    def telegramchatid(self) -> str:
+    def telegramchatid(self) -> int:
         if self.__data is None:
             return None
         key = 'telegramchatid'
-        if key in self.__data and self.__data[key] and self.__data[key] != '':
+        if key in self.__data and self.__data[key]:
             return self.__data[key]
         return None
 
@@ -207,6 +207,32 @@ class settings:
         if self.__data is None:
             return None
         key = 'RSSProxySerects'
+        if key in self.__data and self.__data[key] and self.__data[key] != '':
+            return self.__data[key]
+        return None
+
+    def notiAPITelegramBotAPIKey(self) -> str:
+        if self.__data is None:
+            return None
+        key = 'notiAPITelegramBotAPIKey'
+        if key in self.__data and self.__data[key] and self.__data[key] != '':
+            return self.__data[key]
+        return self.telegrambotkey
+
+    @property
+    def notiAPITelegraBotChatId(self) -> int:
+        if self.__data is None:
+            return None
+        key = 'notiAPITelegraBotChatId'
+        if key in self.__data and self.__data[key]:
+            return self.__data[key]
+        return self.telegramchatid
+
+    @property
+    def notiAPISecrets(self) -> str:
+        if self.__data is None:
+            return None
+        key = 'notiAPISecrets'
         if key in self.__data and self.__data[key] and self.__data[key] != '':
             return self.__data[key]
         return None

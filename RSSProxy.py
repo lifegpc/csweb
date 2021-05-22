@@ -34,7 +34,7 @@ class RSSProxy:
             km = "HTTP_" + k.upper().replace('-', '_')
             if km in e:
                 headers[k] = e[km]
-        re = requests.get(t, headers=headers)
+        re = requests.get(t, headers=headers, stream=True)
         if re.status_code != 200:
             web.HTTPError(f"{re.status_code} {re.reason}")
         h = re.headers
@@ -43,7 +43,12 @@ class RSSProxy:
                   'keep-alive', 'location', 'server']:
             if i in h:
                 web.header(i, h[i])
-        return re.content
+        return self.send(re)
+
+    def send(self, r: requests.Response):
+        for i in r.iter_content(1024):
+            if i:
+                yield i
 
 
 if m:

@@ -13,6 +13,7 @@ from salt import Salt  # noqa: F401
 from sendMsgToMe import sendMsgToMe  # noqa: F401
 from instaRSS import InstaRSS  # noqa: F401
 from instaVerify import InstaVerify  # noqa: F401
+from notiAPI import NotiAPI  # noqa: F401
 
 
 urls = (
@@ -23,6 +24,7 @@ urls = (
     '^/instaVerify$', 'InstaVerify',
     '^/salt$', 'Salt',
     '^/sendMsgToMe$', 'sendMsgToMe',
+    '^/notiAPI$', 'NotiAPI',
     '(/.*)', 'hello',
 )
 

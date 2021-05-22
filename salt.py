@@ -25,7 +25,7 @@ class Salt:
     def GET(self):
         te = getTemplate("salt.html")
         if te is None:
-            web.HTTPError('500')
+            web.HTTPError('500 Internal Server Error')
             return 'Error'
         lan = getlang()
         i18n = getdict('salt', lan)
