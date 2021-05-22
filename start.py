@@ -14,6 +14,7 @@ from sendMsgToMe import sendMsgToMe  # noqa: F401
 from instaRSS import InstaRSS  # noqa: F401
 from instaVerify import InstaVerify  # noqa: F401
 from notiAPI import NotiAPI  # noqa: F401
+from RSSProxy import RSSProxy  # noqa: F401
 
 
 urls = (
@@ -22,6 +23,7 @@ urls = (
     '^/drawBagel$', 'DrawBagel',
     '^/instaRSS$', 'InstaRSS',
     '^/instaVerify$', 'InstaVerify',
+    '^/RSSProxy', 'RSSProxy',
     '^/salt$', 'Salt',
     '^/sendMsgToMe$', 'sendMsgToMe',
     '^/notiAPI$', 'NotiAPI',
