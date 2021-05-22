@@ -29,18 +29,18 @@ class RSSProxy:
             return ''
         headers = {}
         e = web.ctx.env.copy()
-        if 'HTTP_USER_AGENT' in e:
-            headers['User-Agent'] = e['HTTP_USER_AGENT']
-        if 'HTTP_RANGE' in e:
-            headers['Range'] = e['HTTP_RANGE']
-        if 'HTTP_ACCEPT' in e:
-            headers['Accept'] = e['HTTP_ACCEPT']
+        for k in ['User-Agent', 'Range', 'Accept', 'If-Modified-Since',
+                  'Keep-Alive']:
+            km = "HTTP_" + k.upper().replace('-', '_')
+            if km in e:
+                headers[k] = e[km]
         re = requests.get(t, headers=headers)
         if re.status_code != 200:
             web.HTTPError(f"{re.status_code} {re.reason}")
         h = re.headers
         for i in ['cache-control', 'content-length', 'content-type', 'date',
-                  'last-modified', 'range']:
+                  'last-modified', 'content-range', 'age', 'expires',
+                  'keep-alive', 'location', 'server']:
             if i in h:
                 web.header(i, h[i])
         return re.content
