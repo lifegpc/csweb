@@ -48,7 +48,7 @@ def dealWithSingleEdge(d: dict) -> str:
                 if 'accessibility_caption' in n:
                     alt = n['accessibility_caption']
                 p = f' alt="{escapeQuote(alt)}"' if alt is not None else ''
-                return f'<img src="{escapeQuote(n["display_url"])}" width="{n["dimensions"]["width"]}" height="{n["dimensions"]["height"]}"{p}>'  # noqa: E501
+                return f'<img src="{escapeQuote(n["display_url"])}" width="{n["dimensions"]["width"]}" height="{n["dimensions"]["height"]}"{p} referrerpolicy="no-referrer">'  # noqa: E501
             else:
                 raise ValueError('Unknown Type.')
     return ''
