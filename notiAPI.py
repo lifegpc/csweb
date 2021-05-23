@@ -47,8 +47,10 @@ class NotiAPI:
                 mes.addtotext(f"<b>{escape(j[APP_NAME])} ({escape(pn)})</b>")
             else:
                 mes.addtotext(f"<b>{escape(j[APP_NAME])}</b>")
-        mes.addtotext(f"<b>{escape(j[TITLE])}</b>")
-        mes.addtotext(escape(j[TEXT]))
+        if TITLE in j:
+            mes.addtotext(f"<b>{escape(j[TITLE])}</b>")
+        if TEXT in j:
+            mes.addtotext(escape(j[TEXT]))
         mes.addtotext(strftime(ISO8601_FORMAT, gmtime(j[WHEN] / 1000)))
         while len(mes):
             sendMessage(s.notiAPITelegraBotChatId, mes.tostr(),
