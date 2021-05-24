@@ -116,7 +116,11 @@ class InstaRSS:
                                     url = te
                             g.meta.link = url
                             g.meta.description = r['biography']
-                            g.meta.image = r['profile_pic_url_hd']
+                            image = r['profile_pic_url_hd']
+                            if proxy:
+                                from instaRSSP import genUrl
+                                image = genUrl(image, s.RSSProxySerects)
+                            g.meta.image = image
                             g.meta.lastBuildDate = c / 1E9
                             g.meta.ttl = cacheTime
                             g.list = genItemList(r2, RSS2_TYPE, proxy=proxy)
@@ -157,7 +161,11 @@ class InstaRSS:
                                 url = te
                         g.meta.link = url
                         g.meta.description = r['biography']
-                        g.meta.image = r['profile_pic_url_hd']
+                        image = r['profile_pic_url_hd']
+                        if proxy:
+                            from instaRSSP import genUrl
+                            image = genUrl(image, s.RSSProxySerects)
+                        g.meta.image = image
                         g.meta.lastBuildDate = c / 1E9
                         g.meta.ttl = cacheTime
                         g.list = genItemList(r, RSS2_TYPE, proxy=proxy)

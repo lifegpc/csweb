@@ -28,28 +28,16 @@ def getText(d: dict) -> str:
     return ''
 
 
-def genUrl(origin: str, serects: str, f: callable, f2: callable,
-           hd: str) -> str:
-    url = f'{hd}/RSSProxy?'
-    p = {'t': [origin]}
-    h = f(serects, p)  # genSign
-    url += f2([('t', origin), ('sign', h)])  # urlencode
-    return url
-
-
 def dealWithSingleEdge(d: dict, **kwargs) -> str:
     proxy = bool(kwargs.get("proxy"))
     if proxy:
-        from sign import genSign
+        from instaRSSP import genUrl
         from settings import settings
-        from urllib.parse import urlencode
-        import web
         s = settings()
         s.ReadSettings()
         if s.RSSProxySerects is None:
             raise ValueError('RSSProxySerects is needed in settings.')
         ser = s.RSSProxySerects
-        hd = web.ctx.homedomain
     if 'node' in d:
         n = d['node']
         if n is not None:
@@ -59,7 +47,7 @@ def dealWithSingleEdge(d: dict, **kwargs) -> str:
                 if 'display_url' in n:
                     dp = n['display_url']
                     if proxy:
-                        dp = genUrl(dp, ser, genSign, urlencode, hd)
+                        dp = genUrl(dp, ser)
                 alt = None
                 if 'accessibility_caption' in n:
                     alt = n['accessibility_caption']
@@ -67,7 +55,7 @@ def dealWithSingleEdge(d: dict, **kwargs) -> str:
                 p2 = f' alt="{escapeQuote(alt)}"' if alt is not None else ''
                 vurl = n["video_url"]
                 if proxy:
-                    vurl = genUrl(vurl, ser, genSign, urlencode, hd)
+                    vurl = genUrl(vurl, ser)
                 return f'<video src="{escapeQuote(vurl)}"{p}{p2} controls="controls">'  # noqa: E501
             elif tn == 'GraphImage':
                 alt = None
@@ -76,7 +64,7 @@ def dealWithSingleEdge(d: dict, **kwargs) -> str:
                 p = f' alt="{escapeQuote(alt)}"' if alt is not None else ''
                 durl = n["display_url"]
                 if proxy:
-                    durl = genUrl(durl, ser, genSign, urlencode, hd)
+                    durl = genUrl(durl, ser)
                 return f'<img src="{escapeQuote(durl)}" width="{n["dimensions"]["width"]}" height="{n["dimensions"]["height"]}"{p} referrerpolicy="no-referrer">'  # noqa: E501
             else:
                 raise ValueError('Unknown Type.')
