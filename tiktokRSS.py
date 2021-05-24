@@ -35,9 +35,9 @@ class TiktokRSS:
             if user is None or user == '':
                 user = web.input().get("user")
             typ = web.input().get("t")
-            if typ is None or typ not in ['rss', 'json', 'atom']:
+            if typ is None or typ not in ['rss', 'json', 'atom', 'url']:
                 typ = web.input().get("type")
-            if typ is None or typ not in ['rss', 'json', 'atom']:
+            if typ is None or typ not in ['rss', 'json', 'atom', 'url']:
                 typ = 'rss'
             videoid = web.input().get("vid")
             if videoid is None or videoid == '':
@@ -66,6 +66,25 @@ class TiktokRSS:
                                    "application/json; charset=UTF-8")
                         return dumps(vdata, ensure_ascii=False,
                                      separators=jsonsep)
+                    elif typ == 'url':
+                        vurl = None
+                        i = vdata['itemInfo']['itemStruct']
+                        for k in ['downloadAddr', 'playAddr']:
+                            if k in i['video']:
+                                if i['video'][k] is not None:
+                                    vurl = i['video'][k]
+                                    break
+                        if vurl is None:
+                            raise ValueError('Can not find play url.')
+                        if s.RSSProxySerects is None:
+                            raise ValueError(
+                                'RSSProxySerects is needed in settings.')
+                        from tiktokRSSP import genUrl
+                        vurl = genUrl(vurl, s.RSSProxySerects, vdata,
+                                      "https://www.tiktok.com/")
+                        web.HTTPError('302 FOUND')
+                        web.header('Location', vurl)
+                        return ''
                     raise Exception('Other Type is not supported.')
                 ld = f'/user/{user}'
                 udata = db.get_cache(ld, cacheTime)
