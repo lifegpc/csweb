@@ -10,7 +10,7 @@ else:
 import web
 from settings import settings
 from sign import verifySign
-import requests
+from requests import Session, Response
 
 
 class RSSProxy:
@@ -34,7 +34,19 @@ class RSSProxy:
             km = "HTTP_" + k.upper().replace('-', '_')
             if km in e:
                 headers[k] = e[km]
-        re = requests.get(t, headers=headers, stream=True)
+        ref = web.input().get("r")
+        if ref is not None:
+            headers['referer'] = ref
+        cookie = web.input().get("c")
+        ses = Session()
+        if cookie is not None:
+            from json import loads
+            ses.cookies.update(loads(cookie))
+        header = web.input().get("h")
+        if header is not None:
+            from json import loads
+            ses.headers.update(loads(header))
+        re = ses.get(t, headers=headers, stream=True)
         if re.status_code != 200:
             web.HTTPError(f"{re.status_code} {re.reason}")
         h = re.headers
@@ -45,7 +57,7 @@ class RSSProxy:
                 web.header(i, h[i])
         return self.send(re)
 
-    def send(self, r: requests.Response):
+    def send(self, r: Response):
         for i in r.iter_content(1024):
             if i:
                 yield i
