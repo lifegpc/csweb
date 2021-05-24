@@ -12,6 +12,10 @@ import web
 
 class hello:
     def GET(self, t):
+        if t != '/':
+            web.HTTPError('301 Moved Permanently')
+            web.header('Location', 'https://www.google.com/teapot')
+            return '你是傻逼吗？祝你🐴早死早超生！'
         return "Hello World!"
 
 
