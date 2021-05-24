@@ -26,10 +26,14 @@ class TiktokAPI:
         self._prepared = False
 
     @prepared_needed
-    def get_video(self, username: str, id: str):
+    def get_video(self, id: str, username: str = None):
         '获取视频'
         try:
-            r = self._ses.get(f"https://www.tiktok.com/@{username}/video/{id}")
+            if username is not None:
+                url = f"https://www.tiktok.com/@{username}/video/{id}"
+            else:
+                url = f'https://t.tiktok.com/i18n/share/video/{id}/'
+            r = self._ses.get(url)
             if r.status_code != 200:
                 return None
             rs = search(r'<script[^>]+\bid=["\']__NEXT_DATA__[^>]+>\s*({.+?})\s*</script',  # noqa: E501

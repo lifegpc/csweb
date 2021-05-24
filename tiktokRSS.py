@@ -48,44 +48,44 @@ class TiktokRSS:
             contain_id = contain_id is not None
             db = TiktokDatabase()
             cacheTime = 15
-            if user is not None:
-                if videoid is not None:
-                    ld = f'/video/{user}/{videoid}'
-                    vdata = db.get_cache(ld, VIDEO_CACHE_TIME)
-                    if vdata is None:
-                        vdata = t.get_video(user, videoid)
-                        if vdata is None or vdata['statusCode'] != 0:
-                            raise Exception("Can not parse video info.")
-                        c = db.save_cache(ld, vdata)
-                    else:
-                        c = vdata[1]
-                        vdata = vdata[0]
-                    sendCacheInfo(VIDEO_CACHE_TIME * 60, c)
-                    if typ == 'json':
-                        web.header("Content-Type",
-                                   "application/json; charset=UTF-8")
-                        return dumps(vdata, ensure_ascii=False,
-                                     separators=jsonsep)
-                    elif typ == 'url':
-                        vurl = None
-                        i = vdata['itemInfo']['itemStruct']
-                        for k in ['downloadAddr', 'playAddr']:
-                            if k in i['video']:
-                                if i['video'][k] is not None:
-                                    vurl = i['video'][k]
-                                    break
-                        if vurl is None:
-                            raise ValueError('Can not find play url.')
-                        if s.RSSProxySerects is None:
-                            raise ValueError(
-                                'RSSProxySerects is needed in settings.')
-                        from tiktokRSSP import genUrl
-                        vurl = genUrl(vurl, s.RSSProxySerects, vdata,
-                                      "https://www.tiktok.com/")
-                        web.HTTPError('302 FOUND')
-                        web.header('Location', vurl)
-                        return ''
-                    raise Exception('Other Type is not supported.')
+            if videoid is not None:
+                ld = f'/video/{videoid}'
+                vdata = db.get_cache(ld, VIDEO_CACHE_TIME)
+                if vdata is None:
+                    vdata = t.get_video(videoid, user)
+                    if vdata is None or vdata['statusCode'] != 0:
+                        raise Exception("Can not parse video info.")
+                    c = db.save_cache(ld, vdata)
+                else:
+                    c = vdata[1]
+                    vdata = vdata[0]
+                sendCacheInfo(VIDEO_CACHE_TIME * 60, c)
+                if typ == 'json':
+                    web.header("Content-Type",
+                               "application/json; charset=UTF-8")
+                    return dumps(vdata, ensure_ascii=False,
+                                 separators=jsonsep)
+                elif typ == 'url':
+                    vurl = None
+                    i = vdata['itemInfo']['itemStruct']
+                    for k in ['downloadAddr', 'playAddr']:
+                        if k in i['video']:
+                            if i['video'][k] is not None:
+                                vurl = i['video'][k]
+                                break
+                    if vurl is None:
+                        raise ValueError('Can not find play url.')
+                    if s.RSSProxySerects is None:
+                        raise ValueError(
+                            'RSSProxySerects is needed in settings.')
+                    from tiktokRSSP import genUrl
+                    vurl = genUrl(vurl, s.RSSProxySerects, vdata,
+                                  "https://www.tiktok.com/")
+                    web.HTTPError('302 FOUND')
+                    web.header('Location', vurl)
+                    return ''
+                raise Exception('Other Type is not supported.')
+            elif user is not None:
                 ld = f'/user/{user}'
                 udata = db.get_cache(ld, cacheTime)
                 new_cache = False
