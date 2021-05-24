@@ -15,6 +15,7 @@ from instaRSS import InstaRSS  # noqa: F401
 from instaVerify import InstaVerify  # noqa: F401
 from notiAPI import NotiAPI  # noqa: F401
 from RSSProxy import RSSProxy  # noqa: F401
+from tiktokRSS import TiktokRSS  # noqa: F401
 
 
 urls = (
@@ -26,6 +27,7 @@ urls = (
     '^/RSSProxy', 'RSSProxy',
     '^/salt$', 'Salt',
     '^/sendMsgToMe$', 'sendMsgToMe',
+    '^/tiktokRSS$', 'TiktokRSS',
     '^/notiAPI$', 'NotiAPI',
     '(/.*)', 'hello',
 )

@@ -236,3 +236,31 @@ class settings:
         if key in self.__data and self.__data[key] and self.__data[key] != '':
             return self.__data[key]
         return None
+
+    @property
+    def tiktokDatabaseLocation(self) -> str:
+        default = 'data.db'
+        if self.__data is None:
+            return default
+        key = 'tiktokDatabaseLocation'
+        if key in self.__data and self.__data[key] and self.__data[key] != '':
+            return self.__data[key]
+        return default
+
+    @property
+    def tiktokRSSSecrets(self) -> str:
+        if self.__data is None:
+            return None
+        key = 'tiktokRSSSecrets'
+        if key in self.__data and self.__data[key] and self.__data[key] != '':
+            return self.__data[key]
+        return None
+
+    @property
+    def tiktokCacheRSS(self) -> bool:
+        if self.__data is None:
+            return False
+        key = 'tiktokCacheRSS'
+        if key in self.__data and self.__data[key]:
+            return True
+        return False
