@@ -39,6 +39,7 @@ class RSSProxy:
             headers['referer'] = ref
         cookie = web.input().get("c")
         ses = Session()
+        ses.headers.update(headers)
         if cookie is not None:
             from json import loads
             ses.cookies.update(loads(cookie))
@@ -46,7 +47,7 @@ class RSSProxy:
         if header is not None:
             from json import loads
             ses.headers.update(loads(header))
-        re = ses.get(t, headers=headers, stream=True)
+        re = ses.get(t, stream=True)
         if re.status_code != 200:
             web.HTTPError(f"{re.status_code} {re.reason}")
         h = re.headers
