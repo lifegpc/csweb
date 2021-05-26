@@ -27,19 +27,18 @@ class RSSProxy:
         if t is None:
             web.HTTPError('400 Bad Request')
             return ''
-        headers = {}
+        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36'}  # noqa: E501
         e = web.ctx.env.copy()
-        for k in ['User-Agent', 'Range', 'Accept', 'If-Modified-Since',
-                  'Keep-Alive']:
+        for k in ['User-Agent', 'Range', 'Accept', 'If-Modified-Since']:
             km = "HTTP_" + k.upper().replace('-', '_')
             if km in e:
                 headers[k] = e[km]
         ref = web.input().get("r")
         if ref is not None:
             headers['referer'] = ref
-        cookie = web.input().get("c")
         ses = Session()
         ses.headers.update(headers)
+        cookie = web.input().get("c")
         if cookie is not None:
             from json import loads
             ses.cookies.update(loads(cookie))
