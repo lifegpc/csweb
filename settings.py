@@ -11,6 +11,12 @@ class settings:
                     self.__data = loadjson(f)
             except:
                 self.__data = None
+        elif exists('../settings.json'):
+            try:
+                with open('../settings.json', 'r', encoding='utf8') as f:
+                    self.__data = loadjson(f)
+            except:
+                self.__data = None
         else:
             self.__data = None
 
@@ -264,3 +270,32 @@ class settings:
         if key in self.__data and self.__data[key]:
             return True
         return False
+
+    @property
+    def proxyDatabaseLocation(self) -> str:
+        default = 'data.db'
+        if self.__data is None:
+            return default
+        key = 'proxyDatabaseLocation'
+        if key in self.__data and self.__data[key] and self.__data[key] != '':
+            return self.__data[key]
+        return default
+
+    @property
+    def proxyAPISecrets(self) -> str:
+        if self.__data is None:
+            return None
+        key = 'proxyAPISecrets'
+        if key in self.__data and self.__data[key] and self.__data[key] != '':
+            return self.__data[key]
+        return None
+
+    @property
+    def proxyEntry(self) -> str:
+        default = '/proxy/proxy'
+        if self.__data is None:
+            return default
+        key = 'proxyEntry'
+        if key in self.__data and self.__data[key] and self.__data[key] != '':
+            return self.__data[key]
+        return default
