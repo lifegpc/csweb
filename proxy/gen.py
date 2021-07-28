@@ -61,6 +61,17 @@ class ProxyGen:
                 return dumps({"code": -5, "msg":
                               "target url (targte) is needed."},
                              ensure_ascii=False, separators=jsonsep)
+            act = web.input().get("a")
+            if act is None or act == '':
+                act = web.input().get("action")
+            if act is None or act == '':
+                return dumps({"code": -7, "msg":
+                              "action type (a/action) is needed."},
+                             ensure_ascii=False, separators=jsonsep)
+            if act != 'gen':
+                return dumps({"code": -8, "msg":
+                              "action type (a/action) must be 'gen'."},
+                             ensure_ascii=False, separators=jsonsep)
             db = ProxyDb()
             r = db.get_proxy(idd, True)
             if not r:

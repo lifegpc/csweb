@@ -51,6 +51,17 @@ class ProxyList:
                 return dumps({"code": -3, "msg":
                               "Emm. Seems the current time is not right."},
                              ensure_ascii=False, separators=jsonsep)
+            act = web.input().get("a")
+            if act is None or act == '':
+                act = web.input().get("action")
+            if act is None or act == '':
+                return dumps({"code": -4, "msg":
+                              "action type (a/action) is needed."},
+                             ensure_ascii=False, separators=jsonsep)
+            if act != 'list':
+                return dumps({"code": -5, "msg":
+                              "action type (a/action) must be 'list'."},
+                             ensure_ascii=False, separators=jsonsep)
             db = ProxyDb()
             r = db.get_proxy_list()
             return dumps({"code": 0, "result": r}, ensure_ascii=False,

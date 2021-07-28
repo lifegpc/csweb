@@ -55,6 +55,17 @@ class ProxyGet:
             if idd is None:
                 return dumps({"code": -4, "msg": "id is needed."},
                              ensure_ascii=False, separators=jsonsep)
+            act = web.input().get("a")
+            if act is None or act == '':
+                act = web.input().get("action")
+            if act is None or act == '':
+                return dumps({"code": -6, "msg":
+                              "action type (a/action) is needed."},
+                             ensure_ascii=False, separators=jsonsep)
+            if act != 'get':
+                return dumps({"code": -7, "msg":
+                              "action type (a/action) must be 'get'."},
+                             ensure_ascii=False, separators=jsonsep)
             db = ProxyDb()
             r = db.get_proxy(idd)
             if r is None:

@@ -55,6 +55,17 @@ class ProxyDelete:
             if idd is None:
                 return dumps({"code": -4, "msg": "id is needed."},
                              ensure_ascii=False, separators=jsonsep)
+            act = web.input().get("a")
+            if act is None or act == '':
+                act = web.input().get("action")
+            if act is None or act == '':
+                return dumps({"code": -5, "msg":
+                              "action type (a/action) is needed."},
+                             ensure_ascii=False, separators=jsonsep)
+            if act != 'delete':
+                return dumps({"code": -6, "msg":
+                              "action type (a/action) must be 'delete'."},
+                             ensure_ascii=False, separators=jsonsep)
             db = ProxyDb()
             r = db.delete_proxy(idd)
             return dumps({"code": 0, "result": r}, ensure_ascii=False,

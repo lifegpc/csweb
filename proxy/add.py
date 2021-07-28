@@ -52,6 +52,17 @@ class ProxyAdd:
                 return dumps({"code": -3, "msg":
                               "Emm. Seems the current time is not right."},
                              ensure_ascii=False, separators=jsonsep)
+            act = web.input().get("a")
+            if act is None or act == '':
+                act = web.input().get("action")
+            if act is None or act == '':
+                return dumps({"code": -8, "msg":
+                              "action type (a/action) is needed."},
+                             ensure_ascii=False, separators=jsonsep)
+            if act != 'add':
+                return dumps({"code": -9, "msg":
+                              "action type (a/action) must be 'add'."},
+                             ensure_ascii=False, separators=jsonsep)
             idd = web.input().get("id")
             if idd is None:
                 return dumps({"code": -4, "msg": "id is needed."},
