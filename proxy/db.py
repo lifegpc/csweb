@@ -91,6 +91,14 @@ class ProxyDb:
         self._db.commit()
         return True
 
+    def delete_all_proxy(self) -> bool:
+        try:
+            self._db.execute('DELETE FROM proxy;')
+        except:
+            return False
+        self._db.commit()
+        return True
+
     def delete_proxy(self, id: str) -> bool:
         if not self.get_proxy(id, True):
             return False
