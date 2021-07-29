@@ -2,7 +2,7 @@ import sys
 from os.path import dirname, abspath
 if abspath(dirname(__file__)) not in sys.path:
     from os import chdir
-    chdir(dirname(__file__))
+    chdir(abspath(dirname(__file__)))
     sys.path.append(abspath("."))
 import web
 from index import hello  # noqa: F401
