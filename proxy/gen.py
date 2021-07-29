@@ -72,6 +72,18 @@ class ProxyGen:
                 return dumps({"code": -8, "msg":
                               "action type (a/action) must be 'gen'."},
                              ensure_ascii=False, separators=jsonsep)
+            exp = web.input().get("e")
+            if exp is None or exp == '':
+                exp = web.input().get("expired")
+            if exp is not None and exp != '':
+                try:
+                    exp = int(exp)
+                except:
+                    return dumps({"code": -9, "msg":
+                                  "expired time (e/expired) must be a integer."
+                                  }, ensure_ascii=False, separators=jsonsep)
+            else:
+                exp = None
             db = ProxyDb()
             r = db.get_proxy(idd, True)
             if not r:
@@ -83,6 +95,8 @@ class ProxyGen:
             if entr.netloc == '' and entr.path.startswith('/'):
                 ent = f'{web.ctx.homedomain}{ent}'
             se = {"t": [target], "id": [idd]}
+            if exp is not None:
+                se["e"] = [str(exp)]
             t = genSign(s.proxyAPISecrets, se)
             se.update({"sign": [t]})
             for i in se:
