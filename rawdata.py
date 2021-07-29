@@ -1,15 +1,24 @@
 import web
 from typing import Dict, List
+from io import BytesIO
+from cgi import FieldStorage
 ParseQsResult = Dict[str, List[str]]
 
 
 def getRawData():
     e = web.ctx.env.copy()
-    a = web.ctx.get("_fieldstorage")
-    if not a:
-        a = web.webapi.cgiFieldStorage(fp=e["wsgi.input"], environ=e,
-                                       keep_blank_values=1)
-        web.ctx._fieldstorage = a
+    if e.get("CONTENT_TYPE", "").lower().startswith("multipart/"):
+        a = web.ctx.get("_fieldstorage")
+        if not a:
+            fp = e["wsgi.input"]
+            a = FieldStorage(fp=fp, environ=e, keep_blank_values=1)
+            web.ctx._fieldstorage = a
+    else:
+        d = web.data()
+        if isinstance(d, str):
+            d = d.encode("utf-8")
+        fp = BytesIO(d)
+        a = FieldStorage(fp=fp, environ=e, keep_blank_values=1)
     return a
 
 
