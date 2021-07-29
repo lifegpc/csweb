@@ -16,6 +16,19 @@ from instaVerify import InstaVerify  # noqa: F401
 from notiAPI import NotiAPI  # noqa: F401
 from RSSProxy import RSSProxy  # noqa: F401
 from tiktokRSS import TiktokRSS  # noqa: F401
+from proxy.add import ProxyAdd  # noqa: F401
+from proxy.delete import ProxyDelete  # noqa: F401
+from proxy.deleteAll import ProxyDeleteAll  # noqa: F401
+from proxy.exists import ProxyExists  # noqa: F401
+from proxy.gen import ProxyGen  # noqa: F401
+from proxy.get import ProxyGet  # noqa: F401
+from proxy.list import ProxyList  # noqa: F401
+from proxy.proxy import ProxyProxy  # noqa: F401
+
+
+if __name__ != '__main__':
+    from os import chdir
+    chdir(dirname(__file__))
 
 
 urls = (
@@ -29,6 +42,14 @@ urls = (
     '^/sendMsgToMe$', 'sendMsgToMe',
     '^/tiktokRSS$', 'TiktokRSS',
     '^/notiAPI$', 'NotiAPI',
+    '^/proxy/add$', 'ProxyAdd',
+    '^/proxy/delete$', 'ProxyDelete',
+    '^/proxy/deleteAll$', 'ProxyDeleteAll',
+    '^/proxy/exists$', 'ProxyExists',
+    '^/proxy/gen$', 'ProxyGen',
+    '^/proxy/get$', 'ProxyGet',
+    '^/proxy/list$', 'ProxyList',
+    '^/proxy/proxy$', 'ProxyProxy',
     '(/.*)', 'hello',
 )
 
