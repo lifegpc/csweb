@@ -25,6 +25,7 @@ VIDEO_CACHE_TIME = 360
 class TiktokRSS:
     def GET(self):
         try:
+            web.header('Access-Control-Allow-Origin', '*')
             s = settings()
             s.ReadSettings()
             if s.tiktokRSSSecrets and not verifySign(s.tiktokRSSSecrets):
@@ -142,6 +143,11 @@ class TiktokRSS:
             except:
                 pass
             return ''
+
+    def OPTIONS(self):
+        from cors import allowCors
+        allowCors(methods=['GET', 'OPTIONS'])
+        return ''
 
 
 if m:

@@ -15,6 +15,7 @@ from requests import Session, Response
 
 class RSSProxy:
     def GET(self):
+        web.header('Access-Control-Allow-Origin', '*')
         s = settings()
         s.ReadSettings()
         if s.RSSProxySerects is None:
@@ -61,6 +62,11 @@ class RSSProxy:
         for i in r.iter_content(1024):
             if i:
                 yield i
+
+    def OPTIONS(self):
+        from cors import allowCors
+        allowCors(methods=['GET', 'OPTIONS'], headers=['If-Modified-Since'])
+        return ''
 
 
 if m:
