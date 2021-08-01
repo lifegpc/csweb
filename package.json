@@ -2,7 +2,7 @@
   "dependencies": {
     "blueimp-md5": "^2.18.0",
     "clipboard": "^2.0.8",
-    "closure-calculate-chunks": "^1.2.0",
+    "closure-calculate-chunks": "^3.0.2",
     "js-base64": "^3.6.0",
     "js-sha512": "^0.8.0"
   }
