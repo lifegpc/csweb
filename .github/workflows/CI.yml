@@ -28,3 +28,30 @@ jobs:
 
       - name: Check Code
         run: python3 -m flake8
+
+  closure-compiler:
+    runs-on: ubuntu-20.04
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Check Out
+        uses: actions/checkout@v2
+
+      - name: Download Closure Compiler
+        run: curl -L "https://repo1.maven.org/maven2/com/google/javascript/closure-compiler/v20210601/closure-compiler-v20210601.jar" -o compiler.jar
+
+      - name: Compile
+        run: ./compile.sh
+
+      - name: Install 7zip
+        run: sudo apt install p7zip-full
+      
+      - name: Package Output JS Files
+        run: 7z -mx9 a js.7z js/*
+      
+      - name: Upload Output File
+        uses: actions/upload-artifact@v2
+        with:
+          name: js-file
+          path: ./js.7z
