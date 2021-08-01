@@ -62,5 +62,14 @@ class mywebapp(web.application):
 
 
 if __name__ == "__main__":
-    app = mywebapp(urls, globals())
-    app.run()
+    try:
+        app = mywebapp(urls, globals())
+        k = {}
+        if len(sys.argv) >= 3:
+            k['host'] = sys.argv[1]
+            k['port'] = int(sys.argv[2])
+        app.run(**k)
+    except:
+        from traceback import format_exc
+        format_exc()
+        sys.exit(1)
