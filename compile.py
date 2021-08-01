@@ -116,7 +116,9 @@ class main:
             raise Exception('Error in compiler.')
 
     def getPackageInfo(self, fn: str):
-        p = Popen(f"node --preserve-symlinks node_modules/closure-calculate-chunks/cli.js --entrypoint ./js(origin)/{fn}", stdout=PIPE)  # noqa: E501
+        p = Popen(['node', '--preserve-symlinks',
+                   'node_modules/closure-calculate-chunks/cli.js',
+                   '--entrypoint', f'./js(origin)/{fn}'], stdout=PIPE)
         p.wait()
         return p.stdout.read() if p.stdout is not None else ''
 
