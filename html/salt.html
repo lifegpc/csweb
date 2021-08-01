@@ -21,22 +21,22 @@ $code:
         $:embScr("salt")
     </head>
     <body>
-        $i18n['PASS']<input id="pas" type="password" minlength="8" autocomplete="new-password"><br/>
-        $:addWikiLinkToText(i18n["SALT2"], "salt", "en:Salt (cryptography)", "Q1500258", i18n["SALT"])<input id="sal"><br/>
+        $i18n['PASS']<input id="pas" type="password" minlength="8" autocomplete="new-password" tabindex="1"><br/>
+        $:addWikiLinkToText(i18n["SALT2"], "salt", "en:Salt (cryptography)", "Q1500258", i18n["SALT"])<input id="sal" tabindex="2"><br/>
         <div id="apid">$i18n['PARA']<div id="apidl"></div>$i18n['PRE']<label id="apipre" style="line-break: anywhere;"></label></div>
-        $:addWikiLinkToText(i18n['HASHF2'], "hashf", "en:Hash function", "Q183427", i18n['HASHF'])<select id="sel">
+        $:addWikiLinkToText(i18n['HASHF2'], "hashf", "en:Hash function", "Q183427", i18n['HASHF'])<select id="sel" tabindex="5">
             <option value="md5">md5</option>
             <option value="sha224">sha224</option>
             <option value="sha256">sha256</option>
             <option value="sha384">sha384</option>
             <option value="sha512" selected>sha512</option>
         </select><br/>
-        <input id="loc" type="checkbox"><label for="loc">$i18n['PUTSALT']</label><br/>
-        <input id="base" type="checkbox"><label for="base">$:addWikiLinkToText(i18n['NOBASE'], "base64", "en:Base64", "Q726780", "Base64")</label><br/>
-        <input id="api" type="checkbox"$:ifIEHideContent()><label for="api"$:ifIEHideContent()>$i18n['APIT']</label>$:addBr()
-        <input id="apiop" type="checkbox" checked disabled$:ifIEHideContent()><label for="apiop"$:ifIEHideContent()>$i18n['OPP']</label><span id="apiopd" style="margin-left: 50px; display: none;"><label>$i18n['OPPN']</label><input id="apiopn" value="sign" disabled></span>$:addBr()
-        <button id="cl">$i18n['GEN']</button><br/>
-        <button id="bu" data-clipboard-action='copy' data-clipboard-target="#o">$i18n['CPCLIP']</button><br/>
+        <input id="loc" type="checkbox" tabindex="5"><label for="loc">$i18n['PUTSALT']</label><br/>
+        <input id="base" type="checkbox" tabindex="5"><label for="base">$:addWikiLinkToText(i18n['NOBASE'], "base64", "en:Base64", "Q726780", "Base64")</label><br/>
+        <input id="api" type="checkbox" tabindex="5"$:ifIEHideContent()><label for="api"$:ifIEHideContent()>$i18n['APIT']</label>$:addBr()
+        <input id="apiop" type="checkbox" checked tabindex="5" disabled$:ifIEHideContent()><label for="apiop"$:ifIEHideContent()>$i18n['OPP']</label><span id="apiopd" style="margin-left: 50px; display: none;"><label>$i18n['OPPN']</label><input id="apiopn" value="sign" disabled></span>$:addBr()
+        <button id="cl" tabindex="3">$i18n['GEN']</button><br/>
+        <button id="bu" data-clipboard-action='copy' data-clipboard-target="#o" tabindex="4">$i18n['CPCLIP']</button><br/>
         $i18n['RESULT']<br/>
         <textarea id="o" style="width: calc(100% - 20px); margin-left: 10px; height: 40px;"></textarea><br/>
         $i18n['THIRDLIB']$:addBr()
