@@ -98,7 +98,10 @@ class main:
                 data = self.getPackageInfo(fn)
                 if len(data) > 0:
                     obj = loads(data)
-                    t: list = obj["sources"]
+                    if 'sources' in obj:
+                        t: list = obj["sources"]
+                    elif 'js' in obj:
+                        t: list = obj['js']
                     n = abspath(".")
                     for f in t:
                         jsf += f' --js "{relpath(f, n)}"'
