@@ -1,4 +1,4 @@
-$def with (lan, trans, i18n, embScr, addWikiLinkToText, i18n2, isIE)
+$def with (lan, trans, i18n, embScr, addWikiLinkToText, i18n2, isIE, genLangLink)
 $code:
     def addBr(reverse = False):
         if (not isIE() and not reverse) or (isIE() and reverse):
@@ -14,6 +14,7 @@ $code:
         <meta name="title" content="$i18n['TITLE']">
         <meta name="description" content="$i18n['TITLE']">
         <title>$i18n['TITLE']</title>
+        $:genLangLink('/salt', ['en', 'ja', 'zh_CN', 'zh_TW'])
         <script>console.log('$trans');var lan='$lan';var i18n=$i18n2;</script>
         $:embScr("clipboard.min")
         $:embScr("sha512.min")

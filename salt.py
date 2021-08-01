@@ -19,6 +19,7 @@ from lang import (
 from ie import isIE
 from mycache import setCacheControl
 from settings import settings
+from langlink import genLangLink
 
 
 class Salt:
@@ -42,7 +43,8 @@ class Salt:
         web.header('Vary', vary)
         if s.webpageCacheTime is not None:
             setCacheControl(s.webpageCacheTime)
-        return te(lan, trans, i18n, embScr, addWikiLinkToText, i18n2, isIE)
+        return te(lan, trans, i18n, embScr, addWikiLinkToText, i18n2, isIE,
+                  genLangLink)
 
 
 if m:
