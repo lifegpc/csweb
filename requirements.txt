@@ -1,6 +1,6 @@
-polib
-requests
-web.py
-drawsvg
-PyYAML
-insta_api
+polib>=1.1.1
+requests>=2.26.0
+web.py>=0.62
+drawsvg>=1.8.2
+PyYAML>=5.4.1
+insta_api>=0.2.4
