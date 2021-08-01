@@ -41,11 +41,11 @@ jobs:
       - name: Download Closure Compiler
         run: curl -L "https://repo1.maven.org/maven2/com/google/javascript/closure-compiler/v20210601/closure-compiler-v20210601.jar" -o compiler.jar
 
+      - name: Install node modules
+        run: npm i
+
       - name: Compile
         run: ./compile.sh
-
-      - name: Install 7zip
-        run: sudo apt install p7zip-full
       
       - name: Package Output JS Files
         run: 7z -mx9 a js.7z js/*
