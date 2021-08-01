@@ -122,8 +122,13 @@ class main:
 
 
 if __name__ == "__main__":
-    if len(sys.argv) == 1:
-        main({}, [])
-    else:
-        ip, fl = gopt(sys.argv[1:])
-        main(ip, fl)
+    try:
+        if len(sys.argv) == 1:
+            main({}, [])
+        else:
+            ip, fl = gopt(sys.argv[1:])
+            main(ip, fl)
+    except:
+        from traceback import print_exc
+        print_exc()
+        sys.exit(1)
