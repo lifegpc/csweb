@@ -19,6 +19,7 @@ from lang import (
 )
 from settings import settings
 from mycache import setCacheControl
+from langlink import genLangLink
 
 
 class ClearBlankLines:
@@ -37,7 +38,7 @@ class ClearBlankLines:
         s.ReadSettings()
         if s.webpageCacheTime is not None:
             setCacheControl(s.webpageCacheTime)
-        return te(lan, i18n, trans, embScr)
+        return te(lan, i18n, trans, embScr, genLangLink)
 
 
 if m:

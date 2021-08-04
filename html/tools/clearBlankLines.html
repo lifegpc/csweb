@@ -1,4 +1,4 @@
-$def with (lan, i18n, trans, embScr)
+$def with (lan, i18n, trans, embScr, genLangLink)
 <!DOCTYPE html>
 <html lang="$lan">
     <head>
@@ -8,6 +8,7 @@ $def with (lan, i18n, trans, embScr)
         <meta name="author" content="lifegpc">
         <meta name="description" content="$i18n['DESC']">
         <meta name="keywords" content="tools">
+        $:genLangLink('/tools/clearBlankLines', ['en', 'ja', 'zh_CN', 'zh_TW'])
         <title>$i18n['TITLE']</title>
         <script>var lan="$lan";console.log("$trans");</script>
         $:embScr('clipboard.min')
