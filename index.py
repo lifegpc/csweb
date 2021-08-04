@@ -12,6 +12,9 @@ import web
 
 class hello:
     def GET(self, t):
+        if t == '/favicon.ico':
+            web.HTTPError('404 Not Found')
+            return ''
         if t != '/':
             web.HTTPError('301 Moved Permanently')
             web.header('Location', 'https://www.google.com/teapot')

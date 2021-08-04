@@ -17,6 +17,11 @@ def getdict(sn: str, lan: str) -> LanDict:
         fn = f"Language/{sn}.pot"
     else:
         fn = f"Language/{sn}.{lan}.po"
+    if not exists(fn) and lan.startswith('zh'):
+        if lan == 'zh_TW':
+            fn = f'Language/{sn}.zh_CN.po'
+        else:
+            fn = f'Language/{sn}.zh_TW.po'
     if not exists(fn):
         fn = f'Language/{sn}.pot'
         if not exists(fn):

@@ -1,0 +1,22 @@
+$def with (lan, trans, i18n, addWikiLinkToText, embScr, genLangLink)
+<!DOCTYPE html>
+<html lang="$lan">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">  
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta name="title" content="$i18n['TITLE']">
+        <meta name="author" content="lifegpc">
+        <meta name="description" content="Copyright (C) 2021  lifegpc">
+        <meta name="keywords" content="about,copyright">
+        <title>$i18n['TITLE']</title>
+        $:genLangLink('/about', ['en', 'ja', 'zh_CN', 'zh_TW'])
+        <script>var lan="$lan";console.log("$trans");</script>
+        $:embScr('about')
+    </head>
+    <body>
+        <p>Copyright (C) 2021  lifegpc</p>
+        <p>$:addWikiLinkToText(i18n['CP'].replace('<license>', '<a href="https://www.gnu.org/licenses/agpl-3.0.html">GNU Affero General Public License version 3</a>'), 'wikilink', 'en:GNU_Affero_General_Public_License', 'Q1131681', 'Wikipedia')</p>
+        <p>$i18n['SOURCE'].replace('<url>', '<a href="https://github.com/lifegpc/csweb">GitHub</a>')</p>
+        <p><a href="https://github.com/lifegpc/csweb/blob/master/third%20party.md">$i18n['TP']</a></p>
+    </body>
+</html>

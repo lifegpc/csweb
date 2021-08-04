@@ -1,0 +1,35 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: csweb\n"
+"POT-Creation-Date: 2021-08-03 02:54:00+0000\n"
+"PO-Revision-Date: 2021-08-04 10:34+0800\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.0\n"
+"Last-Translator: lifegpc <g1710431395@gmail.com>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: zh_TW\n"
+
+# Dear translator: place your name here if you like.
+# You can use , to separate two names
+msgctxt "TRANSLATOR"
+msgid "lifegpc"
+msgstr "lifegpc"
+
+msgctxt "TITLE"
+msgid "About this website"
+msgstr "關於此網站"
+
+msgctxt "CP"
+msgid "The code of this website is licensed under <license>(<wikilink>)."
+msgstr "此網站的原始碼根據<license>（<wikilink>）授權。"
+
+msgctxt "SOURCE"
+msgid "The source code can be found on <url>."
+msgstr "原始碼位於<url>。"
+
+msgctxt "TP"
+msgid "The infomation of third party libraries"
+msgstr "第三方庫資訊"

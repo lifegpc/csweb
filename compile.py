@@ -9,11 +9,11 @@ from json import loads
 
 
 def ph():
-    print("compile.py [-u] [-c] [-j <java location>] [-d] [-t file] [-W Error] [file list]")  # noqa: E501
+    print("compile.py [-u] [-c] [-j <java location>] [-d] [-t file] [-W Error] [-o Output] [file list]")  # noqa: E501
 
 
 def gopt(args: List[str]):
-    re = getopt(args, 'h?ucj:dt:W:', ['help', 'chrome', 'firefox'])
+    re = getopt(args, 'h?ucj:dt:W:o:', ['help', 'chrome', 'firefox'])
     rr = re[0]
     r = {}
     h = False
@@ -36,6 +36,8 @@ def gopt(args: List[str]):
             if 'W' not in r:
                 r['W'] = []
             r['W'].append(i[1])
+        if i[0] == '-o':
+            r['o'] = i[1]
     if h:
         ph()
         exit()
@@ -65,6 +67,9 @@ class main:
             self._t = ip['t']
         if 'W' in ip:
             self._W = ip['W']
+        self._o = None
+        if 'o' in ip:
+            self._o = ip['o']
         if not exists('js(origin)/'):
             raise FileNotFoundError('js(origin)/')
         if len(fl) == 0 and self._t is None:
@@ -109,6 +114,8 @@ class main:
             for w in self._W:
                 jsf += f' --jscomp_off "{w}"'
         nod = ' --module_resolution NODE --process_common_js_modules' if self._t else ''  # noqa: E501
+        if self._o is not None and self._o != '':
+            fn = self._o
         dcm = f' --create_source_map "js/{fn}.map"' if self._debug else ""
         cml = f'{self._java} -jar compiler.jar{jsf} --compilation_level ADVANCED_OPTIMIZATIONS{nod} --js_output_file "js/{fn}"{dcm}'  # noqa E501
         print(cml)

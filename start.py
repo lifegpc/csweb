@@ -24,6 +24,7 @@ from proxy.gen import ProxyGen  # noqa: F401
 from proxy.get import ProxyGet  # noqa: F401
 from proxy.list import ProxyList  # noqa: F401
 from proxy.proxy import ProxyProxy  # noqa: F401
+from about import About  # noqa: F401
 
 
 if __name__ != '__main__':
@@ -50,6 +51,7 @@ urls = (
     '^/proxy/get$', 'ProxyGet',
     '^/proxy/list$', 'ProxyList',
     '^/proxy/proxy$', 'ProxyProxy',
+    '^/about', 'About',
     '(/.*)', 'hello',
 )
 
