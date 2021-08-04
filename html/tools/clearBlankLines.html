@@ -1,0 +1,23 @@
+$def with (lan, i18n, trans, embScr)
+<!DOCTYPE html>
+<html lang="$lan">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">  
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta name="title" content="$i18n['TITLE']">
+        <meta name="author" content="lifegpc">
+        <meta name="description" content="$i18n['DESC']">
+        <meta name="keywords" content="tools">
+        <title>$i18n['TITLE']</title>
+        <script>var lan="$lan";console.log("$trans");</script>
+        $:embScr('clipboard.min')
+        $:embScr('tools/clearBlankLines')
+    </head>
+    <body>
+        $i18n['INPUT']<br/>
+        <textarea id="inp" style="width: calc(100% - 20px); margin-left: 10px; height: calc(50vh - 52px); min-height: 100px;"></textarea><br/>
+        <input type="button" id="gen" value="$i18n['REM']"><input type="button" id="cp" value="$i18n['CP']" data-clipboard-action='copy' data-clipboard-target="#o"><br/>
+        $i18n['RE']<br/>
+        <textarea id="o" style="width: calc(100% - 20px); margin-left: 10px; height: calc(50vh - 52px); min-height: 100px;"></textarea>
+    </body>
+</html>

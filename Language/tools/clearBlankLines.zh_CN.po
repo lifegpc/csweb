@@ -1,0 +1,43 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: csweb\n"
+"POT-Creation-Date: 2021-08-03 02:54:00+0000\n"
+"PO-Revision-Date: 2021-08-04 15:24+0800\n"
+"Last-Translator: lifegpc <g1710431395@gmail.com>\n"
+"Language-Team: \n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.0\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+# Dear translator: place your name here if you like.
+# You can use , to separate two names
+msgctxt "TRANSLATOR"
+msgid "lifegpc"
+msgstr "lifegpc"
+
+msgctxt "TITLE"
+msgid "Remove blank lines in text"
+msgstr "去除文本中的空行"
+
+msgctxt "DESC"
+msgid "A simple tool that can remove blank lines in text"
+msgstr "一个去除文本中的空行的小工具"
+
+msgctxt "INPUT"
+msgid "Input:"
+msgstr "输入："
+
+msgctxt "REM"
+msgid "Remove blank lines"
+msgstr "去除空行"
+
+msgctxt "CP"
+msgid "Copy result to clipboard"
+msgstr "复制结果到剪贴板"
+
+msgctxt "RE"
+msgid "Result:"
+msgstr "结果："

@@ -4,6 +4,8 @@ if abspath(dirname(__file__)) not in sys.path:
     from os import chdir
     chdir(abspath(dirname(__file__)))
     sys.path.append(abspath("."))
+    sys.path.append(abspath('proxy'))
+    sys.path.append(abspath('tools'))
 import web
 from index import hello  # noqa: F401
 from cfwProfile import CfwProfile  # noqa: F401
@@ -25,11 +27,7 @@ from proxy.get import ProxyGet  # noqa: F401
 from proxy.list import ProxyList  # noqa: F401
 from proxy.proxy import ProxyProxy  # noqa: F401
 from about import About  # noqa: F401
-
-
-if __name__ != '__main__':
-    from os import chdir
-    chdir(dirname(__file__))
+from tools.clearBlankLines import ClearBlankLines  # noqa: F401
 
 
 urls = (
@@ -52,6 +50,7 @@ urls = (
     '^/proxy/list$', 'ProxyList',
     '^/proxy/proxy$', 'ProxyProxy',
     '^/about', 'About',
+    '^/tools/clearBlankLines$', 'ClearBlankLines',
     '(/.*)', 'hello',
 )
 
