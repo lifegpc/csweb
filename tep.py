@@ -16,7 +16,7 @@ def embScr(name: str) -> str:
         return f'<script>{t}</script>'.replace('\n', '')
     except:
         pass
-    return f'<script src="{fn}"></script>'
+    return f'<script src="/{fn}"></script>'
 
 
 def addWikiLinkToText(s: str, key: str, itemName: str, itemId: str,
