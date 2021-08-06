@@ -59,3 +59,26 @@ jobs:
         with:
           name: js-file
           path: ./js.7z
+
+  test:
+    env:
+      PYTHONUNBUFFERED: x
+    runs-on: ubuntu-20.04
+    defaults:
+      run:
+        shell: bash
+    needs: closure-compiler
+    steps:
+      - name: Check Out
+        uses: actions/checkout@v2
+
+      - name: Download JS File
+        uses: actions/download-artifact@v2
+        with:
+          name: js-file
+      
+      - name: Extract 7z File
+        run: 7z x js.7z
+
+      - name: Run Tests
+        run: python3 run_test.py

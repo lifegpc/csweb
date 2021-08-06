@@ -1,0 +1,6 @@
+- name: hashl
+  level: error
+  test_file: hashl.py
+- name: sign
+  level: error
+  test_file: sign.py
