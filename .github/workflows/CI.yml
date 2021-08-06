@@ -80,5 +80,8 @@ jobs:
       - name: Extract 7z File
         run: 7z x js.7z
 
+      - name: Install Python Modules
+        run: python3 -m pip install --upgrade requirements.txt
+
       - name: Run Tests
         run: python3 run_test.py
