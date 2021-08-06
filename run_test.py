@@ -7,16 +7,23 @@ from traceback import print_exc
 from subprocess import Popen
 from requests import Session
 from time import sleep
+from os import remove
 
 
 class main():
     VAILD_LEVELS = ['error', 'warning']
-    VALID_NEEDS = ['server']
+    VALID_NEEDS = ['server', 'settings']
 
     def __init__(self):
         self._server = None
         self._ses = Session()
         self._ses.trust_env = False
+        self._settings = []
+
+    def backupSettings(self):
+        if exists('settings.json'):
+            with open('settings.json', 'r', encoding='UTF-8') as f:
+                self._settings.append(f.read())
 
     def checkServer(self) -> bool:
         try:
@@ -64,6 +71,24 @@ class main():
             print('Kill server')
             self._server.kill()
 
+    def removeSettings(self):
+        try:
+            if exists('settings.json'):
+                remove('settings.json')
+        except:
+            pass
+
+    def restoreSettings(self):
+        try:
+            s = self._settings.pop()
+            if s is not None:
+                with open('settings.json', 'w', encoding='UTF-8') as f:
+                    f.write(s)
+            else:
+                self.removeSettings()
+        except Exception:
+            self.removeSettings()
+
     def run(self) -> int:
         self.tests = loadyaml(open('tests.yaml', 'r', encoding='UTF-8'),
                               CSafeLoader)
@@ -91,6 +116,7 @@ class main():
         return 0 if err_num == 0 else 1
 
     def run_test(self, test: Dict[str, Any]) -> bool:
+        store_settings = False
         with open(f"tests/{test['test_file']}", 'r', encoding='UTF-8') as f:
             t = f.read()
         try:
@@ -102,10 +128,17 @@ class main():
                         r = self.wait_server()
                         if r is False:
                             return False
+                if 'settings' in ns:
+                    self.backupSettings()
+                    store_settings = True
             exec(t, {}, {})
+            if store_settings:
+                self.restoreSettings()
             return True
         except Exception:
             print_exc()
+            if store_settings:
+                self.restoreSettings()
             return False
 
     def start_server(self) -> bool:

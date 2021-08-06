@@ -12,3 +12,9 @@
   level: error
   test_file: salt.py
   needs: server
+- name: proxy
+  level: error
+  test_file: proxy.py
+  needs:
+    - server
+    - settings

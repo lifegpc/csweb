@@ -1,3 +1,7 @@
+from json import load, dump
+from os.path import exists
+
+
 class DebugList:
     def __bool__(self):
         return self._i >= len(self._tl)
@@ -26,3 +30,13 @@ def debug(*args, dl: DebugList):
     n = dl.next()
     if t != n:
         raise ValueError(f'Unexcepted value.\nNeeded Value: {n}')
+
+
+def set_settings(key: str, value):
+    t = {}
+    if exists('settings.json'):
+        with open('settings.json', 'r', encoding='UTF-8') as f:
+            t = load(f)
+    t[key] = value
+    with open('settings.json', 'w', encoding='UTF-8') as f:
+        dump(t, f, ensure_ascii=False)

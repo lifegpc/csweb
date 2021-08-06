@@ -1,0 +1,16 @@
+Get []
+Get true
+Get true
+Get true
+Get true
+Get false
+Get test1
+cookies = {"tes":"1","a":"3"}
+headers = {"test":"1","a":"2"}
+Get test2
+cookies = {"te":"3","a":"1"}
+headers = {"test":"2","a":"4"}
+Get true
+Get false
+Get ["test1"]
+Get true
