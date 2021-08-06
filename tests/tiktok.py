@@ -12,6 +12,7 @@ SEC2 = 'esdd1234'
 DB = 'tiktokdebug.db'
 USERNAME = 'yui_ogura_offcial'
 VID = '6945812541574499585'
+VID2 = '6992419824760671489'
 set_settings('tiktokRSSSecrets', SEC1)
 set_settings('tiktokDatabaseLocation', DB)
 set_settings('RSSProxySerects', SEC2)
@@ -31,8 +32,8 @@ if re.status_code != 302:
     raise ValueError(f"{re.status_code} {re.reason}")
 print(f"Get proxy link: {re.headers['location']}")
 print("Get video's link with VID and username:")
-re = r.getWithSign('/tiktokRSS', {"vid": [VID], 'u': [USERNAME], 't': ['url']},
-                   allow_redirects=False)
+re = r.getWithSign('/tiktokRSS', {"vid": [VID2], 'u': [USERNAME],
+                                  't': ['url']}, allow_redirects=False)
 if re.status_code != 302:
     print(re.text)
     raise ValueError(f"{re.status_code} {re.reason}")
