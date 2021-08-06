@@ -81,7 +81,7 @@ jobs:
         run: 7z x js.7z
 
       - name: Install Python Modules
-        run: python3 -m pip install --upgrade requirements.txt
+        run: python3 -m pip install --upgrade -r requirements.txt
 
       - name: Run Tests
         run: python3 run_test.py
