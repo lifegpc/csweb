@@ -18,3 +18,9 @@
   needs:
     - server
     - settings
+- name: tiktok
+  level: warning
+  test_file: tiktok.py
+  needs:
+    - server
+    - settings
