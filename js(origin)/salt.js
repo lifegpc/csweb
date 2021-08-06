@@ -3,6 +3,7 @@ const md5 = require("blueimp-md5")
 const sha256 = require("sha256")
 const sha224m = require("@stablelib/sha224")
 const arrayBufferToHex = require('array-buffer-to-hex')
+const sha1 = require("sha1")
 
 /**
  * Calculate sha224
@@ -241,6 +242,7 @@ window.addEventListener('load', () => {
         var hashs = "";
         var sha512 = window["sha512"];
         if (hat == "md5") hashs = md5(cn);
+        else if (hat == "sha1") hashs = sha1(cn);
         else if (hat == "sha224") hashs = sha224(cn);
         else if (hat == "sha512-224") hashs = sha512["sha512_224"](cn);
         else if (hat == "sha256") hashs = sha256(cn);
