@@ -1,6 +1,20 @@
 const { Base64 } = require("js-base64")
 const md5 = require("blueimp-md5")
 const sha256 = require("sha256")
+const sha224m = require("@stablelib/sha224")
+const arrayBufferToHex = require('array-buffer-to-hex')
+
+/**
+ * Calculate sha224
+ * @param {string} s Input string
+ * @returns {string}
+ */
+function sha224(s) {
+    let enc = new TextEncoder();
+    let arr = enc.encode(s);
+    let h = sha224m.hash(arr);
+    return arrayBufferToHex(h.buffer);
+}
 
 /**
  * 比较Query
@@ -227,7 +241,8 @@ window.addEventListener('load', () => {
         var hashs = "";
         var sha512 = window["sha512"];
         if (hat == "md5") hashs = md5(cn);
-        else if (hat == "sha224") hashs = sha512["sha512_224"](cn);
+        else if (hat == "sha224") hashs = sha224(cn);
+        else if (hat == "sha512-224") hashs = sha512["sha512_224"](cn);
         else if (hat == "sha256") hashs = sha256(cn);
         else if (hat == "sha512-256") hashs = sha512["sha512_256"](cn);
         else if (hat == "sha384") hashs = sha512["sha384"](cn);
