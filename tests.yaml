@@ -18,6 +18,10 @@
   needs:
     - server
     - settings
+- name: clearBlankLines
+  level: error
+  test_file: tools/clearBlankLines.py
+  needs: server
 - name: tiktok
   level: warning
   test_file: tiktok.py
