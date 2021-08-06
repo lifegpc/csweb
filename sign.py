@@ -10,6 +10,7 @@ def genSign(sercet: str, qd: ParseQsResult, t: int = SHA512_TYPE):
     keys = sorted(keys)
     for k in keys:
         if k != 'sign' and qd[k] is not None:
+            qd[k].sort()
             for qv in qd[k]:
                 v = f"{q(k)}={q(qv)}"
                 para = v if para == '' else f"{para}&{v}"
