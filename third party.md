@@ -7,6 +7,7 @@
 |`closure-calculate-chunks`|Apache License 2.0|[GitHub](https://github.com/ChadKillingsworth/closure-calculate-chunks)|
 |`js-base64`|[BSD-3-Clause License](https://github.com/dankogai/js-base64/blob/main/LICENSE.md)|[GitHub](https://github.com/dankogai/js-base64)|
 |`js-sha512`|[MIT License](https://github.com/emn178/js-sha512/blob/master/LICENSE.txt)|[GitHub](https://github.com/emn178/js-sha512)|
+|`sha256`|[MIT License](https://www.npmjs.com/package/sha256#license)|[GitHub](https://github.com/cryptocoinjs/sha256)|
 ## Python Module
 | Name | License | Repo |
 |:----:|:-------:|:----:|

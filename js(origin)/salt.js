@@ -1,5 +1,6 @@
 const { Base64 } = require("js-base64")
 const md5 = require("blueimp-md5")
+const sha256 = require("sha256")
 
 /**
  * 比较Query
@@ -227,7 +228,8 @@ window.addEventListener('load', () => {
         var sha512 = window["sha512"];
         if (hat == "md5") hashs = md5(cn);
         else if (hat == "sha224") hashs = sha512["sha512_224"](cn);
-        else if (hat == "sha256") hashs = sha512["sha512_256"](cn);
+        else if (hat == "sha256") hashs = sha256(cn);
+        else if (hat == "sha512-256") hashs = sha512["sha512_256"](cn);
         else if (hat == "sha384") hashs = sha512["sha384"](cn);
         else if (hat == "sha512") hashs = sha512["sha512"](cn);
         else {
