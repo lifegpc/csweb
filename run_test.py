@@ -24,6 +24,7 @@ class main():
         if exists('settings.json'):
             with open('settings.json', 'r', encoding='UTF-8') as f:
                 self._settings.append(f.read())
+            remove('settings.json')
 
     def checkServer(self) -> bool:
         try:
