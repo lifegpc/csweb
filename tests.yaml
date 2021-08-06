@@ -4,3 +4,11 @@
 - name: sign
   level: error
   test_file: sign.py
+- name: about
+  level: error
+  test_file: about.py
+  needs: server
+- name: salt
+  level: error
+  test_file: salt.py
+  needs: server

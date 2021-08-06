@@ -1,13 +1,29 @@
 import sys
 from yaml import load as loadyaml, CSafeLoader
-from typing import Dict, Any
+from typing import Dict, Any, List
 from json import dumps
 from os.path import exists
 from traceback import print_exc
+from subprocess import Popen
+from requests import Session
+from time import sleep
 
 
 class main():
     VAILD_LEVELS = ['error', 'warning']
+    VALID_NEEDS = ['server']
+
+    def __init__(self):
+        self._server = None
+        self._ses = Session()
+        self._ses.trust_env = False
+
+    def checkServer(self) -> bool:
+        try:
+            r = self._ses.get('http://127.0.0.1:2600/')
+            return False if r.status_code >= 400 else True
+        except Exception:
+            return False
 
     def checkTest(self, test: Dict[str, Any]):
         if 'name' not in test or test['name'] is None or not isinstance(
@@ -23,6 +39,30 @@ class main():
                 f'Test must have a vaild test_file: {dumps(test)}')
         if not exists(f"tests/{test['test_file']}"):
             raise ValueError(f"Can not find file: {dumps(test)}")
+        self.get_needs(test)
+
+    def get_needs(self, test: Dict[str, Any]) -> List[str]:
+        if 'needs' not in test or test['needs'] is None:
+            return None
+        if isinstance(test['needs'], str):
+            s = test['needs']
+            if s in self.VALID_NEEDS:
+                return [s]
+        elif isinstance(test['needs'], list):
+            ok = True
+            for i in test['needs']:
+                if i not in self.VALID_NEEDS:
+                    ok = False
+            if ok:
+                return test['needs']
+        raise ValueError(f"Test don't have a vaild needs: {dumps(test)}" + '\n' + f"All vaild needs: {', '.join(self.VALID_NEEDS)}")  # noqa: E501
+
+    def kill_server(self):
+        if self._server is None:
+            return
+        if self._server.poll() is None:
+            print('Kill server')
+            self._server.kill()
 
     def run(self) -> int:
         self.tests = loadyaml(open('tests.yaml', 'r', encoding='UTF-8'),
@@ -33,6 +73,7 @@ class main():
         warn_num = 0
         suc = 0
         fail = 0
+        self.start_server()
         for test in self.tests:
             if self.run_test(test):
                 suc += 1
@@ -42,6 +83,7 @@ class main():
                     warn_num += 1
                 else:
                     err_num += 1
+        self.kill_server()
         pt = f'Run {suc + fail} tests, {suc} successed, {fail} failed.'
         if fail != 0:
             pt += f' ({warn_num} Warnings, {err_num} Errors)'
@@ -53,11 +95,36 @@ class main():
             t = f.read()
         try:
             print(f"Run {test['name']} (tests/{test['test_file']})")
+            ns = self.get_needs(test)
+            if ns:
+                if 'server' in ns:
+                    if not self.checkServer():
+                        r = self.wait_server()
+                        if r is False:
+                            return False
             exec(t, {}, {})
             return True
         except Exception:
             print_exc()
             return False
+
+    def start_server(self) -> bool:
+        if self._server is not None:
+            return False
+        print('Try start server')
+        self._server = Popen([sys.executable, 'start.py'])
+
+    def wait_server(self):
+        print('Wait server started')
+        r = self._server.poll()
+        if r is not None:
+            print(f'Server process already exited with {r}')
+            return False
+        r = self.checkServer()
+        while not r:
+            sleep(1)
+            r = self.checkServer()
+        return True
 
 
 if __name__ == '__main__':
