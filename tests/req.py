@@ -49,5 +49,5 @@ class Req:
             r = urlparse(path)
             path = urlunparse(ParseResult(r[0], r[1], r[2], r[3],
                                           urlencode(p, doseq=True), r[5]))
-            return self.request('get', path)
-        return self.request(method, path, data=p)
+            return self.request('get', path, **k)
+        return self.request(method, path, data=p, **k)
