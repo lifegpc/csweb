@@ -98,3 +98,11 @@ msgstr ""
 msgctxt "OPPN"
 msgid "The parameter name of the signature:"
 msgstr ""
+
+msgctxt "SECKEY"
+msgid "Secret key:"
+msgstr ""
+
+msgctxt "NOSKEY"
+msgid "Secret key required."
+msgstr ""

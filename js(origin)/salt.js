@@ -1,3 +1,4 @@
+/// <reference path="element.js"/>
 const { Base64 } = require("js-base64")
 const md5 = require("lifegpc-md5")
 const sha256 = require("sha256")
@@ -69,8 +70,35 @@ window.addEventListener('load', () => {
     var pas = document.getElementById('pas');
     /**@type {HTMLInputElement}*/
     var sal = document.getElementById('sal');
-    /**@type {HTMLInputElement}*/
+    /**@type {HTMLSelectElement}*/
     var sel = document.getElementById('sel');
+    let skeyd = document.getElementById('skeyd');
+    /**@type {HTMLInputElement}*/
+    let skey = document.getElementById('skey');
+    /**
+     * 检查选择的散列算法
+     * @returns {boolean} true if is HMAC
+     */
+    function checkTypeSelect() {
+        if (sel.selectedIndex > -1) {
+            let e = sel.selectedOptions;
+            if (e.length) {
+                let ele = e[0];
+                if (ele.parentElement.constructor.name == 'HTMLOptGroupElement') {
+                    /**@type {HTMLOptGroupElement}*/
+                    let p = ele.parentElement;
+                    if (p.label == 'HMAC') {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    sel.addEventListener('input', () => {
+        if (checkTypeSelect()) showElement(skeyd); else hideElement(skeyd);
+    })
+    if (checkTypeSelect()) showElement(skeyd); else hideElement(skeyd);
     /**@type {HTMLButtonElement}*/
     var cl = document.getElementById('cl');
     /**@type {HTMLTextAreaElement}*/
@@ -238,6 +266,15 @@ window.addEventListener('load', () => {
         var pass = pas.value;
         var salt = api.checked ? genParaStr(paral) : sal.value;
         var hat = sel.value;
+        let isHMAC = checkTypeSelect();
+        let key = "";
+        if (isHMAC) {
+            if (!skey.value.length) {
+                alert(i18n['NOSKEY']);
+                return;
+            }
+            key = skey.value;
+        }
         var cn = loc.checked ? salt + pass : pass + salt;
         var hashs = "";
         var sha512 = window["sha512"];
@@ -249,6 +286,7 @@ window.addEventListener('load', () => {
         else if (hat == "sha512-256") hashs = sha512["sha512_256"](cn);
         else if (hat == "sha384") hashs = sha512["sha384"](cn);
         else if (hat == "sha512") hashs = sha512["sha512"](cn);
+        else if (hat == "hmac-md5") hashs = md5.HmacMD5(key, cn);
         else {
             alert(i18n["UKNHASH"]);
             return;
