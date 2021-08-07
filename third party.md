@@ -2,7 +2,6 @@
 ## Node.js Module
 | Name | License | Repo |
 |:----:|:-------:|:---------:|
-|`blueimp-md5`|[MIT License](https://github.com/blueimp/JavaScript-MD5/blob/master/LICENSE.txt)|[GitHub](https://github.com/blueimp/JavaScript-MD5)|
 |`clipboard`|[MIT License](https://github.com/zenorocha/clipboard.js/blob/master/LICENSE)|[GitHub](https://github.com/zenorocha/clipboard.js)|
 |`closure-calculate-chunks`|Apache License 2.0|[GitHub](https://github.com/ChadKillingsworth/closure-calculate-chunks)|
 |`js-base64`|[BSD-3-Clause License](https://github.com/dankogai/js-base64/blob/main/LICENSE.md)|[GitHub](https://github.com/dankogai/js-base64)|
@@ -11,6 +10,7 @@
 |`@stablelib/sha224`|[MIT License](https://github.com/StableLib/stablelib/blob/master/packages/sha224/LICENSE)|[GitHub](https://github.com/StableLib/stablelib/tree/master/packages/sha224)|
 |`array-buffer-to-hex`|MIT License|[GitHub](https://github.com/LinusU/array-buffer-to-hex)|
 |`sha1`|[BSD-3-Clause License](https://github.com/pvorb/node-sha1/blob/master/LICENSE)|[GitHub](https://github.com/pvorb/node-sha1)|
+|`lifegpc-md5`|[MIT License](https://github.com/lifegpc/lifegpc-md5/blob/master/LICENSE)|[GitHub](https://github.com/lifegpc/lifegpc-md5)|
 ## Python Module
 | Name | License | Repo |
 |:----:|:-------:|:----:|
