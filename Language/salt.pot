@@ -106,3 +106,19 @@ msgstr ""
 msgctxt "NOSKEY"
 msgid "Secret key required."
 msgstr ""
+
+msgctxt "SHOWX"
+msgid "Show <sth>"
+msgstr ""
+
+msgctxt "HIDEX"
+msgid "Hide <sth>"
+msgstr ""
+
+msgctxt "SEK"
+msgid "secret key"
+msgstr ""
+
+msgctxt "PAS"
+msgid "password"
+msgstr ""

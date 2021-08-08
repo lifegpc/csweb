@@ -21,9 +21,9 @@ $code:
         $:embScr("salt")
     </head>
     <body>
-        $i18n['PASS']<input id="pas" type="password" minlength="8" autocomplete="new-password" tabindex="1"><br/>
+        $i18n['PASS']<input id="pas" type="password" minlength="8" autocomplete="new-password" tabindex="1"><input class="showpas" target="pas" type="button" value="$i18n['SHOWX'].replace('<sth>', i18n['PAS'])" tran-key="PAS"><br/>
         $:addWikiLinkToText(i18n["SALT2"], "salt", "en:Salt (cryptography)", "Q1500258", i18n["SALT"])<input id="sal" tabindex="2"><br/>
-        <div id="skeyd" style="display: none;">$i18n['SECKEY']<input id="skey" type="text"><br/></div>
+        <div id="skeyd" style="display: none;">$i18n['SECKEY']<input id="skey" type="text"><input class="showpas" target="skey" type="button" value="$i18n['HIDEX'].replace('<sth>', i18n['SEK'])" tran-key="SEK"><br/></div>
         <div id="apid">$i18n['PARA']<div id="apidl"></div>$i18n['PRE']<label id="apipre" style="line-break: anywhere;"></label></div>
         $:addWikiLinkToText(i18n['HASHF2'], "hashf", "en:Hash function", "Q183427", i18n['HASHF'])<select id="sel" tabindex="5">
             <option value="md5">md5</option>

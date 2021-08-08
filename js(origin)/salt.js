@@ -1,4 +1,5 @@
 /// <reference path="element.js"/>
+/// <reference path="i18n.js"/>
 const { Base64 } = require("js-base64")
 const md5 = require("lifegpc-md5")
 const sha256 = require("sha256")
@@ -299,4 +300,44 @@ window.addEventListener('load', () => {
             o.value = sp.toString();
         }
     })
+    /**@type {HTMLCollectionOf<HTMLInputElement>} */
+    let showpasl = document.getElementsByClassName('showpas');
+    for (let i = 0; i < showpasl.length; i++) {
+        let showpas = showpasl[i];
+        showpas.addEventListener('click', (ev) => {
+            /**@type {HTMLInputElement}*/
+            let t = ev.target;
+            let targetN = t.getAttribute('target');
+            if (!targetN) {
+                console.error('Can not find "target" attribute.', t);
+                return;
+            }
+            /**@type {HTMLInputElement}*/
+            let target = document.getElementById(targetN);
+            if (!target) {
+                console.error('Can not find target "' + targetN + '".', t);
+                return;
+            }
+            let tranKey = t.getAttribute('tran-key');
+            if (!tranKey) {
+                console.error('Can not find "tarn-key" attribute.', t);
+                return;
+            }
+            let i18n = window['i18n'];
+            let i18nN = Object.getOwnPropertyNames(i18n);
+            if (i18nN.indexOf(tranKey) == -1) {
+                console.error('Can not find translate key "' + tranKey + '".', t);
+                return;
+            }
+            if (target.type == "password") {
+                target.type = 'text';
+                t.value = i18nReplace(i18n['HIDEX'], { 'sth': i18n[tranKey] });
+            } else if (target.type == 'text') {
+                target.type = 'password';
+                t.value = i18nReplace(i18n['SHOWX'], { 'sth': i18n[tranKey] });
+            } else {
+                console.error('Unknown type "' + target.type + '".', t, target);
+            }
+        })
+    }
 })
