@@ -287,6 +287,7 @@ window.addEventListener('load', () => {
         else if (hat == "sha384") hashs = sha512["sha384"](cn);
         else if (hat == "sha512") hashs = sha512["sha512"](cn);
         else if (hat == "hmac-md5") hashs = md5.HmacMD5(key, cn);
+        else if (hat == "hmac-sha1") hashs = sha1.HmacSHA1(key, cn);
         else {
             alert(i18n["UKNHASH"]);
             return;
