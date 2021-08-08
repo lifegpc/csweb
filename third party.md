@@ -9,8 +9,8 @@
 |`sha256`|[MIT License](https://www.npmjs.com/package/sha256#license)|[GitHub](https://github.com/cryptocoinjs/sha256)|
 |`@stablelib/sha224`|[MIT License](https://github.com/StableLib/stablelib/blob/master/packages/sha224/LICENSE)|[GitHub](https://github.com/StableLib/stablelib/tree/master/packages/sha224)|
 |`array-buffer-to-hex`|MIT License|[GitHub](https://github.com/LinusU/array-buffer-to-hex)|
-|`sha1`|[BSD-3-Clause License](https://github.com/pvorb/node-sha1/blob/master/LICENSE)|[GitHub](https://github.com/pvorb/node-sha1)|
 |`lifegpc-md5`|[MIT License](https://github.com/lifegpc/lifegpc-md5/blob/master/LICENSE)|[GitHub](https://github.com/lifegpc/lifegpc-md5)|
+|`lifegpc-sha1`|[MIT License](https://github.com/lifegpc/lifegpc-sha1/blob/master/LICENSE)|[GitHub](https://github.com/lifegpc/lifegpc-sha1)|
 ## Python Module
 | Name | License | Repo |
 |:----:|:-------:|:----:|
