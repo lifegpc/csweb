@@ -11,6 +11,7 @@
 |`array-buffer-to-hex`|MIT License|[GitHub](https://github.com/LinusU/array-buffer-to-hex)|
 |`lifegpc-md5`|[MIT License](https://github.com/lifegpc/lifegpc-md5/blob/master/LICENSE)|[GitHub](https://github.com/lifegpc/lifegpc-md5)|
 |`lifegpc-sha1`|[MIT License](https://github.com/lifegpc/lifegpc-sha1/blob/master/LICENSE)|[GitHub](https://github.com/lifegpc/lifegpc-sha1)|
+|`@stablelib/hmac`|[MIT License](https://github.com/StableLib/stablelib/blob/master/packages/hmac/LICENSE)|[GitHub](https://github.com/StableLib/stablelib/tree/master/packages/hmac)|
 ## Python Module
 | Name | License | Repo |
 |:----:|:-------:|:----:|
