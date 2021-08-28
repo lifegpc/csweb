@@ -13,6 +13,7 @@
 |`@stablelib/hmac`|[MIT License](https://github.com/StableLib/stablelib/blob/master/packages/hmac/LICENSE)|[GitHub](https://github.com/StableLib/stablelib/tree/master/packages/hmac)|
 |`sha512-224`|[MIT License](https://github.com/lifegpc/lifegpc-sha512-224/blob/master/LICENSE)|[GitHub](https://github.com/lifegpc/lifegpc-sha512-224)|
 |`@stablelib/sha256`|[MIT License](https://github.com/StableLib/stablelib/blob/master/packages/sha256/LICENSE)|[GitHub](https://github.com/StableLib/stablelib/tree/master/packages/sha256)|
+|`@stablelib/sha512_256`|[MIT License](https://github.com/StableLib/stablelib/blob/master/packages/sha512_256/LICENSE)|[GitHub](https://github.com/StableLib/stablelib/tree/master/packages/sha512_256)|
 ## Python Module
 | Name | License | Repo |
 |:----:|:-------:|:----:|

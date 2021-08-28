@@ -8,6 +8,7 @@ const arrayBufferToHex = require('array-buffer-to-hex')
 const sha1 = require("lifegpc-sha1")
 const hmac = require("@stablelib/hmac");
 const sha512_224 = require("sha512-224");
+const sha512_256m = require("@stablelib/sha512_256");
 
 /**
  * Calculate sha224
@@ -30,6 +31,18 @@ function sha224(s) {
     let enc = new TextEncoder();
     let arr = enc.encode(s);
     let h = sha256m.hash(arr);
+    return arrayBufferToHex(h.buffer);
+}
+
+/**
+ * Calculate sha512/256
+ * @param {string} s Input string
+ * @returns {string}
+ */
+ function sha512_256(s) {
+    let enc = new TextEncoder();
+    let arr = enc.encode(s);
+    let h = sha512_256m.hash(arr);
     return arrayBufferToHex(h.buffer);
 }
 
@@ -75,6 +88,28 @@ function hmacSHA256(key, data) {
     let k = enc.encode(key);
     let d = enc.encode(data);
     let h = hmacSHA256R(k, d);
+    return arrayBufferToHex(h.buffer);
+}
+
+/**
+ * @param {Uint8Array} key 
+ * @param {Uint8Array} data 
+ * @returns {Uint8Array}
+ */
+ function hmacSHA512_256R(key, data) {
+    return hmac.hmac(sha512_256m.SHA512_256, key, data);
+}
+
+/**
+ * @param {String} key 
+ * @param {String} data 
+ * @returns {String}
+ */
+function hmacSHA512_256(key, data) {
+    let enc = new TextEncoder();
+    let k = enc.encode(key);
+    let d = enc.encode(data);
+    let h = hmacSHA512_256R(k, d);
     return arrayBufferToHex(h.buffer);
 }
 
@@ -343,7 +378,7 @@ window.addEventListener('load', () => {
         else if (hat == "sha224") hashs = sha224(cn);
         else if (hat == "sha512-224") hashs = sha512_224.sha512_224(cn);
         else if (hat == "sha256") hashs = sha256(cn);
-        else if (hat == "sha512-256") hashs = sha512["sha512_256"](cn);
+        else if (hat == "sha512-256") hashs = sha512_256(cn);
         else if (hat == "sha384") hashs = sha512["sha384"](cn);
         else if (hat == "sha512") hashs = sha512["sha512"](cn);
         else if (hat == "hmac-md5") hashs = md5.HmacMD5(key, cn);
@@ -351,6 +386,7 @@ window.addEventListener('load', () => {
         else if (hat == "hmac-sha224") hashs = hmacSHA224(key, cn);
         else if (hat == "hmac-sha512-224") hashs = sha512_224.HmacSHA512_224(key, cn);
         else if (hat == "hmac-sha256") hashs = hmacSHA256(key, cn);
+        else if (hat == "hmac-sha512-256") hashs = hmacSHA512_256(key, cn);
         else {
             alert(i18n["UKNHASH"]);
             return;

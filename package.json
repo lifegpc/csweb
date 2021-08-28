@@ -3,6 +3,7 @@
     "@stablelib/hmac": "^1.0.1",
     "@stablelib/sha224": "^1.0.1",
     "@stablelib/sha256": "^1.0.1",
+    "@stablelib/sha512_256": "^1.0.1",
     "array-buffer-to-hex": "^1.0.0",
     "clipboard": "^2.0.8",
     "closure-calculate-chunks": "^3.0.2",
