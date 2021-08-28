@@ -7,6 +7,7 @@ const sha224m = require("@stablelib/sha224")
 const arrayBufferToHex = require('array-buffer-to-hex')
 const sha1 = require("lifegpc-sha1")
 const hmac = require("@stablelib/hmac");
+const sha512_224 = require("sha512-224");
 
 /**
  * Calculate sha224
@@ -306,7 +307,7 @@ window.addEventListener('load', () => {
         if (hat == "md5") hashs = md5.md5(cn);
         else if (hat == "sha1") hashs = sha1.sha1(cn);
         else if (hat == "sha224") hashs = sha224(cn);
-        else if (hat == "sha512-224") hashs = sha512["sha512_224"](cn);
+        else if (hat == "sha512-224") hashs = sha512_224.sha512_224(cn);
         else if (hat == "sha256") hashs = sha256(cn);
         else if (hat == "sha512-256") hashs = sha512["sha512_256"](cn);
         else if (hat == "sha384") hashs = sha512["sha384"](cn);
@@ -314,6 +315,7 @@ window.addEventListener('load', () => {
         else if (hat == "hmac-md5") hashs = md5.HmacMD5(key, cn);
         else if (hat == "hmac-sha1") hashs = sha1.HmacSHA1(key, cn);
         else if (hat == "hmac-sha224") hashs = HmacSHA224(key, cn);
+        else if (hat == "hmac-sha512-224") hashs = sha512_224.HmacSHA512_224(key, cn);
         else {
             alert(i18n["UKNHASH"]);
             return;
