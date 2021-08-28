@@ -5,7 +5,6 @@
 |`clipboard`|[MIT License](https://github.com/zenorocha/clipboard.js/blob/master/LICENSE)|[GitHub](https://github.com/zenorocha/clipboard.js)|
 |`closure-calculate-chunks`|Apache License 2.0|[GitHub](https://github.com/ChadKillingsworth/closure-calculate-chunks)|
 |`js-base64`|[BSD-3-Clause License](https://github.com/dankogai/js-base64/blob/main/LICENSE.md)|[GitHub](https://github.com/dankogai/js-base64)|
-|`js-sha512`|[MIT License](https://github.com/emn178/js-sha512/blob/master/LICENSE.txt)|[GitHub](https://github.com/emn178/js-sha512)|
 |`@stablelib/sha224`|[MIT License](https://github.com/StableLib/stablelib/blob/master/packages/sha224/LICENSE)|[GitHub](https://github.com/StableLib/stablelib/tree/master/packages/sha224)|
 |`array-buffer-to-hex`|MIT License|[GitHub](https://github.com/LinusU/array-buffer-to-hex)|
 |`lifegpc-md5`|[MIT License](https://github.com/lifegpc/lifegpc-md5/blob/master/LICENSE)|[GitHub](https://github.com/lifegpc/lifegpc-md5)|
@@ -14,6 +13,8 @@
 |`sha512-224`|[MIT License](https://github.com/lifegpc/lifegpc-sha512-224/blob/master/LICENSE)|[GitHub](https://github.com/lifegpc/lifegpc-sha512-224)|
 |`@stablelib/sha256`|[MIT License](https://github.com/StableLib/stablelib/blob/master/packages/sha256/LICENSE)|[GitHub](https://github.com/StableLib/stablelib/tree/master/packages/sha256)|
 |`@stablelib/sha512_256`|[MIT License](https://github.com/StableLib/stablelib/blob/master/packages/sha512_256/LICENSE)|[GitHub](https://github.com/StableLib/stablelib/tree/master/packages/sha512_256)|
+|`@stablelib/sha384`|[MIT License](https://github.com/StableLib/stablelib/blob/master/packages/sha384/LICENSE)|[GitHub](https://github.com/StableLib/stablelib/tree/master/packages/sha384)|
+|`@stablelib/sha512`|[MIT License](https://github.com/StableLib/stablelib/blob/master/packages/sha512/LICENSE)|[GitHub](https://github.com/StableLib/stablelib/tree/master/packages/sha512)|
 ## Python Module
 | Name | License | Repo |
 |:----:|:-------:|:----:|

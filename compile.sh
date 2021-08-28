@@ -12,6 +12,4 @@ $pyt tools/clearBlankLines.js
 res=$(($res|$?))
 cp -v node_modules/clipboard/dist/clipboard.min.js js/
 res=$(($res|$?))
-cp -v node_modules/js-sha512/build/sha512.min.js js/
-res=$(($res|$?))
 exit $res

@@ -8,5 +8,4 @@ set pyt=%py% compile.py
 %pyt% -o about.js xhr.js wplink.js
 %pyt% tools/clearBlankLines.js
 copy /Y node_modules\clipboard\dist\clipboard.min.js js\
-copy /Y node_modules\js-sha512\build\sha512.min.js js\
 ENDLOCAL

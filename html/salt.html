@@ -17,7 +17,6 @@ $code:
         $:genLangLink('/salt', ['en', 'ja', 'zh_CN', 'zh_TW'])
         <script>console.log('$trans');var lan='$lan';var i18n=$i18n2;</script>
         $:embScr("clipboard.min")
-        $:embScr("sha512.min")
         $:embScr("salt")
     </head>
     <body>
@@ -41,6 +40,8 @@ $code:
             <option value="hmac-sha512-224">sha512-224</option>
             <option value="hmac-sha256">sha256</option>
             <option value="hmac-sha512-256">sha512-256</option>
+            <option value="hmac-sha384">sha384</option>
+            <option value="hmac-sha512">sha512</option>
             </optgroup>
         </select><br/>
         <input id="loc" type="checkbox" tabindex="5"><label for="loc">$i18n['PUTSALT']</label><br/>
