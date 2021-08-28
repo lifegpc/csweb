@@ -6,13 +6,13 @@
 |`closure-calculate-chunks`|Apache License 2.0|[GitHub](https://github.com/ChadKillingsworth/closure-calculate-chunks)|
 |`js-base64`|[BSD-3-Clause License](https://github.com/dankogai/js-base64/blob/main/LICENSE.md)|[GitHub](https://github.com/dankogai/js-base64)|
 |`js-sha512`|[MIT License](https://github.com/emn178/js-sha512/blob/master/LICENSE.txt)|[GitHub](https://github.com/emn178/js-sha512)|
-|`sha256`|[MIT License](https://www.npmjs.com/package/sha256#license)|[GitHub](https://github.com/cryptocoinjs/sha256)|
 |`@stablelib/sha224`|[MIT License](https://github.com/StableLib/stablelib/blob/master/packages/sha224/LICENSE)|[GitHub](https://github.com/StableLib/stablelib/tree/master/packages/sha224)|
 |`array-buffer-to-hex`|MIT License|[GitHub](https://github.com/LinusU/array-buffer-to-hex)|
 |`lifegpc-md5`|[MIT License](https://github.com/lifegpc/lifegpc-md5/blob/master/LICENSE)|[GitHub](https://github.com/lifegpc/lifegpc-md5)|
 |`lifegpc-sha1`|[MIT License](https://github.com/lifegpc/lifegpc-sha1/blob/master/LICENSE)|[GitHub](https://github.com/lifegpc/lifegpc-sha1)|
 |`@stablelib/hmac`|[MIT License](https://github.com/StableLib/stablelib/blob/master/packages/hmac/LICENSE)|[GitHub](https://github.com/StableLib/stablelib/tree/master/packages/hmac)|
 |`sha512-224`|[MIT License](https://github.com/lifegpc/lifegpc-sha512-224/blob/master/LICENSE)|[GitHub](https://github.com/lifegpc/lifegpc-sha512-224)|
+|`@stablelib/sha256`|[MIT License](https://github.com/StableLib/stablelib/blob/master/packages/sha256/LICENSE)|[GitHub](https://github.com/StableLib/stablelib/tree/master/packages/sha256)|
 ## Python Module
 | Name | License | Repo |
 |:----:|:-------:|:----:|
