@@ -30,11 +30,14 @@ def readFile(data: str, isFileName: bool = False):
 class CfwFileSettings:
     default_proxy: str = None
     remove_rule_providers: bool = False
+    force_enable_udp: bool = False
 
     def __init__(self, default_proxy: str = None,
-                 remove_rule_providers: bool = False):
+                 remove_rule_providers: bool = False,
+                 force_enable_udp: bool = False):
         self.default_proxy = default_proxy
         self.remove_rule_providers = remove_rule_providers
+        self.force_enable_udp = force_enable_udp
 
 
 def checkNameInList(li: list, name: str):
@@ -139,6 +142,9 @@ def addProfileToTarget(source, target, settings: CfwFileSettings):
         target['proxies'] = source['proxies'] + target['proxies']
     elif 'proxies' in source:
         target['proxies'] = source['proxies']
+    if settings.force_enable_udp:
+        for i in target['proxies']:
+            i['udp'] = True
     if 'proxy-groups' in source and 'proxy-groups' in target:
         target['proxy-groups'] = source['proxy-groups'] + target['proxy-groups']  # noqa: E501
     elif 'proxy-groups' in source:
@@ -166,7 +172,7 @@ class CfwProfile:
             headers = {"User-Agent": "ClashforWindows/0.13.8"}
             if 'HTTP_USER_AGENT' in web.ctx.env:
                 ua: str = web.ctx.env['HTTP_USER_AGENT']
-                if ua.lower().startswith("clashforwindows"):
+                if ua.lower().startswith("clash"):
                     headers.update({'User-Agent': ua})
             r = get(origin, headers=headers)
             if r.status_code >= 400:
@@ -193,6 +199,11 @@ class CfwProfile:
                 remove_rule_providers = web.input().get("remove_rule_providers")  # noqa: E501
             if remove_rule_providers is not None:
                 d['remove_rule_providers'] = True
+            force_enable_udp = web.input().get("feu")
+            if force_enable_udp is None:
+                force_enable_udp = web.input().get("force_enable_udp")
+            if force_enable_udp is not None:
+                d['force_enable_udp'] = True
             cfws = CfwFileSettings(**d)
             if cfws.remove_rule_providers:
                 removeRuleProviders(ori, headers)
