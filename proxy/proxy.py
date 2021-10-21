@@ -40,10 +40,8 @@ class ProxyProxy:
                 web.HTTPError('400 Bad Request')
                 return 'target url (t/target) is needed.'
             idd = web.input().get("id")
-            if idd is None or idd == '':
-                web.header('Content-Type', 'text/plain; charset=UTF-8')
-                web.HTTPError('400 Bad Request')
-                return 'id is needed.'
+            if idd == '':
+                idd = None
             exp = web.input().get("e")
             if exp is None or exp == '':
                 exp = web.input().get("expired")
@@ -59,12 +57,15 @@ class ProxyProxy:
                     web.header('Content-Type', 'text/plain; charset=UTF-8')
                     web.HTTPError('400 Bad Request')
                     return 'This reverse proxy link is expired.'
-            db = ProxyDb()
-            r = db.get_proxy(idd)
-            if r is None:
-                web.header('Content-Type', 'text/plain; charset=UTF-8')
-                web.HTTPError('400 Bad Request')
-                return 'Can not find this id in database.'
+            if idd is not None:
+                db = ProxyDb()
+                r = db.get_proxy(idd)
+                if r is None:
+                    web.header('Content-Type', 'text/plain; charset=UTF-8')
+                    web.HTTPError('400 Bad Request')
+                    return 'Can not find this id in database.'
+            else:
+                r = ('{}', '{}')
             headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36'}  # noqa: E501
             if r[1] != '':
                 try:
