@@ -162,7 +162,7 @@ class settings:
         key = 'instagramCacheTime'
         if key in self.__data and self.__data[key] is not None:
             v = self.__data[key]
-            if isinstance(v, [int, float]):
+            if isinstance(v, (int, float)):
                 v = round(v)
                 if v >= 0:
                     return v
@@ -299,3 +299,57 @@ class settings:
         if key in self.__data and self.__data[key] and self.__data[key] != '':
             return self.__data[key]
         return default
+
+    @property
+    def pixivRefreshToken(self) -> str:
+        if self.__data is None:
+            return None
+        key = 'pixivRefreshToken'
+        if key in self.__data and self.__data[key] and self.__data[key] != '':
+            return self.__data[key]
+        return None
+
+    @property
+    def pixivCacheTime(self) -> int:
+        default = 5
+        if self.__data is None:
+            return default
+        key = 'pixivCacheTime'
+        if key in self.__data and self.__data[key] is not None:
+            v = self.__data[key]
+            if isinstance(v, (int, float)):
+                v = round(v)
+                if v >= 0:
+                    return v
+            elif isinstance(v, str):
+                if v.isnumeric():
+                    return int(v)
+        return default
+
+    @property
+    def pixivDatabaseLocation(self) -> str:
+        default = 'data.db'
+        if self.__data is None:
+            return default
+        key = 'pixivDatabaseLocation'
+        if key in self.__data and self.__data[key] and self.__data[key] != '':
+            return self.__data[key]
+        return default
+
+    @property
+    def pixivRSSSecrets(self) -> str:
+        if self.__data is None:
+            return None
+        key = 'pixivRSSSecrets'
+        if key in self.__data and self.__data[key] and self.__data[key] != '':
+            return self.__data[key]
+        return None
+
+    @property
+    def pixivCacheRSS(self) -> bool:
+        if self.__data is None:
+            return False
+        key = 'pixivCacheRSS'
+        if key in self.__data and self.__data[key]:
+            return True
+        return False

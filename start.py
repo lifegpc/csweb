@@ -6,6 +6,7 @@ if abspath(dirname(__file__)) not in sys.path:
     sys.path.append(abspath("."))
     sys.path.append(abspath('proxy'))
     sys.path.append(abspath('tools'))
+    sys.path.append(abspath('pixiv'))
 import web
 from index import hello  # noqa: F401
 from cfwProfile import CfwProfile  # noqa: F401
@@ -28,6 +29,7 @@ from proxy.list import ProxyList  # noqa: F401
 from proxy.proxy import ProxyProxy  # noqa: F401
 from about import About  # noqa: F401
 from tools.clearBlankLines import ClearBlankLines  # noqa: F401
+from pixiv.pixivrss import PixivRSS  # noqa: F401
 
 
 urls = (
@@ -51,6 +53,7 @@ urls = (
     '^/proxy/proxy$', 'ProxyProxy',
     '^/about', 'About',
     '^/tools/clearBlankLines$', 'ClearBlankLines',
+    '^/pixiv/rss$', 'PixivRSS',
     '(/.*)', 'hello',
 )
 
