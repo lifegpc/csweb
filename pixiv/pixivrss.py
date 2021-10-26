@@ -8,6 +8,8 @@ if abspath(dirname(__file__)) not in sys.path:
 else:
     m = False
 import web
+if m:
+    sys.path.append('../')
 from settings import settings
 from traceback import format_exc
 from pixivapi import PixivAPI

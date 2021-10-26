@@ -44,7 +44,7 @@ def genRSSItems(li: list, s, typ, include_tags: bool) -> List[RSSItem]:
         des += '<br/>' + i['caption']
         t.description = des
         try:
-            t.pubDate = parser.parse(i['create_date'].timestamp())
+            t.pubDate = parser.parse(i['create_date']).timestamp()
         except Exception:
             pass
         try:
