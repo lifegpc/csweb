@@ -21,6 +21,22 @@ from constants import jsonsep
 from urllib.parse import urlencode
 
 
+def parseBool(inp: str, default: bool) -> bool:
+    if inp is None:
+        return default
+    lo = inp.lower()
+    if lo == 'true':
+        return True
+    elif lo == 'false':
+        return False
+    try:
+        i = int(lo)
+        return bool(i)
+    except Exception:
+        pass
+    return bool(inp)
+
+
 class PixivRSS:
     def GET(self):
         try:
@@ -42,6 +58,10 @@ class PixivRSS:
                 typ = 'rss'
             include_tags = False if web.input().get("include_tags") is None else True  # noqa: E501
             user_info = False if web.input().get("user_info") is None else True
+            bookmarks = False if web.input().get("bookmarks") is None else True
+            restrict = True if web.input().get("private") is None else False
+            add_author_in_title = True if bookmarks else False
+            add_author_in_title = parseBool(web.input().get("add_author_in_title"), add_author_in_title)  # noqa: E501
             if user is None:
                 web.HTTPError('400 Bad Request')
                 return 'User is needed.'
@@ -67,16 +87,31 @@ class PixivRSS:
                         return dumps(u, ensure_ascii=False, separators=jsonsep)
                     web.HTTPError('400 Bad Request')
                     return 'Type is not supported'
-                ill = db.get_cache(ld, s.pixivCacheTime)
-                if ill is None:
-                    ill = p.getIllusts(user)
-                    if ill is None:
-                        raise Exception("Can not get illusts")
-                    c = db.save_cache(ld, ill)
-                    new_cache = True
+                if bookmarks:
+                    d = {"restrict": restrict}
+                    ld3 = f'/user/bookmarks/illusts/{user}?' + urlencode(d)
+                    bk = db.get_cache(ld3, s.pixivCacheTime)
+                    if bk is None:
+                        bk = p.getBookmarks(user, restrict)
+                        if bk is None:
+                            raise Exception('Can not get bookmarks.')
+                        c = db.save_cache(ld3, bk)
+                        new_cache = True
+                    else:
+                        c = bk[1]
+                        bk = bk[0]
+                    ill = bk
                 else:
-                    c = ill[1]
-                    ill = ill[0]
+                    ill = db.get_cache(ld, s.pixivCacheTime)
+                    if ill is None:
+                        ill = p.getIllusts(user)
+                        if ill is None:
+                            raise Exception("Can not get illusts")
+                        c = db.save_cache(ld, ill)
+                        new_cache = True
+                    else:
+                        c = ill[1]
+                        ill = ill[0]
                 sendCacheInfo(60 * s.pixivCacheTime, c)
                 if typ == 'json':
                     web.header("Content-Type",
@@ -97,13 +132,23 @@ class PixivRSS:
                         from pixivrssp import genUrl
                         g = RSSGen(RSS2_TYPE)
                         ill = ill['illusts']
-                        g.meta.title = f"Pixiv {u['user']['name']}(@{u['user']['account']})'s illusts"  # noqa: E501
+                        if not bookmarks:
+                            g.meta.title = f"Pixiv {u['user']['name']}(@{u['user']['account']})'s illusts"  # noqa: E501
+                        else:
+                            g.meta.title = f"Pixiv {u['user']['name']}(@{u['user']['account']})'s bookmarks"  # noqa: E501
+                            if not restrict:
+                                g.meta.title += ' (private)'
                         g.meta.link = f"https://www.pixiv.net/users/{user}"
                         g.meta.description = u['user']['comment']
-                        g.meta.image = genUrl(u['profile']['background_image_url'], s.RSSProxySerects)  # noqa: E501
+                        if g.meta.description is None:
+                            g.meta.description = "This user don't have a comment."  # noqa: E501
+                        img_url = u['profile']['background_image_url']
+                        if img_url is not None:
+                            g.meta.image = genUrl(img_url, s.RSSProxySerects)
                         g.meta.lastBuildDate = c / 1E9
                         g.meta.ttl = s.pixivCacheTime
-                        g.list = genRSSItems(ill, s, RSS2_TYPE, include_tags)
+                        g.list = genRSSItems(ill, s, RSS2_TYPE, include_tags,
+                                             add_author_in_title)
                         r = g.generate()
                         if s.pixivCacheRSS:
                             db.save_cache(ld2, r)
@@ -112,6 +157,7 @@ class PixivRSS:
                     return r
         except:
             web.HTTPError('500 Internal Server Error')
+            web.header("Content-Type", "text/plain; charset=UTF-8")
             try:
                 s = settings()
                 s.ReadSettings()

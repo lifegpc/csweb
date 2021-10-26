@@ -21,7 +21,8 @@ def genImage(i: dict, ser: str):
     return f"<img src=\"{escapeQuote(url)}\" referrerpolicy=\"no-referrer\">"
 
 
-def genRSSItems(li: list, s, typ, include_tags: bool) -> List[RSSItem]:
+def genRSSItems(li: list, s, typ, include_tags: bool,
+                add_author_in_title: bool) -> List[RSSItem]:
     rl = []
     for i in li:
         t = RSSItem(typ)
@@ -49,6 +50,8 @@ def genRSSItems(li: list, s, typ, include_tags: bool) -> List[RSSItem]:
             pass
         try:
             t.author = i['user']['name']
+            if add_author_in_title:
+                t.title = t.title + f" (@{t.author})"
         except Exception:
             pass
         rl.append(t)

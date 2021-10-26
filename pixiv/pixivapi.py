@@ -73,7 +73,21 @@ class PixivAPI:
         if re.status_code >= 400:
             if retry:
                 self.get_token(True)
-                return self.getIllusts(userId, False)
+                return self.getUserDetails(userId, False)
+            raise ValueError(f"HTTP ERROR {re.status_code}\n{re.text}")
+        d = re.json()
+        return d
+
+    @token_needed
+    def getBookmarks(self, userId: int, restrict: bool = True, retry: bool = True):  # noqa: E501
+        h = self.get_headers()
+        d = {"user_id": userId}
+        d['restrict'] = 'public' if restrict else 'private'
+        re = self._ses.get('https://app-api.pixiv.net/v1/user/bookmarks/illust', params=d, headers=h)  # noqa: E501
+        if re.status_code >= 400:
+            if retry:
+                self.get_token(True)
+                return self.getBookmarks(userId, restrict, False)
             raise ValueError(f"HTTP ERROR {re.status_code}\n{re.text}")
         d = re.json()
         return d
