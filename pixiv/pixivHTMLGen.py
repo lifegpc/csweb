@@ -38,8 +38,8 @@ def genRSSItems(li: list, s, typ, include_tags: bool) -> List[RSSItem]:
         if include_tags:
             tags = []
             if 'tags' in i:
-                for t in i['tags']:
-                    tags.append(f"#{t['name']}")
+                for tt in i['tags']:
+                    tags.append(f"#{tt['name']}")
             des += '<br/>' + escape(' '.join(tags))
         des += '<br/>' + i['caption']
         t.description = des
