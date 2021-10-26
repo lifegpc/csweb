@@ -25,6 +25,8 @@ def genRSSItems(li: list, s, typ, include_tags: bool,
                 add_author_in_title: bool) -> List[RSSItem]:
     rl = []
     for i in li:
+        if not i['visible']:
+            continue
         t = RSSItem(typ)
         t.title = i['title']
         t.link = f"https://www.pixiv.net/artworks/{i['id']}"
