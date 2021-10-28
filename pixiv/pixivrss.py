@@ -60,14 +60,19 @@ class PixivRSS:
             user_info = False if web.input().get("user_info") is None else True
             bookmarks = False if web.input().get("bookmarks") is None else True
             restrict = True if web.input().get("private") is None else False
+            lang = web.input().get("lang")
             add_author_in_title = True if bookmarks else False
             add_author_in_title = parseBool(web.input().get("add_author_in_title"), add_author_in_title)  # noqa: E501
             if user is None:
                 web.HTTPError('400 Bad Request')
                 return 'User is needed.'
             if user is not None:
+                d = {}
+                if lang is not None:
+                    d['lang'] = lang
+                pld = '' if len(d) == 0 else '?' + urlencode(d)
                 uld = f'/user/detail/{user}'
-                ld = f'/user/illusts/{user}'
+                ld = f'/user/illusts/{user}' + pld
                 u = db.get_cache(uld, s.pixivCacheTime)
                 new_cache = False
                 if u is None:
@@ -88,11 +93,11 @@ class PixivRSS:
                     web.HTTPError('400 Bad Request')
                     return 'Type is not supported'
                 if bookmarks:
-                    d = {"restrict": restrict}
+                    d["restrict"] = restrict
                     ld3 = f'/user/bookmarks/illusts/{user}?' + urlencode(d)
                     bk = db.get_cache(ld3, s.pixivCacheTime)
                     if bk is None:
-                        bk = p.getBookmarks(user, restrict)
+                        bk = p.getBookmarks(user, restrict, lang)
                         if bk is None:
                             raise Exception('Can not get bookmarks.')
                         c = db.save_cache(ld3, bk)
@@ -104,7 +109,7 @@ class PixivRSS:
                 else:
                     ill = db.get_cache(ld, s.pixivCacheTime)
                     if ill is None:
-                        ill = p.getIllusts(user)
+                        ill = p.getIllusts(user, lang)
                         if ill is None:
                             raise Exception("Can not get illusts")
                         c = db.save_cache(ld, ill)
@@ -119,7 +124,7 @@ class PixivRSS:
                     return dumps(ill, ensure_ascii=False, separators=jsonsep)
                 elif typ == 'rss':
                     if s.pixivCacheRSS:
-                        d = {"include_tags": include_tags}
+                        d["include_tags"] = include_tags
                         ld2 = f'/user/illusts/{user}/rss?' + urlencode(d)
                     r = None
                     if s.pixivCacheRSS and not new_cache:

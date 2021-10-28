@@ -43,6 +43,8 @@ def genRSSItems(li: list, s, typ, include_tags: bool,
             if 'tags' in i:
                 for tt in i['tags']:
                     tags.append(f"#{tt['name']}")
+                    if tt['translated_name'] is not None:
+                        tags.append(f"#{tt['translated_name']}")
             des += '<br/>' + escape(' '.join(tags))
         des += '<br/>' + i['caption']
         t.description = des
