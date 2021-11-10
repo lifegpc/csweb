@@ -1,4 +1,5 @@
 from requests import Session
+from enum import Enum, unique
 from settings import settings
 from pixivdb import PixivDb
 from functools import wraps
@@ -19,6 +20,21 @@ def token_needed(f):
                 t.get_token()
             return f(*args, **kwargs)
     return o
+
+
+@unique
+class PixivFollowRestrict(Enum):
+    ALL = 0
+    PRIVATE = 1
+    PUBLIC = 2
+
+    def __str__(self):
+        if self._value_ == 0:
+            return 'all'
+        elif self._value_ == 1:
+            return 'private'
+        elif self._value_ == 2:
+            return 'public'
 
 
 class PixivAPI:
@@ -94,6 +110,21 @@ class PixivAPI:
             if retry:
                 self.get_token(True)
                 return self.getBookmarks(userId, restrict, lang, False)
+            raise ValueError(f"HTTP ERROR {re.status_code}\n{re.text}")
+        d = re.json()
+        return d
+
+    @token_needed
+    def getFollow(self, restrict: PixivFollowRestrict = PixivFollowRestrict.PUBLIC, lang: str = None, retry: bool = True):  # noqa: E501
+        h = self.get_headers()
+        d = {'restrict': str(restrict)}
+        if lang is not None:
+            d['lang'] = lang
+        re = self._ses.get('https://app-api.pixiv.net/v2/illust/follow', params=d, headers=h)  # noqa: E501
+        if re.status_code >= 400:
+            if retry:
+                self.get_token(True)
+                return self.getFollow(restrict, lang, False)
             raise ValueError(f"HTTP ERROR {re.status_code}\n{re.text}")
         d = re.json()
         return d

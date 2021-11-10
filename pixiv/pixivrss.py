@@ -12,7 +12,7 @@ if m:
     sys.path.append('../')
 from settings import settings
 from traceback import format_exc
-from pixivapi import PixivAPI
+from pixivapi import PixivAPI, PixivFollowRestrict
 from pixivdb import PixivDb
 from sign import verifySign
 from mycache import sendCacheInfo
@@ -60,13 +60,75 @@ class PixivRSS:
             user_info = False if web.input().get("user_info") is None else True
             bookmarks = False if web.input().get("bookmarks") is None else True
             restrict = True if web.input().get("private") is None else False
+            follow = False if web.input().get("follow") is None else True
+            all = False if web.input().get("all") is None else True
+            if follow:
+                restrict2 = PixivFollowRestrict.PUBLIC
+                if not restrict:
+                    restrict2 = PixivFollowRestrict.PRIVATE
+                if all:
+                    restrict2 = PixivFollowRestrict.ALL
             lang = web.input().get("lang")
-            add_author_in_title = True if bookmarks else False
+            add_author_in_title = True if bookmarks or follow else False
             add_author_in_title = parseBool(web.input().get("add_author_in_title"), add_author_in_title)  # noqa: E501
-            if user is None:
+            if user is None and not follow:
                 web.HTTPError('400 Bad Request')
                 return 'User is needed.'
-            if user is not None:
+            if follow:
+                d = {}
+                if lang is not None:
+                    d['lang'] = lang
+                d['restrict'] = str(restrict2)
+                pld = '' if len(d) == 0 else '?' + urlencode(d)
+                ld = '/follow' + pld
+                re = db.get_cache(ld, s.pixivCacheTime)
+                new_cache = False
+                if re is None:
+                    re = p.getFollow(restrict2, lang)
+                    if re is None:
+                        raise Exception('Can not get follow.')
+                    c = db.save_cache(ld, re)
+                    new_cache = True
+                else:
+                    c = re[1]
+                    re = re[0]
+                if typ == 'json':
+                    sendCacheInfo(60 * s.pixivCacheTime, c)
+                    web.header("Content-Type",
+                               "application/json; charset=UTF-8")
+                    return dumps(re, ensure_ascii=False, separators=jsonsep)
+                elif typ == 'rss':
+                    if s.pixivCacheRSS:
+                        d["include_tags"] = include_tags
+                        d['add_author_in_title'] = add_author_in_title
+                        ld2 = '/follow/rss?' + urlencode(d)
+                    r = None
+                    if s.pixivCacheRSS and not new_cache:
+                        r = db.get_cache(ld2, s.pixivCacheTime)
+                        if r is not None:
+                            r = r[0]
+                    if r is None:
+                        from RSSGenerator import RSSGen, RSS2_TYPE
+                        from pixivHTMLGen import genRSSItems
+                        from pixivrssp import genUrl
+                        g = RSSGen(RSS2_TYPE)
+                        ill = re['illusts']
+                        g.meta.title = f"Pixiv's timeline ({restrict2})"
+                        g.meta.link = 'https://www.pixiv.net/bookmark_new_illust.php'  # noqa: E501
+                        g.meta.description = 'Works by users you are following'
+                        g.meta.lastBuildDate = c / 1E9
+                        g.meta.ttl = s.pixivCacheTime
+                        g.list = genRSSItems(ill, s, RSS2_TYPE, include_tags,
+                                             add_author_in_title)
+                        r = g.generate()
+                        if s.pixivCacheRSS:
+                            db.save_cache(ld2, r)
+                    web.header("Content-Type",
+                               "application/xml; charset=UTF-8")
+                    return r
+                web.HTTPError('400 Bad Request')
+                return 'Type is not supported'
+            elif user is not None:
                 d = {}
                 if lang is not None:
                     d['lang'] = lang
@@ -125,6 +187,7 @@ class PixivRSS:
                 elif typ == 'rss':
                     if s.pixivCacheRSS:
                         d["include_tags"] = include_tags
+                        d['add_author_in_title'] = add_author_in_title
                         ld2 = f'/user/illusts/{user}/rss?' + urlencode(d)
                     r = None
                     if s.pixivCacheRSS and not new_cache:
