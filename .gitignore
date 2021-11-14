@@ -8,3 +8,4 @@ node_modules/
 cfw_profile/
 *.db
 *.db-journal
+*.txt

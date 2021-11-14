@@ -4,6 +4,9 @@ from settings import settings
 from pixivdb import PixivDb
 from functools import wraps
 from typing import Dict
+from http.cookiejar import MozillaCookieJar
+from os.path import exists
+from atexit import register
 
 
 AUTH_TOKEN_URL = "https://oauth.secure.pixiv.net/auth/token"
@@ -41,8 +44,31 @@ class PixivAPI:
     def __init__(self, se: settings, db: PixivDb):
         self._ses = Session()
         self._ses.headers.update({"User-Agent": "PixivAndroidApp/5.0.234 (Android 11; Pixel 5)", "client_secret": "lsACyCD94FhDUtGTXi3QzcFE2uU1hqtDaKeqrdwj"})  # noqa: E501
+        self._wses = Session()
+        self._wses.headers.update({'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36'})  # noqa: E501
+        self._wses.cookies = MozillaCookieJar()
         self._s = se
         self._db = db
+        self.get_cookies()
+        register(self.save_cookies)
+
+    def get_cookies(self, force: bool = False):
+        if self._s.pixivWebCookiesFileLocation is None:
+            if force:
+                raise ValueError('pixivWebCookiesFileLocation is needed.')
+            return False
+        else:
+            if exists(self._s.pixivWebCookiesFileLocation):
+                c: MozillaCookieJar = self._wses.cookies
+                c.load(self._s.pixivWebCookiesFileLocation)
+                return True
+            else:
+                return False
+
+    def save_cookies(self):
+        if self._s.pixivWebCookiesFileLocation:
+            c: MozillaCookieJar = self._wses.cookies
+            c.save(self._s.pixivWebCookiesFileLocation)
 
     def get_token(self, force: bool = False):
         if self._s.pixivRefreshToken is None:
@@ -83,6 +109,9 @@ class PixivAPI:
                 return self.getIllusts(userId, lang, False)
             raise ValueError(f"HTTP ERROR {re.status_code}\n{re.text}")
         d = re.json()
+        for i in d['illusts']:
+            if i['type'] == 'ugoira':
+                i['ugoira_data'] = self.getUgoira(i['id'])
         return d
 
     @token_needed
@@ -112,6 +141,9 @@ class PixivAPI:
                 return self.getBookmarks(userId, restrict, lang, False)
             raise ValueError(f"HTTP ERROR {re.status_code}\n{re.text}")
         d = re.json()
+        for i in d['illusts']:
+            if i['type'] == 'ugoira':
+                i['ugoira_data'] = self.getUgoira(i['id'])
         return d
 
     @token_needed
@@ -127,4 +159,18 @@ class PixivAPI:
                 return self.getFollow(restrict, lang, False)
             raise ValueError(f"HTTP ERROR {re.status_code}\n{re.text}")
         d = re.json()
+        for i in d['illusts']:
+            if i['type'] == 'ugoira':
+                i['ugoira_data'] = self.getUgoira(i['id'])
         return d
+
+    def getUgoira(self, id: int, retry: bool = True):
+        re = self._wses.get(f'https://www.pixiv.net/ajax/illust/{id}/ugoira_meta')  # noqa: E501
+        if re.status_code >= 400:
+            if retry:
+                self.get_cookies(True)
+                return self.getUgoira(id, False)
+            raise ValueError(f"HTTP ERROR {re.status_code}\n{re.text}")
+        d = re.json()
+        self.save_cookies()
+        return d['body']

@@ -21,8 +21,21 @@ def genImage(i: dict, ser: str):
     return f"<img src=\"{escapeQuote(url)}\" referrerpolicy=\"no-referrer\">"
 
 
+def genUgoira(i: dict, ser: str):
+    import xml.etree.ElementTree as ET
+    from json import dumps
+    from constants import jsonsep
+    u = ET.Element('ugoira')
+    u.set('poster', genUrl(i['meta_single_page']['original_image_url'], ser))
+    u.set('src', genUrl(i['ugoira_data']['originalSrc'], ser))
+    u.set('frames', dumps(i['ugoira_data']['frames'], ensure_ascii=False,
+                          separators=jsonsep))
+    return ET.tostring(u, encoding='UTF8', method='html').decode()
+
+
 def genRSSItems(li: list, s, typ, include_tags: bool,
-                add_author_in_title: bool) -> List[RSSItem]:
+                add_author_in_title: bool,
+                enable_ugoira: bool) -> List[RSSItem]:
     rl = []
     for i in li:
         if not i['visible']:
@@ -33,11 +46,17 @@ def genRSSItems(li: list, s, typ, include_tags: bool,
         t.comments = t.link
         t.guid = t.link
         des = ''
-        if i['page_count'] > 1:
-            for p in i['meta_pages']:
-                des += genImage(p, s.RSSProxySerects)
+        if i['type'] == 'ugoira' and enable_ugoira:
+            if 'ugoira_data' in i:
+                des += genUgoira(i, s.RSSProxySerects)
+            else:
+                des += genImage(i['meta_single_page'], s.RSSProxySerects)
         else:
-            des += genImage(i['meta_single_page'], s.RSSProxySerects)
+            if i['page_count'] > 1:
+                for p in i['meta_pages']:
+                    des += genImage(p, s.RSSProxySerects)
+            else:
+                des += genImage(i['meta_single_page'], s.RSSProxySerects)
         if include_tags:
             tags = []
             if 'tags' in i:

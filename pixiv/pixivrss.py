@@ -71,6 +71,8 @@ class PixivRSS:
             lang = web.input().get("lang")
             add_author_in_title = True if bookmarks or follow else False
             add_author_in_title = parseBool(web.input().get("add_author_in_title"), add_author_in_title)  # noqa: E501
+            enable_ugoira = s.pixivEnableUgoira
+            enable_ugoira = parseBool(web.input().get("ugoira"), enable_ugoira)
             if user is None and not follow:
                 web.HTTPError('400 Bad Request')
                 return 'User is needed.'
@@ -119,7 +121,8 @@ class PixivRSS:
                         g.meta.lastBuildDate = c / 1E9
                         g.meta.ttl = s.pixivCacheTime
                         g.list = genRSSItems(ill, s, RSS2_TYPE, include_tags,
-                                             add_author_in_title)
+                                             add_author_in_title,
+                                             enable_ugoira)
                         r = g.generate()
                         if s.pixivCacheRSS:
                             db.save_cache(ld2, r)
@@ -216,7 +219,8 @@ class PixivRSS:
                         g.meta.lastBuildDate = c / 1E9
                         g.meta.ttl = s.pixivCacheTime
                         g.list = genRSSItems(ill, s, RSS2_TYPE, include_tags,
-                                             add_author_in_title)
+                                             add_author_in_title,
+                                             enable_ugoira)
                         r = g.generate()
                         if s.pixivCacheRSS:
                             db.save_cache(ld2, r)
