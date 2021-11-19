@@ -26,3 +26,4 @@
 |`web.py`|[Public Domain](https://github.com/webpy/webpy/blob/master/LICENSE.txt)|[GitHub](https://github.com/webpy/webpy)|
 |`fontforge`|[License](https://github.com/fontforge/fontforge/blob/master/LICENSE)|[GitHub](https://github.com/fontforge/fontforge)|
 |`pycairo`|[License](https://github.com/pygobject/pycairo/blob/master/COPYING)|[GitHub](https://github.com/pygobject/pycairo)|
+|`python-dateutil`|[Apache License 2.0](https://github.com/dateutil/dateutil/blob/master/LICENSE)|[GitHub](https://github.com/dateutil/dateutil)|
