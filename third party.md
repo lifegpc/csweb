@@ -27,3 +27,7 @@
 |`fontforge`|[License](https://github.com/fontforge/fontforge/blob/master/LICENSE)|[GitHub](https://github.com/fontforge/fontforge)|
 |`pycairo`|[License](https://github.com/pygobject/pycairo/blob/master/COPYING)|[GitHub](https://github.com/pygobject/pycairo)|
 |`python-dateutil`|[Apache License 2.0](https://github.com/dateutil/dateutil/blob/master/LICENSE)|[GitHub](https://github.com/dateutil/dateutil)|
+## C library
+| Name | License | Repo |
+|:----:|:-------:|:----:|
+|`cmark-gfm`|[License](https://github.com/github/cmark-gfm/blob/master/COPYING)|[GitHub](https://github.com/github/cmark-gfm)|
