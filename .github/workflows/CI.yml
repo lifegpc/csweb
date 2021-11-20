@@ -42,6 +42,41 @@ jobs:
       - name: Check Out
         uses: actions/checkout@v2
 
+      - name: Download emscripten
+        run: |
+          git clone https://github.com/emscripten-core/emsdk
+          cd emsdk
+          ./emsdk install latest
+          ./emsdk activate latest
+
+      - name: Compile cmark-gfm
+        run: |
+          git clone https://github.com/github/cmark-gfm
+          cd emsdk
+          source ./emsdk_env.sh
+          cd ../
+          mkdir clib
+          PREFIX=`pwd`/clib
+          cd cmark-gfm
+          mkdir build
+          cd build
+          emcmake cmake -G "Unix Makefiles" -DCMARK_TESTS=OFF -DCMARK_SHARED=OFF -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=$PREFIX -DCMAKE_INSTALL_PREFIX=$PREFIX ../
+          make -j8 && make -j8 install
+
+      - name: Compile js extension - cmark-gfm
+        run: |
+          cd emsdk
+          source ./emsdk_env.sh
+          cd ..
+          PREFIX=`pwd`/clib
+          BINDIR=`pwd`/js\(origin\)
+          PKG_CONFIG_PATH=$PREFIX/lib/pkgconfig
+          cd js-extensions/cmark-gfm
+          mkdir build
+          cd build
+          emcmake cmake -G "Unix Makefiles" -DCMAKE_PREFIX_PATH=$PREFIX -DCMAKE_FIND_ROOT_PATH=$PREFIX -DCMAKE_INSTALL_BINDIR=$BINDIR -DCMAKE_BUILD_TYPE=Release ../
+          make -j8 && make -j8 install
+
       - name: Download Closure Compiler
         run: curl -L "https://repo1.maven.org/maven2/com/google/javascript/closure-compiler/v20210808/closure-compiler-v20210808.jar" -o compiler.jar
 

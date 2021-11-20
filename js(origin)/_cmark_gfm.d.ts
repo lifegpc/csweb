@@ -1,0 +1,18 @@
+export declare function version(): string;
+export declare function get_all_extensions(): Array<string>?;
+export declare function md_to_html(inp: Uint8Array|string, options: number, exts: Array<string>?): string?;
+export declare const CMARK_OPT_DEFAULT = 0;
+export declare const CMARK_OPT_SOURCEPOS = 1 << 1;
+export declare const CMARK_OPT_HARDBREAKS = 1 << 2;
+export declare const CMARK_OPT_SAFE = 1 << 3;
+export declare const CMARK_OPT_UNSAFE = 1 << 17;
+export declare const CMARK_OPT_NOBREAKS = 1 << 4;
+export declare const CMARK_OPT_NORMALIZE = 1 << 8;
+export declare const CMARK_OPT_VALIDATE_UTF8 = 1 << 9;
+export declare const CMARK_OPT_SMART = 1 << 10;
+export declare const CMARK_OPT_GITHUB_PRE_LANG = 1 << 11;
+export declare const CMARK_OPT_LIBERAL_HTML_TAG = 1 << 12;
+export declare const CMARK_OPT_FOOTNOTES = 1 << 13;
+export declare const CMARK_OPT_STRIKETHROUGH_DOUBLE_TILDE = 1 << 14;
+export declare const CMARK_OPT_TABLE_PREFER_STYLE_ATTRIBUTES = 1 << 15;
+export declare const CMARK_OPT_FULL_INFO_STRING = 1 << 16;

@@ -8,6 +8,7 @@ if True:
     sys.path.append(abspath('tools'))
     sys.path.append(abspath('pixiv'))
 import web
+from web.httpserver import StaticMiddleware
 from index import hello  # noqa: F401
 from cfwProfile import CfwProfile  # noqa: F401
 from clearurl import ClearUrl  # noqa: F401
@@ -30,6 +31,7 @@ from proxy.proxy import ProxyProxy  # noqa: F401
 from about import About  # noqa: F401
 from tools.clearBlankLines import ClearBlankLines  # noqa: F401
 from pixiv.pixivrss import PixivRSS  # noqa: F401
+from tools.mdToHtml import MdToHtml  # noqa: F401
 
 
 urls = (
@@ -54,13 +56,21 @@ urls = (
     '^/about', 'About',
     '^/tools/clearBlankLines$', 'ClearBlankLines',
     '^/pixiv/rss$', 'PixivRSS',
+    '^/tools/MdToHtml$', "MdToHtml",
     '(/.*)', 'hello',
 )
 
 
+class JSFileMiddleware(StaticMiddleware):
+    def __init__(self, app):
+        StaticMiddleware.__init__(self, app, "/js/")
+
+
 class mywebapp(web.application):
-    def run(self, host: str = "127.0.0.1", port: int = 2600, *middleware):
+    def run(self, host: str = "127.0.0.1", port: int = 2600, middleware=None):
         "重写方法以支持指定host和port"
+        if middleware is None:
+            middleware = []
         func = self.wsgifunc(*middleware)
         return web.httpserver.runsimple(func, (host, port))
 
@@ -72,8 +82,9 @@ if __name__ == "__main__":
         if len(sys.argv) >= 3:
             k['host'] = sys.argv[1]
             k['port'] = int(sys.argv[2])
+        k['middleware'] = [JSFileMiddleware]
         app.run(**k)
     except:
         from traceback import format_exc
-        format_exc()
+        print(format_exc())
         sys.exit(1)
