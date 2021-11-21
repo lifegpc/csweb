@@ -1,4 +1,4 @@
-pyt="python3 compile.py -W *"
+pyt="python3 compile.py -W '*'"
 res=0
 $pyt captcha2.js xhr.js i18n.js sendMsgToMe.js
 res=$(($res|$?))
