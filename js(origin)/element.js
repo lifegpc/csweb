@@ -13,3 +13,6 @@ function showElement(e, n = null) {
 function hideElement(e) {
     e.style.display = "none";
 }
+
+module.exports.showElement = showElement;
+module.exports.hideElement = hideElement;

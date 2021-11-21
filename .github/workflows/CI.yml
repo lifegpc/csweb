@@ -78,7 +78,7 @@ jobs:
           make -j8 && make -j8 install
 
       - name: Download Closure Compiler
-        run: curl -L "https://repo1.maven.org/maven2/com/google/javascript/closure-compiler/v20210808/closure-compiler-v20210808.jar" -o compiler.jar
+        run: curl -L "https://repo1.maven.org/maven2/com/google/javascript/closure-compiler/v20211107/closure-compiler-v20211107.jar" -o compiler.jar
 
       - name: Install node modules
         run: npm i

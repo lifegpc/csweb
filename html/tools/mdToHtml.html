@@ -1,4 +1,4 @@
-$def with (lan, i18n, trans, embScr, genLangLink)
+$def with (lan, i18n, trans, embScr, genLangLink, i18n2)
 <!DOCTYPE html>
 <html lang="$lan">
     <head>
@@ -10,10 +10,18 @@ $def with (lan, i18n, trans, embScr, genLangLink)
         <meta name="keywords" content="tools">
         $:genLangLink('/tools/mdToHtml', ['en', 'ja', 'zh_CN', 'zh_TW'])
         <title>$i18n['TITLE']</title>
-        <script>var lan="$lan";console.log("$trans");</script>
+        <script>var lan="$lan";console.log("$trans");var i18n=$i18n2;</script>
         $:embScr('tools/md_to_html')
     </head>
     <body>
-        $i18n['VER'].replace('<library>', 'cmark_gfm')<label id="ver"></label>
+        $i18n['VER'].replace('<library>', '<a href="https://github.com/github/cmark-gfm">cmark-gfm</a>')<label id="ver"></label><br>
+        <input id="optb" type="button" value="$i18n['SOPTIONS']"><br>
+        <div id="optd" style="display: none;">
+        <input type="checkbox" id="opt1"><label for="opt1">$i18n['OPT1'].replace('<attr>','<code>data-sourcepos</code>')</label><br>
+        <input type="checkbox" id="opt2"><label for="opt2">$i18n['OPT2'].replace('<ele>', '<code>softbreak</code>')</label><br>
+        <input type="checkbox" id="opt3"><label for="opt3">$i18n['OPT3'].replace('<type1>', '<code>javascript:</code>').replace('<type2>', '<code>vbscript:</code>').replace('<type3>', '<code>file:</code>').replace('<type4>', '<code>data:</code>').replace('<type5>', '<code>image/png</code>').replace('<type6>', '<code>image/gif</code>').replace('<type7>', '<code>image/jpeg</code>').replace('<type8>', '<code>image/webp</code>')</label><br>
+        <input type="checkbox" id="opt4"><label for="opt4">$i18n['OPT4'].replace('<ele>', '<code>softbreak</code>')</label><br>
+        <input type="checkbox" id="opt5"><label for="opt5">$i18n['OPT5']</label>
+        </div>
     </body>
 </html>

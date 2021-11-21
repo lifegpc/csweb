@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: csweb\n"
 "POT-Creation-Date: 2021-11-20 05:02:00+0000\n"
-"PO-Revision-Date: 2021-11-20 17:45+0800\n"
+"PO-Revision-Date: 2021-11-21 10:38+0800\n"
 "Last-Translator: lifegpc <g1710431395@gmail.com>\n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -28,4 +28,39 @@ msgstr ""
 
 msgctxt "VER"
 msgid "The version of <library>: "
+msgstr ""
+
+msgctxt "SOPTIONS"
+msgid "Show options"
+msgstr ""
+
+msgctxt "HOPTIONS"
+msgid "Hide options"
+msgstr ""
+
+msgctxt "OPT1"
+msgid "Include a <attr> attribute on all block elements."
+msgstr ""
+
+msgctxt "OPT2"
+msgid "Render <ele> elements as hard line breaks."
+msgstr ""
+
+# <type*> are type's name
+msgctxt "OPT3"
+msgid ""
+"Render raw HTML and unsafe links (<type1>, <type2>, <type3>, and <type4>, "
+"except for <type5>, <type6>, <type7>, or <type8> mime types). By default, "
+"raw HTML is replaced by a placeholder HTML comment. Unsafe links are "
+"replaced by empty strings."
+msgstr ""
+
+msgctxt "OPT4"
+msgid "Render <ele> elements as spaces."
+msgstr ""
+
+msgctxt "OPT5"
+msgid ""
+"Validate UTF-8 in the input before parsing, replacing illegal sequences with "
+"the replacement character U+FFFD."
 msgstr ""

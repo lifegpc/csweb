@@ -1,4 +1,3 @@
-/// <reference path="element.js"/>
 /// <reference path="i18n.js"/>
 const { Base64 } = require("js-base64")
 const md5 = require("lifegpc-md5")
@@ -11,6 +10,7 @@ const sha512_224 = require("sha512-224");
 const sha512_256m = require("@stablelib/sha512_256");
 const sha384m = require("@stablelib/sha384");
 const sha512m = require("@stablelib/sha512");
+const { showElement, hideElement } = require('./element');
 
 /**
  * Calculate sha224

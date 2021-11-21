@@ -13,9 +13,11 @@ else:
 import web
 from tep import getTemplate, embScr
 from lang import (
+    dictToJSON,
     getLangFromAcceptLanguage as getlang,
     getdict,
-    getTranslator
+    getTranslator,
+    mapToDict
 )
 from settings import settings
 from mycache import setCacheControl
@@ -31,6 +33,9 @@ class MdToHtml:
         lan = getlang()
         i18n = getdict('tools/mdToHtml', lan)
         trans = getTranslator(mdToHtml=i18n)
+        i18n2 = {}
+        mapToDict(i18n, i18n2, ['SOPTIONS', 'HOPTIONS'])
+        i18n2 = dictToJSON(i18n2)
         web.header('Content-Language', lan)
         if web.input().get('hl') is None:
             web.header('Vary', 'Accept-Language')
@@ -38,7 +43,7 @@ class MdToHtml:
         s.ReadSettings()
         if s.webpageCacheTime is not None:
             setCacheControl(s.webpageCacheTime)
-        return te(lan, i18n, trans, embScr, genLangLink)
+        return te(lan, i18n, trans, embScr, genLangLink, i18n2)
 
 
 if m:

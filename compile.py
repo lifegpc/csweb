@@ -112,7 +112,7 @@ class main:
                         jsf += f' --js "{relpath(f, n)}"'
         if self._W is not None:
             for w in self._W:
-                jsf += f' --jscomp_off "{w}"'
+                jsf += f' "--jscomp_off={w}"'
         nod = ' --module_resolution NODE --process_common_js_modules' if self._t else ''  # noqa: E501
         if self._o is not None and self._o != '':
             fn = self._o
