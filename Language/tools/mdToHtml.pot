@@ -56,3 +56,32 @@ msgstr ""
 msgctxt "OPT5"
 msgid "Validate UTF-8 in the input before parsing, replacing illegal sequences with the replacement character U+FFFD."
 msgstr ""
+
+msgctxt "OPT6"
+msgid "Convert straight quotes to curly, --- to em dashes, -- to en dashes."
+msgstr ""
+
+# <eg1> and <eg2> are examples
+msgctxt "OPT7"
+msgid "Use GitHub-style <eg1> tags for code blocks instead of <eg2>."
+msgstr ""
+
+msgctxt "OPT8"
+msgid "Be liberal in interpreting inline HTML tags."
+msgstr ""
+
+msgctxt "OPT9"
+msgid "Parse footnotes."
+msgstr ""
+
+msgctxt "OPT10"
+msgid "Only parse strikethroughs if surrounded by exactly 2 tildes. Gives some compatibility with <library>."
+msgstr ""
+
+msgctxt "OPT11"
+msgid "Use style attributes to align table cells instead of align attributes."
+msgstr ""
+
+msgctxt "OPT12"
+msgid "Include the remainder of the info string in code blocks in a separate attribute."
+msgstr ""
