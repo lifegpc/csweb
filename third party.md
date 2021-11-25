@@ -2,7 +2,6 @@
 ## Node.js Module
 | Name | License | Repo |
 |:----:|:-------:|:---------:|
-|`clipboard`|[MIT License](https://github.com/zenorocha/clipboard.js/blob/master/LICENSE)|[GitHub](https://github.com/zenorocha/clipboard.js)|
 |`closure-calculate-chunks`|Apache License 2.0|[GitHub](https://github.com/ChadKillingsworth/closure-calculate-chunks)|
 |`js-base64`|[BSD-3-Clause License](https://github.com/dankogai/js-base64/blob/main/LICENSE.md)|[GitHub](https://github.com/dankogai/js-base64)|
 |`@stablelib/sha224`|[MIT License](https://github.com/StableLib/stablelib/blob/master/packages/sha224/LICENSE)|[GitHub](https://github.com/StableLib/stablelib/tree/master/packages/sha224)|

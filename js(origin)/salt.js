@@ -11,6 +11,7 @@ const sha512_256m = require("@stablelib/sha512_256");
 const sha384m = require("@stablelib/sha384");
 const sha512m = require("@stablelib/sha512");
 const { showElement, hideElement } = require('./element');
+const { copyToClipboard } = require('./clipboard');
 
 /**
  * Calculate sha224
@@ -222,15 +223,7 @@ function genParaStr(para) {
 }
 
 window.addEventListener('load', () => {
-    var ClipboardJS = window["ClipboardJS"];
-    var clipboard = new ClipboardJS('#bu');
-    clipboard["on"]('success', function (e) {
-        e["clearSelection"]();
-    });
-    clipboard["on"]('error', function (e) {
-        console.error('Action:', e["action"]);
-        console.error('Trigger:', e["trigger"]);
-    });
+    let bu = document.getElementById('bu');
     /**@type {HTMLInputElement}*/
     var pas = document.getElementById('pas');
     /**@type {HTMLInputElement}*/
@@ -292,6 +285,9 @@ window.addEventListener('load', () => {
     let apiopd = document.getElementById('apiopd');
     /**@type {HTMLInputElement}*/
     let apiopn = document.getElementById('apiopn');
+    bu.addEventListener('click', () => {
+        copyToClipboard(o);
+    })
     api.checked ? showElement(apid) : hideElement(apid);
     api.addEventListener('input', () => {
         sal.disabled = api.checked;

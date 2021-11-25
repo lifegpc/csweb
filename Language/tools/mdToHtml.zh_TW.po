@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: csweb\n"
 "POT-Creation-Date: 2021-11-20 05:02:00+0000\n"
-"PO-Revision-Date: 2021-11-24 23:03+0800\n"
+"PO-Revision-Date: 2021-11-25 22:02+0800\n"
 "Last-Translator: lifegpc <g1710431395@gmail.com>\n"
 "Language-Team: \n"
 "Language: zh_TW\n"
@@ -37,6 +37,10 @@ msgstr "顯示選項"
 msgctxt "HOPTIONS"
 msgid "Hide options"
 msgstr "隱藏選項"
+
+msgctxt "AOPTIONS"
+msgid "Available options:"
+msgstr "可用選項："
 
 msgctxt "OPT1"
 msgid "Include a <attr> attribute on all block elements."
@@ -103,3 +107,43 @@ msgid ""
 "Include the remainder of the info string in code blocks in a separate "
 "attribute."
 msgstr "將剩餘的資訊包含在程式碼塊的一個單獨屬性中。"
+
+msgctxt "SEXT"
+msgid "Show extensions"
+msgstr "顯示擴充套件"
+
+msgctxt "HEXT"
+msgid "Hide extensions"
+msgstr "隱藏擴充套件"
+
+msgctxt "AEXT"
+msgid "Available extensions:"
+msgstr "可用擴充套件："
+
+msgctxt "INP"
+msgid "Input:"
+msgstr "輸入："
+
+msgctxt "UF"
+msgid "Use file"
+msgstr "使用檔案"
+
+msgctxt "UT"
+msgid "Use textbox"
+msgstr "使用文字方塊"
+
+msgctxt "CF"
+msgid "Choose file"
+msgstr "選擇檔案"
+
+msgctxt "OUT"
+msgid "Output:"
+msgstr "輸出："
+
+msgctxt "CON"
+msgid "Convert"
+msgstr "轉換"
+
+msgctxt "CPCLIP"
+msgid "Copy to clipboard"
+msgstr "複製到剪貼簿"

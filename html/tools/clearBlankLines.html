@@ -11,13 +11,12 @@ $def with (lan, i18n, trans, embScr, genLangLink)
         $:genLangLink('/tools/clearBlankLines', ['en', 'ja', 'zh_CN', 'zh_TW'])
         <title>$i18n['TITLE']</title>
         <script>var lan="$lan";console.log("$trans");</script>
-        $:embScr('clipboard.min')
         $:embScr('tools/clearBlankLines')
     </head>
     <body>
         $i18n['INPUT']<br/>
         <textarea id="inp" style="width: calc(100% - 20px); margin-left: 10px; height: calc(50vh - 52px); min-height: 100px;"></textarea><br/>
-        <input type="button" id="gen" value="$i18n['REM']"><input type="button" id="cp" value="$i18n['CP']" data-clipboard-action='copy' data-clipboard-target="#o"><br/>
+        <input type="button" id="gen" value="$i18n['REM']"><input type="button" id="cp" value="$i18n['CP']"><br/>
         $i18n['RE']<br/>
         <textarea id="o" style="width: calc(100% - 20px); margin-left: 10px; height: calc(50vh - 52px); min-height: 100px;"></textarea>
     </body>

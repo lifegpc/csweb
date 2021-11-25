@@ -14,5 +14,14 @@ function hideElement(e) {
     e.style.display = "none";
 }
 
+/**
+ * Append a br element to a exist element
+ * @param {HTMLElement} e Element
+ */
+function addBrToElement(e) {
+    e.append(document.createElement('br'));
+}
+
 module.exports.showElement = showElement;
 module.exports.hideElement = hideElement;
+module.exports.addBrToElement = addBrToElement;

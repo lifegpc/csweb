@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: csweb\n"
 "POT-Creation-Date: 2021-11-20 05:02:00+0000\n"
-"PO-Revision-Date: 2021-11-24 22:57+0800\n"
+"PO-Revision-Date: 2021-11-25 22:01+0800\n"
 "Last-Translator: lifegpc <g1710431395@gmail.com>\n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -36,6 +36,10 @@ msgstr ""
 
 msgctxt "HOPTIONS"
 msgid "Hide options"
+msgstr ""
+
+msgctxt "AOPTIONS"
+msgid "Available options:"
 msgstr ""
 
 msgctxt "OPT1"
@@ -96,4 +100,44 @@ msgctxt "OPT12"
 msgid ""
 "Include the remainder of the info string in code blocks in a separate "
 "attribute."
+msgstr ""
+
+msgctxt "SEXT"
+msgid "Show extensions"
+msgstr ""
+
+msgctxt "HEXT"
+msgid "Hide extensions"
+msgstr ""
+
+msgctxt "AEXT"
+msgid "Available extensions:"
+msgstr ""
+
+msgctxt "INP"
+msgid "Input:"
+msgstr ""
+
+msgctxt "UF"
+msgid "Use file"
+msgstr ""
+
+msgctxt "UT"
+msgid "Use textbox"
+msgstr ""
+
+msgctxt "CF"
+msgid "Choose file"
+msgstr ""
+
+msgctxt "OUT"
+msgid "Output:"
+msgstr ""
+
+msgctxt "CON"
+msgid "Convert"
+msgstr ""
+
+msgctxt "CPCLIP"
+msgid "Copy to clipboard"
 msgstr ""

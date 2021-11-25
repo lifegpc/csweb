@@ -8,11 +8,9 @@ $pyt -t instaVerify.js
 res=$(($res|$?))
 $pyt -o about.js -t wplink.js
 res=$(($res|$?))
-$pyt tools/clearBlankLines.js
+$pyt -t tools/clearBlankLines.js
 res=$(($res|$?))
 $pyt -t tools/md_to_html.js
-res=$(($res|$?))
-cp -v node_modules/clipboard/dist/clipboard.min.js js/
 res=$(($res|$?))
 cp -v js\(origin\)/*.wasm js/
 res=$(($res|$?))

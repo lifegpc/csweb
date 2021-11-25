@@ -16,7 +16,6 @@ $code:
         <title>$i18n['TITLE']</title>
         $:genLangLink('/salt', ['en', 'ja', 'zh_CN', 'zh_TW'])
         <script>console.log('$trans');var lan='$lan';var i18n=$i18n2;</script>
-        $:embScr("clipboard.min")
         $:embScr("salt")
     </head>
     <body>
@@ -49,7 +48,7 @@ $code:
         <input id="api" type="checkbox" tabindex="5"$:ifIEHideContent()><label for="api"$:ifIEHideContent()>$i18n['APIT']</label>$:addBr()
         <input id="apiop" type="checkbox" checked tabindex="5" disabled$:ifIEHideContent()><label for="apiop"$:ifIEHideContent()>$i18n['OPP']</label><span id="apiopd" style="margin-left: 50px; display: none;"><label>$i18n['OPPN']</label><input id="apiopn" value="sign" disabled></span>$:addBr()
         <button id="cl" tabindex="3">$i18n['GEN']</button><br/>
-        <button id="bu" data-clipboard-action='copy' data-clipboard-target="#o" tabindex="4">$i18n['CPCLIP']</button><br/>
+        <button id="bu" tabindex="4">$i18n['CPCLIP']</button><br/>
         $i18n['RESULT']<br/>
         <textarea id="o" style="width: calc(100% - 20px); margin-left: 10px; height: 40px;"></textarea><br/>
         $i18n['SOURCE']<a href="https://github.com/lifegpc/csweb/blob/master/js(origin)/salt.js">salt.js</a> <a href="https://github.com/lifegpc/csweb/blob/master/js(origin)/element.js">element.js</a> <a href="https://github.com/lifegpc/csweb/blob/master/js(origin)/xhr.js">xhr.js</a> <a href="https://github.com/lifegpc/csweb/blob/master/js(origin)/wplink.js">wplink.js</a><br/>

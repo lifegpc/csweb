@@ -34,7 +34,7 @@ class MdToHtml:
         i18n = getdict('tools/mdToHtml', lan)
         trans = getTranslator(mdToHtml=i18n)
         i18n2 = {}
-        mapToDict(i18n, i18n2, ['SOPTIONS', 'HOPTIONS'])
+        mapToDict(i18n, i18n2, ['SOPTIONS', 'HOPTIONS', 'SEXT', 'HEXT', 'UF', 'UT'])  # noqa: E501
         i18n2 = dictToJSON(i18n2)
         web.header('Content-Language', lan)
         if web.input().get('hl') is None:

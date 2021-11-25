@@ -15,8 +15,10 @@ $def with (lan, i18n, trans, embScr, genLangLink, i18n2)
     </head>
     <body>
         $i18n['VER'].replace('<library>', '<a href="https://github.com/github/cmark-gfm">cmark-gfm</a>')<label id="ver"></label><br>
-        <input id="optb" type="button" value="$i18n['SOPTIONS']"><br>
+        <input id="optb" type="button" value="$i18n['SOPTIONS']">
+        <input id="extb" type="button" value="$i18n['SEXT']"><br>
         <div id="optd" style="display: none;">
+        $i18n['AOPTIONS']<br>
         <input type="checkbox" id="opt1"><label for="opt1">$i18n['OPT1'].replace('<attr>','<code>data-sourcepos</code>')</label><br>
         <input type="checkbox" id="opt2"><label for="opt2">$i18n['OPT2'].replace('<ele>', '<code>softbreak</code>')</label><br>
         <input type="checkbox" id="opt3"><label for="opt3">$i18n['OPT3'].replace('<type1>', '<code>javascript:</code>').replace('<type2>', '<code>vbscript:</code>').replace('<type3>', '<code>file:</code>').replace('<type4>', '<code>data:</code>').replace('<type5>', '<code>image/png</code>').replace('<type6>', '<code>image/gif</code>').replace('<type7>', '<code>image/jpeg</code>').replace('<type8>', '<code>image/webp</code>')</label><br>
@@ -30,5 +32,14 @@ $def with (lan, i18n, trans, embScr, genLangLink, i18n2)
         <input type="checkbox" id="opt11"><label for="opt11">$i18n['OPT11']</label><br>
         <input type="checkbox" id="opt12"><label for="opt12">$i18n['OPT12']</label>
         </div>
+        <div id="extd" style="display: none;">$i18n['AEXT']<br></div>
+        $i18n['INP']<br>
+        <input type="button" id="it" value="$i18n['UF']"><br>
+        <textarea id="itxt" style="height: 40vh; min-height: 100px; width: calc(100vw - 20px);"></textarea>
+        <input type="file" id="inf" value="$i18n['CF']" style="display: none;"><br>
+        <input type="button" id="con" value="$i18n['CON']"><br>
+        $i18n['OUT']<br>
+        <input type="button" id="ocp" value="$i18n['CPCLIP']"><br>
+        <textarea id="otxt" style="height: 40vh; min-height: 100px; width: calc(100vw - 20px);"></textarea>
     </body>
 </html>

@@ -36,6 +36,10 @@ msgctxt "HOPTIONS"
 msgid "Hide options"
 msgstr ""
 
+msgctxt "AOPTIONS"
+msgid "Available options:"
+msgstr ""
+
 msgctxt "OPT1"
 msgid "Include a <attr> attribute on all block elements."
 msgstr ""
@@ -84,4 +88,44 @@ msgstr ""
 
 msgctxt "OPT12"
 msgid "Include the remainder of the info string in code blocks in a separate attribute."
+msgstr ""
+
+msgctxt "SEXT"
+msgid "Show extensions"
+msgstr ""
+
+msgctxt "HEXT"
+msgid "Hide extensions"
+msgstr ""
+
+msgctxt "AEXT"
+msgid "Available extensions:"
+msgstr ""
+
+msgctxt "INP"
+msgid "Input:"
+msgstr ""
+
+msgctxt "UF"
+msgid "Use file"
+msgstr ""
+
+msgctxt "UT"
+msgid "Use textbox"
+msgstr ""
+
+msgctxt "CF"
+msgid "Choose file"
+msgstr ""
+
+msgctxt "OUT"
+msgid "Output:"
+msgstr ""
+
+msgctxt "CON"
+msgid "Convert"
+msgstr ""
+
+msgctxt "CPCLIP"
+msgid "Copy to clipboard"
 msgstr ""

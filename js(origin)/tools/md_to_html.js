@@ -1,4 +1,5 @@
-const { showElement, hideElement } = require('../element');
+const { copyToClipboard } = require('../clipboard');
+const { showElement, hideElement, addBrToElement } = require('../element');
 const _cmark_gfm = require('../_cmark_gfm')
 
 let m_loaded = false;
@@ -39,8 +40,25 @@ function main() {
     let opt10 = document.getElementById('opt10');
     let opt11 = document.getElementById('opt11');
     let opt12 = document.getElementById('opt12');
+    /**@type {HTMLInputElement}*/
+    let extb = document.getElementById('extb');
+    let extd = document.getElementById('extd');
+    /**@type {HTMLInputElement}*/
+    let it = document.getElementById('it');
+    /**@type {HTMLTextAreaElement}*/
+    let itxt = document.getElementById('itxt');
+    /**@type {HTMLInputElement}*/
+    let inf = document.getElementById('inf');
+    /**@type {HTMLTextAreaElement}*/
+    let otxt = document.getElementById('otxt');
+    let con = document.getElementById('con');
+    let ocp = document.getElementById('ocp');
     let showopt = false;
+    let showext = false;
+    let use_file = false;
     let opts = 0;
+    /**@type {Array<HTMLInputElement>}*/
+    let extds = [];
     optb.addEventListener('click', () => {
         showopt = !showopt;
         if (showopt) {
@@ -50,6 +68,16 @@ function main() {
         else {
             optb.value = i18n['SOPTIONS'];
             hideElement(optd);
+        }
+    })
+    extb.addEventListener('click', () => {
+        showext = !showext;
+        if (showext) {
+            extb.value = i18n['HEXT'];
+            showElement(extd);
+        } else {
+            extb.value = i18n['SEXT'];
+            hideElement(extd);
         }
     })
     opt1.addEventListener('input', () => {
@@ -99,6 +127,63 @@ function main() {
     opt12.addEventListener('input', () => {
         opts = handleopts(opt12, _cmark_gfm.CMARK_OPT_FULL_INFO_STRING, opts);
         console.log(opts);
+    })
+    let ext_list = _cmark_gfm.get_all_extensions();
+    for (let i = 0; i < ext_list.length; i++) {
+        let ext_name = ext_list[i];
+        let bu = document.createElement('input');
+        bu.type = 'checkbox';
+        bu.id = 'ext_' + ext_name;
+        extd.append(bu);
+        extds.push(bu);
+        let lab = document.createElement('label');
+        lab.innerText = ext_name;
+        lab.htmlFor = bu.id;
+        extd.append(lab);
+        addBrToElement(extd);
+    }
+    function change_to_use_file() {
+        it.value = i18n['UT'];
+        hideElement(itxt);
+        showElement(inf);
+    }
+    function change_to_use_textbox() {
+        it.value = i18n['UF'];
+        hideElement(inf);
+        showElement(itxt);
+    }
+    it.addEventListener('click', () => {
+        use_file = !use_file;
+        if (use_file) {
+            change_to_use_file()
+        } else {
+            change_to_use_textbox()
+        }
+    })
+    function realConvert(s) {
+        let exts = [];
+        for (let i = 0; i < extds.length; i++) {
+            if (extds[i].checked) exts.push(ext_list[i]);
+        }
+        let re = _cmark_gfm.md_to_html(s, opts, exts);
+        return typeof re == "string" ? re : "";
+    }
+    function convert(s) {
+        otxt.value = realConvert(s);
+    }
+    con.addEventListener('click', () => {
+        if (use_file) {
+            if (inf.files.length) {
+                inf.files[0].text().then((s) => {
+                    convert(s);
+                })
+            }
+        } else {
+            convert(itxt.value);
+        }
+    })
+    ocp.addEventListener('click', () => {
+        copyToClipboard(otxt);
     })
 }
 

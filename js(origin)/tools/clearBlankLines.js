@@ -1,19 +1,16 @@
+const { copyToClipboard } = require("../clipboard");
+
 window.addEventListener('load', () => {
-    var ClipboardJS = window["ClipboardJS"];
-    var clipboard = new ClipboardJS('#cp');
-    clipboard["on"]('success', function (e) {
-        e["clearSelection"]();
-    });
-    clipboard["on"]('error', function (e) {
-        console.error('Action:', e["action"]);
-        console.error('Trigger:', e["trigger"]);
-    });
+    let cp = document.getElementById('cp');
     /**@type {HTMLTextAreaElement}*/
     let inp = document.getElementById('inp');
     /**@type {HTMLTextAreaElement}*/
     let out = document.getElementById('o');
     /**@type {HTMLInputElement}*/
     let gen = document.getElementById('gen');
+    cp.addEventListener('click', () => {
+        copyToClipboard(out);
+    })
     gen.addEventListener('click', () => {
         let inpt = inp.value;
         if (!inpt.length) return;
