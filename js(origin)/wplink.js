@@ -1,4 +1,4 @@
-/// <reference path="xhr.js"/>
+const { get } = require('./xhr');
 window.addEventListener('load', () => {
     /**@type {HTMLCollectionOf<HTMLLinkElement>} */
     var list = document.getElementsByClassName('wplink');

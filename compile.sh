@@ -1,12 +1,12 @@
 pyt="python3 compile.py -W '*'"
 res=0
-$pyt -t sendMsgToMe.js captcha2.js xhr.js
+$pyt -t sendMsgToMe.js captcha2.js
 res=$(($res|$?))
-$pyt -t salt.js xhr.js wplink.js
+$pyt -t wplink.js -t salt.js
 res=$(($res|$?))
-$pyt xhr.js instaVerify.js
+$pyt -t instaVerify.js
 res=$(($res|$?))
-$pyt -o about.js xhr.js wplink.js
+$pyt -o about.js -t wplink.js
 res=$(($res|$?))
 $pyt tools/clearBlankLines.js
 res=$(($res|$?))

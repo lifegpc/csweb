@@ -1,3 +1,4 @@
+const { post } = require('./xhr');
 window.addEventListener('load', () => {
     /**@type {HTMLInputElement}*/
     let s = document.getElementById('s');

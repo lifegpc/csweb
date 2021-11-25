@@ -87,3 +87,5 @@ function get(url, data, callback, failedCallback, headers) {
         if (failedCallback != undefined) failedCallback();
     }
 }
+
+module.exports = { get, post }

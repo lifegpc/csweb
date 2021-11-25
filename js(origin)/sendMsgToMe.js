@@ -1,4 +1,4 @@
-/// <reference path="xhr.js" />
+const { post } = require('./xhr');
 const { i18nReplace } = require('./i18n')
 window.addEventListener('load', () => {
     document.getElementById('submit').addEventListener('click', () => {
