@@ -1,5 +1,5 @@
 /// <reference path="xhr.js" />
-/// <reference path="i18n.js" />
+const { i18nReplace } = require('./i18n')
 window.addEventListener('load', () => {
     document.getElementById('submit').addEventListener('click', () => {
         /**@type {HTMLTextAreaElement} */

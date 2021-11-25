@@ -12,3 +12,4 @@ function i18nReplace(value, map) {
     })
     return value;
 }
+module.exports = { i18nReplace };

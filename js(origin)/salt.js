@@ -1,4 +1,4 @@
-/// <reference path="i18n.js"/>
+const { i18nReplace } = require('./i18n');
 const { Base64 } = require("js-base64")
 const md5 = require("lifegpc-md5")
 const sha256m = require("@stablelib/sha256")
