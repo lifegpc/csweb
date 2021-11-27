@@ -129,3 +129,7 @@ msgstr ""
 msgctxt "CPCLIP"
 msgid "Copy to clipboard"
 msgstr ""
+
+msgctxt "RDCLIP"
+msgid "Read from clipboard"
+msgstr ""

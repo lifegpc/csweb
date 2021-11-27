@@ -19,11 +19,66 @@ function changeSelection(e) {
  * @param {Node} e 
  * @returns {boolean} true if successed.
  */
-function copyToClipboard(e) {
+function copyToClipboardOld(e) {
     if (!changeSelection(e)) return false;
     let re = document.execCommand('copy');
     changeSelection();
     return re;
 }
 
-module.exports = { copyToClipboard }
+/**
+ * Set clipboard's data to a node
+ * @param {Node} e
+ * @returns {boolean} true if successed.
+ */
+function readFromClipboardOld(e) {
+    if (!changeSelection(e)) return false;
+    let re = document.execCommand('paste');
+    changeSelection();
+    return re;
+}
+
+/**
+ * Copy data to clipboard
+ * @param {Node} e Target node (used to select)
+ * @param {string} v Text (used in new api)
+ * @returns {Promise<boolean>} true if successed.
+ */
+function copyToClipboard(e, v) {
+    return new Promise((resolve, reject) => {
+        if (!!navigator.clipboard) {
+            navigator.clipboard.writeText(v).then(() => {
+                resolve(true);
+            }).catch((r) => {
+                console.warn(r);
+                resolve(copyToClipboardOld(e));
+            })
+        } else {
+            resolve(copyToClipboardOld(e));
+        }
+    })
+}
+
+
+/**
+ * Read data from clipboard
+ * @param {HTMLInputElement|HTMLTextAreaElement} e Target note
+ * @returns {Promise<boolean>} true if successed.
+ */
+function readFromClipboard(e) {
+    return new Promise((resolve, reject) => {
+        if (!!navigator.clipboard) {
+            navigator.clipboard.readText().then((s) => {
+                e.value = s;
+                resolve(true);
+            }).catch((r) => {
+                console.warn(r);
+                resolve(readFromClipboardOld(e));
+            })
+        } else {
+            resolve(readFromClipboardOld(e));
+        }
+    })
+}
+
+module.exports = { copyToClipboard, readFromClipboard }

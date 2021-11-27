@@ -9,7 +9,7 @@ window.addEventListener('load', () => {
     /**@type {HTMLInputElement}*/
     let gen = document.getElementById('gen');
     cp.addEventListener('click', () => {
-        copyToClipboard(out);
+        copyToClipboard(out, out.value);
     })
     gen.addEventListener('click', () => {
         let inpt = inp.value;

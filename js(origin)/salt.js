@@ -286,7 +286,7 @@ window.addEventListener('load', () => {
     /**@type {HTMLInputElement}*/
     let apiopn = document.getElementById('apiopn');
     bu.addEventListener('click', () => {
-        copyToClipboard(o);
+        copyToClipboard(o, o.value);
     })
     api.checked ? showElement(apid) : hideElement(apid);
     api.addEventListener('input', () => {

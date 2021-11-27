@@ -1,4 +1,4 @@
-const { copyToClipboard } = require('../clipboard');
+const { copyToClipboard, readFromClipboard } = require('../clipboard');
 const { showElement, hideElement, addBrToElement } = require('../element');
 const _cmark_gfm = require('../_cmark_gfm')
 
@@ -53,6 +53,7 @@ function main() {
     let otxt = document.getElementById('otxt');
     let con = document.getElementById('con');
     let ocp = document.getElementById('ocp');
+    let ird = document.getElementById('ird');
     let showopt = false;
     let showext = false;
     let use_file = false;
@@ -145,12 +146,14 @@ function main() {
     function change_to_use_file() {
         it.value = i18n['UT'];
         hideElement(itxt);
+        hideElement(ird);
         showElement(inf);
     }
     function change_to_use_textbox() {
         it.value = i18n['UF'];
         hideElement(inf);
         showElement(itxt);
+        showElement(ird);
     }
     it.addEventListener('click', () => {
         use_file = !use_file;
@@ -183,7 +186,12 @@ function main() {
         }
     })
     ocp.addEventListener('click', () => {
-        copyToClipboard(otxt);
+        copyToClipboard(otxt, otxt.value);
+    })
+    ird.addEventListener('click', () => {
+        readFromClipboard(itxt).then((r) => {
+            if (!r) itxt.value = "";
+        })
     })
 }
 
