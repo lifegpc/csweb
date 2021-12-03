@@ -31,13 +31,16 @@ class CfwFileSettings:
     default_proxy: str = None
     remove_rule_providers: bool = False
     force_enable_udp: bool = False
+    direct_proxy: str = None
 
     def __init__(self, default_proxy: str = None,
                  remove_rule_providers: bool = False,
-                 force_enable_udp: bool = False):
+                 force_enable_udp: bool = False,
+                 direct_proxy: str = None):
         self.default_proxy = default_proxy
         self.remove_rule_providers = remove_rule_providers
         self.force_enable_udp = force_enable_udp
+        self.direct_proxy = direct_proxy
 
 
 def checkNameInList(li: list, name: str):
@@ -106,7 +109,25 @@ def removeRuleProviders(target, headers: dict):
 
 def addProfileToTarget(source, target, settings: CfwFileSettings):
     if 'proxy-groups' in source:
+        new_proxy_groups = []
         for d in source['proxy-groups']:
+            if 'name' in d:
+                if d['name'].find('$(default_proxy)') > -1:
+                    if settings.default_proxy and 'proxy-groups' in target\
+                        and checkNameInList(target['proxy-groups'],
+                                            settings.default_proxy):
+                        d['name'] = d['name'].replace("$(default_proxy)",
+                                                      settings.default_proxy)
+                    else:
+                        continue
+                if d['name'].find('$(direct_proxy)') > -1:
+                    if settings.direct_proxy and 'proxy-groups' in target\
+                        and checkNameInList(target['proxy-groups'],
+                                            settings.direct_proxy):
+                        d['name'] = d['name'].replace("$(direct_proxy)",
+                                                      settings.direct_proxy)
+                    else:
+                        continue
             if 'proxies' in d:
                 r = []
                 for i in d['proxies']:
@@ -116,16 +137,35 @@ def addProfileToTarget(source, target, settings: CfwFileSettings):
                                                 settings.default_proxy):
                             i = i.replace("$(default_proxy)",
                                           settings.default_proxy)
-                            r.append(i)
-                    elif i == "$(all_origin_proxy)":
+                        else:
+                            i = i.replace("$(default_proxy)", "")
+                    if i.find("$(direct_proxy)") > -1:
+                        if settings.direct_proxy and 'proxy-groups' in target\
+                            and checkNameInList(target['proxy-groups'],
+                                                settings.direct_proxy):
+                            i = i.replace("$(direct_proxy)",
+                                          settings.direct_proxy)
+                        else:
+                            i = i.replace("$(direct_proxy)", "")
+                    if i == "$(all_origin_proxy)":
                         if 'proxies' in target:
-                            r += generateNameList(target["proxies"])
-                    elif i == "$(all_new_proxy)":
+                            tmp = generateNameList(target["proxies"])
+                            for i in tmp:
+                                if i not in r:
+                                    r.append(i)
+                        continue
+                    if i == "$(all_new_proxy)":
                         if 'proxies' in source:
-                            r += generateNameList(source["proxies"])
-                    else:
+                            tmp = generateNameList(source["proxies"])
+                            for i in tmp:
+                                if i not in r:
+                                    r.append(i)
+                        continue
+                    if i not in r and i != '':
                         r.append(i)
                 d['proxies'] = r
+            new_proxy_groups.append(d)
+        source['proxy-groups'] = new_proxy_groups
     if 'rules' in source:
         r = []
         for i in source['rules']:
@@ -134,9 +174,16 @@ def addProfileToTarget(source, target, settings: CfwFileSettings):
                     checkNameInList(target['proxy-groups'],
                                     settings.default_proxy):
                     i = i.replace("$(default_proxy)", settings.default_proxy)
-                    r.append(i)
-            else:
-                r.append(i)
+                else:
+                    i = i.replace("$(default_proxy)", "")
+            if i.find("$(direct_proxy)") > -1:
+                if settings.direct_proxy and 'proxy-groups' in target and\
+                    checkNameInList(target['proxy-groups'],
+                                    settings.direct_proxy):
+                    i = i.replace("$(direct_proxy)", settings.direct_proxy)
+                else:
+                    i = i.replace("$(direct_proxy)", "")
+            r.append(i)
         source['rules'] = r
     if 'proxies' in source and 'proxies' in target:
         target['proxies'] = source['proxies'] + target['proxies']
@@ -149,6 +196,14 @@ def addProfileToTarget(source, target, settings: CfwFileSettings):
         target['proxy-groups'] = source['proxy-groups'] + target['proxy-groups']  # noqa: E501
     elif 'proxy-groups' in source:
         target['proxy-groups'] = source['proxy-groups']
+    if 'proxy-groups' in target:
+        proxy_groups_name = []
+        new_proxy_groups = []
+        for i in target['proxy-groups']:
+            if i['name'] not in proxy_groups_name:
+                proxy_groups_name.append(i['name'])
+                new_proxy_groups.append(i)
+        target['proxy-groups'] = new_proxy_groups
     if 'rules' in target and 'rules' in source:
         target['rules'] = source['rules'] + target['rules']
     elif 'rules' in source:
@@ -206,6 +261,11 @@ class CfwProfile:
                 force_enable_udp = web.input().get("force_enable_udp")
             if force_enable_udp is not None:
                 d['force_enable_udp'] = True
+            direct_proxy = web.input().get("direct")
+            if direct_proxy is None or direct_proxy == '':
+                direct_proxy = web.input().get("direct_proxy")
+            if direct_proxy is not None and direct_proxy != '':
+                d['direct_proxy'] = direct_proxy
             cfws = CfwFileSettings(**d)
             if cfws.remove_rule_providers:
                 removeRuleProviders(ori, headers)
