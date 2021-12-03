@@ -153,6 +153,8 @@ def addProfileToTarget(source, target, settings: CfwFileSettings):
         target['rules'] = source['rules'] + target['rules']
     elif 'rules' in source:
         target['rules'] = source['rules']
+    if 'dns' in source:
+        target['dns'] = source['dns']
 
 
 class CfwProfile:
