@@ -13,6 +13,7 @@ DB = 'tiktokdebug.db'
 USERNAME = 'yui_ogura_offcial'
 VID = '6945812541574499585'
 VID2 = '6992419824760671489'
+set_settings('debug', True)
 set_settings('tiktokRSSSecrets', SEC1)
 set_settings('tiktokDatabaseLocation', DB)
 set_settings('RSSProxySerects', SEC2)
