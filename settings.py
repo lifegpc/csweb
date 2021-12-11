@@ -371,3 +371,12 @@ class settings:
         if key in self.__data and self.__data[key]:
             return True
         return False
+
+    @property
+    def pixivProxy(self) -> bool:
+        if self.__data is None:
+            return None
+        key = 'pixivProxy'
+        if key in self.__data and self.__data[key] and self.__data[key] != '':
+            return self.__data[key]
+        return None

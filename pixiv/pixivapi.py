@@ -47,6 +47,9 @@ class PixivAPI:
         self._wses = Session()
         self._wses.headers.update({'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36'})  # noqa: E501
         self._wses.cookies = MozillaCookieJar()
+        if se.pixivProxy:
+            self._ses.proxies['all'] = se.pixivProxy
+            self._wses.proxies['all'] = se.pixivProxy
         self._s = se
         self._db = db
         self.get_cookies()
