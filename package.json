@@ -7,7 +7,7 @@
     "@stablelib/sha512": "^1.0.1",
     "@stablelib/sha512_256": "^1.0.1",
     "array-buffer-to-hex": "^1.0.0",
-    "closure-calculate-chunks": "^3.0.2",
+    "closure-calculate-chunks": "^3.0.3",
     "js-base64": "^3.7.2",
     "lifegpc-md5": "^1.0.2",
     "lifegpc-sha1": "^1.0.0",
