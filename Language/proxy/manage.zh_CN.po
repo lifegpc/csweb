@@ -1,0 +1,59 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: csweb\n"
+"POT-Creation-Date: 2022-01-19 03:28:00+0000\n"
+"PO-Revision-Date: 2022-01-19 17:24+0800\n"
+"Last-Translator: lifegpc <g1710431395@gmail.com>\n"
+"Language-Team: \n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.0\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+# Dear translator: place your name here if you like.
+# You can use , to separate two names
+msgctxt "TRANSLATOR"
+msgid "lifegpc"
+msgstr "lifegpc"
+
+msgctxt "TITLE"
+msgid "Manage proxy list"
+msgstr "管理代理列表"
+
+msgctxt "SECKEY"
+msgid "Secret:"
+msgstr "密钥："
+
+msgctxt "GL"
+msgid "Get proxy list"
+msgstr "获取代理列表"
+
+msgctxt "SEVERR"
+msgid "An internal error occurred on server."
+msgstr "服务器上发生了一个内部错误。"
+
+msgctxt "UNAUTH"
+msgid "Wrong secret."
+msgstr "错误的密钥。"
+
+msgctxt "PROLI"
+msgid "Proxy list:"
+msgstr "代理列表："
+
+msgctxt "ADD"
+msgid "Add new proxy"
+msgstr "新增代理"
+
+msgctxt "REQ"
+msgid "<a> is required."
+msgstr "<a> 是必须的。"
+
+msgctxt "OR"
+msgid "<a> or <b>"
+msgstr "<a> 或 <b>"
+
+msgctxt "FP"
+msgid "First page"
+msgstr "首页"

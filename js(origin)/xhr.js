@@ -24,7 +24,7 @@ function post(url, data, callback, failedCallback, headers) {
     } else form = data;
     var u = new URL(window.location.href);
     var hl = u.searchParams.get('hl');
-    if (hl != null && !form.has("hl") && u.hostname == new URL(url).hostname) form.append("hl", hl);
+    if (!form.has("sign") && hl != null && !form.has("hl") && u.hostname == new URL(url).hostname) form.append("hl", hl);
     if (headers != undefined) {
         Object.getOwnPropertyNames(headers).forEach((key) => {
             if (typeof headers[key] == "string")
@@ -67,7 +67,7 @@ function get(url, data, callback, failedCallback, headers) {
     var hl = uri.searchParams.get('hl');
     var louri = new URL(window.location.href);
     var hl2 = louri.searchParams.get('hl');
-    if (hl == null && hl2 != null && uri.hostname == louri.hostname) {
+    if (!uri.searchParams.has("sign") && hl == null && hl2 != null && uri.hostname == louri.hostname) {
         uri.searchParams.append('hl', hl2);
     }
     xhr.open("GET", uri.href);

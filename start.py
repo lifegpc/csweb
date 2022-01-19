@@ -32,6 +32,7 @@ from about import About  # noqa: F401
 from tools.clearBlankLines import ClearBlankLines  # noqa: F401
 from pixiv.pixivrss import PixivRSS  # noqa: F401
 from tools.mdToHtml import MdToHtml  # noqa: F401
+from proxy.manage import ProxyManage  # noqa: F401
 
 
 urls = (
@@ -52,6 +53,7 @@ urls = (
     '^/proxy/gen$', 'ProxyGen',
     '^/proxy/get$', 'ProxyGet',
     '^/proxy/list$', 'ProxyList',
+    '^/proxy/manage$', 'ProxyManage',
     '^/proxy/proxy$', 'ProxyProxy',
     '^/about', 'About',
     '^/tools/clearBlankLines$', 'ClearBlankLines',

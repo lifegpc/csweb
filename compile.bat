@@ -8,5 +8,6 @@ set pyt=%py% compile.py -W *
 %pyt% -o about.js -t wplink.js
 %pyt% -t tools/clearBlankLines.js
 %pyt% -t tools/md_to_html.js
+%pyt% -t proxy/manage.js
 COPY /Y js(origin)\*.wasm js\
 ENDLOCAL

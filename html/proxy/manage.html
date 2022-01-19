@@ -1,0 +1,34 @@
+$def with (lan, trans, i18n, embScr, genLangLink, i18n2)
+<!DOCTYPE html>
+<html lang="$lan">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">  
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta name="title" content="$i18n['TITLE']">
+        <meta name="author" content="lifegpc">
+        <meta name="description" content="Manage proxy list.">
+        <meta name="keywords" content="manage,proxy">
+        <title>$i18n['TITLE']</title>
+        $:genLangLink('/proxy/manage', ['en', 'ja', 'zh_CN', 'zh_TW'])
+        <script>var lan="$lan";console.log("$trans");var i18n=$i18n2;</script>
+        $:embScr('proxy/manage')
+    </head>
+    <body>
+        $i18n['SECKEY']<input id="pas" type="password" autocomplete="new-password" aria-autocomplete="none"><br>
+        <input type="button" value="$i18n['GL']" id="gl" disabled><input type="button" value="$i18n['ADD']" id='add' disabled><br>
+        <div id="addd" style="display: none;">
+            ID: <input id="id"><br>
+            Cookies: <div id="cok"></div>
+            Headers: <div id="hea"></div>
+            <input type="button" value="$i18n['ADD']" id="cadd" disabled><br>
+        </div>
+        <label>$i18n['PROLI']</label><br>
+        <input type="button" value="$i18n['FP']" id='fp' disabled><br>
+        <table>
+            <thead>
+                <tr><td>ID</td><td>Cookies</td><td>Headers</td><td></td></tr>
+            </thead>
+            <tbody id="list"></tbody>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,57 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: csweb\n"
+"POT-Creation-Date: 2022-01-19 03:28:00+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
+
+# Dear translator: place your name here if you like.
+# You can use , to separate two names
+msgctxt "TRANSLATOR"
+msgid "lifegpc"
+msgstr ""
+
+msgctxt "TITLE"
+msgid "Manage proxy list"
+msgstr ""
+
+msgctxt "SECKEY"
+msgid "Secret:"
+msgstr ""
+
+msgctxt "GL"
+msgid "Get proxy list"
+msgstr ""
+
+msgctxt "SEVERR"
+msgid "An internal error occurred on server."
+msgstr ""
+
+msgctxt "UNAUTH"
+msgid "Wrong secret."
+msgstr ""
+
+msgctxt "PROLI"
+msgid "Proxy list:"
+msgstr ""
+
+msgctxt "ADD"
+msgid "Add new proxy"
+msgstr ""
+
+msgctxt "REQ"
+msgid "<a> is required."
+msgstr ""
+
+msgctxt "OR"
+msgid "<a> or <b>"
+msgstr ""
+
+msgctxt "FP"
+msgid "First page"
+msgstr ""
