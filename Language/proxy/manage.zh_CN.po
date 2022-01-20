@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: csweb\n"
 "POT-Creation-Date: 2022-01-19 03:28:00+0000\n"
-"PO-Revision-Date: 2022-01-19 17:24+0800\n"
+"PO-Revision-Date: 2022-01-20 15:04+0800\n"
 "Last-Translator: lifegpc <g1710431395@gmail.com>\n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -57,3 +57,59 @@ msgstr "<a> 或 <b>"
 msgctxt "FP"
 msgid "First page"
 msgstr "首页"
+
+msgctxt "PP"
+msgid "Previous page"
+msgstr "上一页"
+
+msgctxt "NP"
+msgid "Next page"
+msgstr "下一页"
+
+msgctxt "LP"
+msgid "Last page"
+msgstr "末页"
+
+msgctxt "PN"
+msgid "Page <num>, <total> in total"
+msgstr "第 <num> 页，共 <total> 页"
+
+msgctxt "SC"
+msgid "Show <a>"
+msgstr "显示 <a>"
+
+msgctxt "DEL"
+msgid "Delete"
+msgstr "删除"
+
+msgctxt "SUCDEL"
+msgid "Delete successfully."
+msgstr "成功删除。"
+
+msgctxt "FADEL"
+msgid "Failed to delete."
+msgstr "删除失败。"
+
+msgctxt "COADD"
+msgid "This id already exists on server, do you want to overwrite it?"
+msgstr "该 ID 已存在于服务器上，是否覆盖？"
+
+msgctxt "SUCADD"
+msgid "Added successfully."
+msgstr "新增成功。"
+
+msgctxt "UNDOW"
+msgid "This operation can not be undo."
+msgstr "该操作无法撤销。"
+
+msgctxt "CODEL"
+msgid "Do you want to delete?"
+msgstr "您确定要删除吗？"
+
+msgctxt "CODEA"
+msgid "Do you want to delete all proxies?"
+msgstr "您确定要删除所有代理吗？"
+
+msgctxt "DA"
+msgid "Delete all proxies"
+msgstr "删除所有代理"

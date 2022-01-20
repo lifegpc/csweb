@@ -55,3 +55,59 @@ msgstr ""
 msgctxt "FP"
 msgid "First page"
 msgstr ""
+
+msgctxt "PP"
+msgid "Previous page"
+msgstr ""
+
+msgctxt "NP"
+msgid "Next page"
+msgstr ""
+
+msgctxt "LP"
+msgid "Last page"
+msgstr ""
+
+msgctxt "PN"
+msgid "Page <num>, <total> in total"
+msgstr ""
+
+msgctxt "SC"
+msgid "Show <a>"
+msgstr ""
+
+msgctxt "DEL"
+msgid "Delete"
+msgstr ""
+
+msgctxt "SUCDEL"
+msgid "Delete successfully."
+msgstr ""
+
+msgctxt "FADEL"
+msgid "Failed to delete."
+msgstr ""
+
+msgctxt "COADD"
+msgid "This id already exists on server, do you want to overwrite it?"
+msgstr ""
+
+msgctxt "SUCADD"
+msgid "Added successfully."
+msgstr ""
+
+msgctxt "UNDOW"
+msgid "This operation can not be undo."
+msgstr ""
+
+msgctxt "CODEL"
+msgid "Do you want to delete?"
+msgstr ""
+
+msgctxt "CODEA"
+msgid "Do you want to delete all proxies?"
+msgstr ""
+
+msgctxt "DA"
+msgid "Delete all proxies"
+msgstr ""

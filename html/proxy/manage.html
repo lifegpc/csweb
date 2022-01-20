@@ -15,7 +15,7 @@ $def with (lan, trans, i18n, embScr, genLangLink, i18n2)
     </head>
     <body>
         $i18n['SECKEY']<input id="pas" type="password" autocomplete="new-password" aria-autocomplete="none"><br>
-        <input type="button" value="$i18n['GL']" id="gl" disabled><input type="button" value="$i18n['ADD']" id='add' disabled><br>
+        <input type="button" value="$i18n['GL']" id="gl" disabled><input type="button" value="$i18n['ADD']" id='add' disabled><input type="button" value="$i18n['DA']" id='da' disabled><br>
         <div id="addd" style="display: none;">
             ID: <input id="id"><br>
             Cookies: <div id="cok"></div>
@@ -23,12 +23,14 @@ $def with (lan, trans, i18n, embScr, genLangLink, i18n2)
             <input type="button" value="$i18n['ADD']" id="cadd" disabled><br>
         </div>
         <label>$i18n['PROLI']</label><br>
-        <input type="button" value="$i18n['FP']" id='fp' disabled><br>
-        <table>
+        <input type="button" value="$i18n['FP']" id='fp' disabled><input type="button" value="$i18n['PP']" id='pp' disabled><input type="button" value="$i18n['NP']" id="np" disabled><input type="button" value="$i18n['LP']" id='lp' disabled><div id="pn"></div>
+        <table style="min-width: 99vw;">
             <thead>
-                <tr><td>ID</td><td>Cookies</td><td>Headers</td><td></td></tr>
+                <tr><td style="width: 10%; min-width: 40px;">ID</td><td style="width: 35%; min-width: 250px;">Cookies</td><td style="width: 35%; min-width: 250px;">Headers</td><td style="width: 20%; min-width: 120px;"></td></tr>
             </thead>
-            <tbody id="list"></tbody>
+            <tbody id="list">
+                <template id="listt"><tr><td class="id"></td><td><div class="cookies"></div><input type="button" value="$i18n['SC'].replace('<a>', 'Cookies')" class="sc"></td><td><div class="headers"></div><input type="button" value="$i18n['SC'].replace('<a>', 'Headers')" class="sh"></td><td><input type="button" value="$i18n['DEL']" class="del"></td></tr></template>
+            </tbody>
         </table>
     </body>
 </html>
