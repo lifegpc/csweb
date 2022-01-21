@@ -111,3 +111,11 @@ msgstr ""
 msgctxt "DA"
 msgid "Delete all proxies"
 msgstr ""
+
+msgctxt "RDCLIP"
+msgid "Read from clipboard"
+msgstr ""
+
+msgctxt "HC"
+msgid "Hide <a>"
+msgstr ""

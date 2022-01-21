@@ -34,7 +34,7 @@ class ProxyManage:
         i18n = getdict('proxy/manage', lan)
         trans = getTranslator(manage=i18n)
         i18n2 = {}
-        mapToDict(i18n, i18n2, ['SEVERR', 'UNAUTH', 'REQ', 'OR', 'PN', 'SUCDEL', 'FADEL', 'COADD', 'SUCADD', 'UNDOW', 'CODEL', 'CODEA'])  # noqa: E501
+        mapToDict(i18n, i18n2, ['SEVERR', 'UNAUTH', 'REQ', 'OR', 'PN', 'SUCDEL', 'FADEL', 'COADD', 'SUCADD', 'UNDOW', 'CODEL', 'CODEA', 'SC', 'HC'])  # noqa: E501
         i18n2 = dictToJSON(i18n2)
         web.header('Content-Language', lan)
         if web.input().get('hl') is None:

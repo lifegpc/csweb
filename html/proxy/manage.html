@@ -18,8 +18,8 @@ $def with (lan, trans, i18n, embScr, genLangLink, i18n2)
         <input type="button" value="$i18n['GL']" id="gl" disabled><input type="button" value="$i18n['ADD']" id='add' disabled><input type="button" value="$i18n['DA']" id='da' disabled><br>
         <div id="addd" style="display: none;">
             ID: <input id="id"><br>
-            Cookies: <div id="cok"></div>
-            Headers: <div id="hea"></div>
+            Cookies: <input type="button" id="cokc" value="$i18n['RDCLIP']"><div id="cok"></div>
+            Headers: <input type="button" id="heac" value="$i18n['RDCLIP']"><div id="hea"></div>
             <input type="button" value="$i18n['ADD']" id="cadd" disabled><br>
         </div>
         <label>$i18n['PROLI']</label><br>
@@ -29,7 +29,7 @@ $def with (lan, trans, i18n, embScr, genLangLink, i18n2)
                 <tr><td style="width: 10%; min-width: 40px;">ID</td><td style="width: 35%; min-width: 250px;">Cookies</td><td style="width: 35%; min-width: 250px;">Headers</td><td style="width: 20%; min-width: 120px;"></td></tr>
             </thead>
             <tbody id="list">
-                <template id="listt"><tr><td class="id"></td><td><div class="cookies"></div><input type="button" value="$i18n['SC'].replace('<a>', 'Cookies')" class="sc"></td><td><div class="headers"></div><input type="button" value="$i18n['SC'].replace('<a>', 'Headers')" class="sh"></td><td><input type="button" value="$i18n['DEL']" class="del"></td></tr></template>
+                <template id="listt"><tr><td class="id"></td><td><input type="button" x-name="Cookies" value="$i18n['SC'].replace('<a>', 'Cookies')" class="sc"><div class="cookies"></div></td><td><input type="button" x-name="Headers" value="$i18n['SC'].replace('<a>', 'Headers')" class="sh"><div class="headers"></div></td><td><input type="button" value="$i18n['DEL']" class="del"></td></tr></template>
             </tbody>
         </table>
     </body>

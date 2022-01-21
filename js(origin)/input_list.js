@@ -121,8 +121,8 @@ class InputList {
      */
     destory() {
         this.update = undefined;
-        for (let i = 0; i < this.base.childElementCount; i++) {
-            this.removeDiv(this.base.children[i]);
+        while (this.base.childElementCount) {
+            this.removeDiv(this.base.firstElementChild);
         }
         this.id = 0;
     }

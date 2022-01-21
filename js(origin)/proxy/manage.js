@@ -2,6 +2,30 @@ const { post } = require('../xhr')
 const { genGetSign } = require('../sign')
 const { i18nReplace } = require('../i18n');
 const { InputList } = require('../input_list');
+const { parseCookies } = require('../cookies');
+
+/**
+ * Parse Headers
+ * @param {string} headers Headers.
+ * @returns {Object<string, string> | undefined}
+ */
+function parseHeaders(headers) {
+    let hes = headers.split('\n');
+    let r = {};
+    let iv = false;
+    hes.forEach((he) => {
+        if (iv) return;
+        he = he.trim();
+        let h = he.split(':');
+        if (h.length == 1) {
+            iv = true;
+            return;
+        }
+        r[h[0].trim()] = h.slice(1).join(":").trim();
+    })
+    if (iv) return undefined;
+    return r;
+}
 
 window.addEventListener('load', () => {
     /**@type {HTMLInputElement}*/
@@ -49,6 +73,10 @@ window.addEventListener('load', () => {
     let datas = {};
     /**@type {HTMLInputElement} Button: Delete all proxies*/
     let dab = document.getElementById('da');
+    /**@type {HTMLInputElement} Button: Read from clipboard (Cookies)*/
+    let cokc = document.getElementById('cokc');
+    /**@type {HTMLInputElement} Button: Read from clipboard (Headers)*/
+    let heac = document.getElementById('heac');
     /**
      * The callback when serect is changed
      * @param {string} str The new secret
@@ -87,6 +115,8 @@ window.addEventListener('load', () => {
         let sh = t.querySelector('.sh');
         let headers = t.querySelector('.headers');
         let del = t.querySelector('.del');
+        let show_cookies = false;
+        let show_headers = false;
         /**
          * @param {Element} source
          * @param {HTMLInputElement} button Button
@@ -95,7 +125,7 @@ window.addEventListener('load', () => {
         */
         function create_list(source, button, data) {
             let tmp = new InputList(source, undefined, undefined, data, false);
-            button.style.display = 'none';
+            button.value = i18nReplace(i18n['HC'], { 'a': button.getAttribute('x-name') });
             return tmp;
         }
         /**
@@ -126,25 +156,43 @@ window.addEventListener('load', () => {
             })
         }
         sc.addEventListener('click', () => {
-            if (!d.c) {
-                if (datas.hasOwnProperty(id)) {
-                    d.c = create_list(cookies, sc, datas[id].cookies);
-                } else {
-                    get_data(() => {
+            if (!show_cookies) {
+                if (!d.c) {
+                    if (datas.hasOwnProperty(id)) {
                         d.c = create_list(cookies, sc, datas[id].cookies);
-                    })
+                        show_cookies = !show_cookies;
+                    } else {
+                        get_data(() => {
+                            d.c = create_list(cookies, sc, datas[id].cookies);
+                            show_cookies = !show_cookies;
+                        })
+                    }
                 }
+            } else {
+                d.c.destory();
+                d.c = undefined;
+                show_cookies = !show_cookies;
+                sc.value = i18nReplace(i18n['SC'], { 'a': sc.getAttribute('x-name') });
             }
         })
         sh.addEventListener('click', () => {
-            if (!d.h) {
-                if (datas.hasOwnProperty(id)) {
-                    d.h = create_list(headers, sh, datas[id].headers);
-                } else {
-                    get_data(() => {
+            if (!show_headers) {
+                if (!d.h) {
+                    if (datas.hasOwnProperty(id)) {
                         d.h = create_list(headers, sh, datas[id].headers);
-                    })
+                        show_headers = !show_headers;
+                    } else {
+                        get_data(() => {
+                            d.h = create_list(headers, sh, datas[id].headers);
+                            show_headers = !show_headers;
+                        })
+                    }
                 }
+            } else {
+                d.h.destory();
+                d.h = undefined;
+                show_headers = !show_headers;
+                sh.value = i18nReplace(i18n['SC'], { 'a': sh.getAttribute('x-name') });
             }
         })
         del.addEventListener('click', () => {
@@ -344,4 +392,35 @@ window.addEventListener('load', () => {
     })
     input_cookies = new InputList(cookie);
     input_headers = new InputList(headers);
+    if (!navigator.clipboard) {
+        cokc.disabled = true;
+        heac.disabled = true;
+    } else {
+        cokc.addEventListener('click', () => {
+            navigator.clipboard.readText().then((data) => {
+                let d = undefined;
+                try {
+                    d = JSON.parse(data);
+                } catch {
+                    d = parseCookies(data);
+                }
+                if (d != undefined) {
+                    input_cookies.fromData(d);
+                }
+            })
+        })
+        heac.addEventListener('click', () => {
+            navigator.clipboard.readText().then((data) => {
+                let d = undefined;
+                try {
+                    d = JSON.parse(data);
+                } catch {
+                    d = parseHeaders(data);
+                }
+                if (d != undefined) {
+                    input_headers.fromData(d);
+                }
+            })
+        })
+    }
 })

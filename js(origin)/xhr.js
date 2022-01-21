@@ -1,7 +1,7 @@
 /**
  * 发送POST请求
  * @param {string} url 网站
- * @param {FormData|Object<string, string>} data 字典
+ * @param {FormData|Object<string, string | Array<string>>} data 字典
  * @param {(content: string)=>void} callback 回调函数
  * @param {()=>void} failedCallback 失败回调函数
  *  * @param {Object<string, string>} headers HTTP头部
@@ -19,7 +19,13 @@ function post(url, data, callback, failedCallback, headers) {
     else if (data.constructor.name == "Object") {
         form = new FormData();
         Object.getOwnPropertyNames(data).forEach((key) => {
-            form.append(key, data[key]);
+            let v = data[key];
+            if (typeof v == "string") form.append(key, data[key]);
+            else if (Array.isArray(v)) {
+                v.forEach((v) => {
+                    if (typeof v == "string") form.append(key, v);
+                })
+            }
         })
     } else form = data;
     var u = new URL(window.location.href);

@@ -12,6 +12,7 @@ const sha384m = require("@stablelib/sha384");
 const sha512m = require("@stablelib/sha512");
 const { showElement, hideElement } = require('./element');
 const { copyToClipboard } = require('./clipboard');
+const { URLParams } = require('./url_params');
 
 /**
  * Calculate sha224
@@ -191,8 +192,10 @@ function hmacSHA512(key, data) {
 */
 function comparePara(ele1, ele2) {
     let e1 = typeof ele1 == "string" ? ele1 : ele1[0];
+    let v1 = typeof ele1 == "string" ? "" : ele1[1];
     let e2 = typeof ele2 == "string" ? ele2 : ele2[0];
-    return e1 == e2 ? 0 : e1 > e2 ? 1 : -1;
+    let v2 = typeof ele2 == "string" ? "" : ele2[1];
+    return e1 == e2 ? v1 == v2 ? 0 : v1 > v2 ? 1 : -1 : e1 > e2 ? 1 : -1;
 }
 
 /**
@@ -200,7 +203,7 @@ function comparePara(ele1, ele2) {
  * @param {Array<Array<string>|string>|Object.<string, string>} para 参数
  */
 function genParaStr(para) {
-    var r = new URLSearchParams();
+    var r = new URLParams();
     if (para == undefined) return r.toString();
     else if (Array.isArray(para)) {
         para.sort(comparePara)
