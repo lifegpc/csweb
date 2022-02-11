@@ -177,3 +177,17 @@ class PixivAPI:
         d = re.json()
         self.save_cookies()
         return d['body']
+
+    def getIllustDetails(self, id: int, lang: str = None, retry: bool = True):
+        h = self.get_headers()
+        d = {'illust_id': id}
+        if lang is not None:
+            d['lang'] = lang
+        re = self._ses.get('https://app-api.pixiv.net/v1/illust/detail', params=d, headers=h)  # noqa: E501
+        if re.status_code >= 400:
+            if retry:
+                self.get_token(True)
+                return self.getIllustDetails(id, lang, False)
+            raise ValueError(f"HTTP ERROR {re.status_code}\n{re.text}")
+        d = re.json()
+        return d['illust']

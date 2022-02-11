@@ -380,3 +380,20 @@ class settings:
         if key in self.__data and self.__data[key] and self.__data[key] != '':
             return self.__data[key]
         return None
+
+    @property
+    def pixivSinglePageCacheTime(self) -> int:
+        default = 360
+        if self.__data is None:
+            return default
+        key = 'pixivSinglePageCacheTime'
+        if key in self.__data and self.__data[key] is not None:
+            v = self.__data[key]
+            if isinstance(v, (int, float)):
+                v = round(v)
+                if v >= 0:
+                    return v
+            elif isinstance(v, str):
+                if v.isnumeric():
+                    return int(v)
+        return default

@@ -33,6 +33,7 @@ from tools.clearBlankLines import ClearBlankLines  # noqa: F401
 from pixiv.pixivrss import PixivRSS  # noqa: F401
 from tools.mdToHtml import MdToHtml  # noqa: F401
 from proxy.manage import ProxyManage  # noqa: F401
+from pixiv.pixivproxy import PixivProxy  # noqa: F401
 
 
 urls = (
@@ -59,6 +60,8 @@ urls = (
     '^/tools/clearBlankLines$', 'ClearBlankLines',
     '^/pixiv/rss$', 'PixivRSS',
     '^/tools/MdToHtml$', "MdToHtml",
+    '^/pixiv/proxy$', 'PixivProxy',
+    '^/pixiv/proxy/(.*)$', 'PixivProxy',
     '(/.*)', 'hello',
 )
 
