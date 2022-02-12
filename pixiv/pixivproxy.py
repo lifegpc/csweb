@@ -101,7 +101,7 @@ class PixivProxy:
             lang = m.get('lang', None)
             lld = {}
             if lang is not None:
-                lld['lang'] = lld
+                lld['lang'] = lang
             ld = f"/illust/{id}?{urlencode(lld)}"
             d = db.get_cache(ld, s.pixivSinglePageCacheTime)
             if d is None:
