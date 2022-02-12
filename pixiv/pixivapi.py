@@ -104,7 +104,7 @@ class PixivAPI:
         h = self.get_headers()
         d = {'user_id': userId}
         if lang is not None:
-            d['lang'] = lang
+            h['Accept-Language'] = lang
         re = self._ses.get('https://app-api.pixiv.net/v1/user/illusts', params=d, headers=h)  # noqa: E501
         if re.status_code >= 400:
             if retry:
@@ -136,7 +136,7 @@ class PixivAPI:
         d = {"user_id": userId}
         d['restrict'] = 'public' if restrict else 'private'
         if lang is not None:
-            d['lang'] = lang
+            h['Accept-Language'] = lang
         re = self._ses.get('https://app-api.pixiv.net/v1/user/bookmarks/illust', params=d, headers=h)  # noqa: E501
         if re.status_code >= 400:
             if retry:
@@ -154,7 +154,7 @@ class PixivAPI:
         h = self.get_headers()
         d = {'restrict': str(restrict)}
         if lang is not None:
-            d['lang'] = lang
+            h['Accept-Language'] = lang
         re = self._ses.get('https://app-api.pixiv.net/v2/illust/follow', params=d, headers=h)  # noqa: E501
         if re.status_code >= 400:
             if retry:
@@ -182,7 +182,7 @@ class PixivAPI:
         h = self.get_headers()
         d = {'illust_id': id}
         if lang is not None:
-            d['lang'] = lang
+            h['Accept-Language'] = lang
         re = self._ses.get('https://app-api.pixiv.net/v1/illust/detail', params=d, headers=h)  # noqa: E501
         if re.status_code >= 400:
             if retry:
