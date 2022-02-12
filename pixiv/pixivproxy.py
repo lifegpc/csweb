@@ -40,7 +40,7 @@ def verifySign(sercet: str, query: List[str]):
 
 
 def parseBool(inp: str, default: bool) -> bool:
-    if inp is None:
+    if inp is None or inp == '':
         return default
     lo = inp.lower()
     if lo == 'true':
