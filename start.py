@@ -34,6 +34,7 @@ from pixiv.pixivrss import PixivRSS  # noqa: F401
 from tools.mdToHtml import MdToHtml  # noqa: F401
 from proxy.manage import ProxyManage  # noqa: F401
 from pixiv.pixivproxy import PixivProxy  # noqa: F401
+from pixiv.pixivproxygen import PixivProxyGen  # noqa: F401
 
 
 urls = (
@@ -42,7 +43,8 @@ urls = (
     '^/drawBagel$', 'DrawBagel',
     '^/instaRSS$', 'InstaRSS',
     '^/instaVerify$', 'InstaVerify',
-    '^/RSSProxy', 'RSSProxy',
+    '^/RSSProxy$', 'RSSProxy',
+    '^/RSSProxy/.*$', 'RSSProxy',
     '^/salt$', 'Salt',
     '^/sendMsgToMe$', 'sendMsgToMe',
     '^/tiktokRSS$', 'TiktokRSS',
@@ -62,6 +64,7 @@ urls = (
     '^/tools/MdToHtml$', "MdToHtml",
     '^/pixiv/proxy$', 'PixivProxy',
     '^/pixiv/proxy/(.*)$', 'PixivProxy',
+    '^/pixiv/proxygen$', 'PixivProxyGen',
     '(/.*)', 'hello',
 )
 

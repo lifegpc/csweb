@@ -14,6 +14,8 @@ $pyt -t tools/md_to_html.js
 res=$(($res|$?))
 $pyt -t proxy/manage.js
 res=$(($res|$?))
+$pyt -t pixiv/pixivgen.js
+res=$(($res|$?))
 cp -v js\(origin\)/*.wasm js/
 res=$(($res|$?))
 exit $res

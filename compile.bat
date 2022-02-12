@@ -9,5 +9,6 @@ set pyt=%py% compile.py -W *
 %pyt% -t tools/clearBlankLines.js
 %pyt% -t tools/md_to_html.js
 %pyt% -t proxy/manage.js
+%pyt% -t pixiv/pixivgen.js
 COPY /Y js(origin)\*.wasm js\
 ENDLOCAL

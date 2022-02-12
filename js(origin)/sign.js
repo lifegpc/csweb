@@ -54,3 +54,4 @@ function genGetSign(data, secret, hash) {
 }
 
 module.exports.genGetSign = genGetSign;
+module.exports._sha512 = sha512;

@@ -1,0 +1,40 @@
+$def with (lan, trans, i18n, embScr, genLangLink, i18n2)
+<!DOCTYPE html>
+<html lang="$lan">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">  
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta name="title" content="$i18n['TITLE']">
+        <meta name="author" content="lifegpc">
+        <meta name="description" content="$i18n['DESC']">
+        <meta name="keywords" content="generator">
+        <title>$i18n['TITLE']</title>
+        $:genLangLink('/pixiv/pixivgen', ['en', 'ja', 'zh_CN', 'zh_TW'])
+        <script>var lan="$lan";console.log("$trans");var i18n=$i18n2;</script>
+        $:embScr('pixiv/pixivgen')
+    </head>
+    <body>
+        $i18n['SECKEY']<input id="pas" type="password" autocomplete="new-password" aria-autocomplete="none"><br>
+        $i18n['SC']<input id="sc" type="number" required><br>
+        $i18n['TYP']<select id="typ"><option value="url" selected>$i18n['RED']</option><option value="json">JSON</option></select><br>
+        $i18n['PAGE']<input id="page" type="number" value="1" min="1"><br>
+        $i18n['LAN']<input id="lan" list="lan2"><datalist id="lan2">
+            <option>en</option>
+            <option>ja</option>
+            <option>zh</option>
+            <option>zh-CN</option>
+            <option>zh-TW</option>
+        </datalist><br>
+        $i18n['SIZE']<select id="size">
+            <option selected>original</option>
+            <option>large</option>
+            <option>medium</option>
+            <option>square_medium</option>
+        </select><br>
+        <input type="checkbox" id="afn" checked><label for="afn">$i18n['AFN']</label><br>
+        $i18n['ADD']<input id="add"><br>
+        $i18n['SER']<input id="ser"><br>
+        <input id="gen" type="button" value="$i18n['GEN']"><input id="oint" type="button" value="$i18n['OINT']"><input id="cpclip" type="button" value="$i18n['CPCLIP']"><br>
+        $i18n['RE']<textarea id="o" style="width: calc(100% - 20px); margin-left: 10px; height: 40px;"></textarea>
+    </body>
+</html>

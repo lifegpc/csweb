@@ -39,6 +39,22 @@ def verifySign(sercet: str, query: List[str]):
     return sha512(sercet + q) == sign
 
 
+def parseBool(inp: str, default: bool) -> bool:
+    if inp is None:
+        return default
+    lo = inp.lower()
+    if lo == 'true':
+        return True
+    elif lo == 'false':
+        return False
+    try:
+        i = int(lo)
+        return bool(i)
+    except Exception:
+        pass
+    return bool(inp)
+
+
 def getUrl(d: dict, s: str = 'original'):
     if s == 'original':
         if 'meta_single_page' in d:
@@ -102,6 +118,10 @@ class PixivProxy:
             if page == '':
                 page = m.get('page', '1')
             page = min(max(int(page), 1), d['page_count'])
+            add_fn = m.get('f', '')
+            if add_fn == '':
+                add_fn = m.get('add_fn', '')
+            add_fn = parseBool(add_fn, True)
             if typ == 'url':
                 if d['page_count'] == 1:
                     url = getUrl(d, m.get('size', 'original'))
@@ -110,7 +130,7 @@ class PixivProxy:
                 if url is None:
                     web.HTTPError('404 Not Found')
                     return '404 Failed to extract url.'
-                web.found(genUrl(url, s.RSSProxySerects))
+                web.found(genUrl(url, s.RSSProxySerects, add_fn))
                 return True
         except Exception:
             web.HTTPError('500 Internal Server Error')
