@@ -106,6 +106,9 @@ class ProxyProxy:
             for i in ['cache-control', 'content-length', 'content-type',
                       'date', 'last-modified', 'content-range', 'age',
                       'expires', 'keep-alive', 'location', 'server']:
+                if i == 'content-length':
+                    if 'content-encoding' in h and h['content-encoding'] != 'identity':  # noqa: E501
+                        continue
                 if i in h:
                     web.header(i, h[i])
             return self.send(re)
