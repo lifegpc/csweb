@@ -6,7 +6,6 @@ from functools import wraps
 from typing import Dict
 from http.cookiejar import MozillaCookieJar
 from os.path import exists
-from atexit import register
 
 
 AUTH_TOKEN_URL = "https://oauth.secure.pixiv.net/auth/token"
@@ -53,7 +52,9 @@ class PixivAPI:
         self._s = se
         self._db = db
         self.get_cookies()
-        register(self.save_cookies)
+
+    def __del__(self):
+        self.save_cookies()
 
     def get_cookies(self, force: bool = False):
         if self._s.pixivWebCookiesFileLocation is None:
