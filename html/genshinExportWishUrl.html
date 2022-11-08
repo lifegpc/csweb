@@ -1,0 +1,21 @@
+$def with (lan, trans, i18n, embScr, genLangLink, i18n2)
+<!DOCTYPE html>
+<html lang="$lan">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">  
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta name="title" content="$i18n['TITLE']">
+        <meta name="description" content="$i18n['TITLE']">
+        <title>$i18n['TITLE']</title>
+        $:genLangLink('/genshinExportWishUrl', ['en', 'ja', 'zh_CN', 'zh_TW'])
+        <script>console.log('$trans');var lan='$lan';var i18n=$i18n2;</script>
+        $:embScr("genshinExportWishUrl")
+    </head>
+    <body>
+        <input type="file" id="file" /><br/>
+        <label id="output"></label><br/>
+        <button id="ana1">$i18n['ANALYSIS']</button>
+        <button id="ana2">$i18n['ANALYSIS2']</button><br>
+        <input type="text" id="output2">
+    </body>
+</html>

@@ -1,0 +1,45 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: csweb\n"
+"POT-Creation-Date: 2022-11-08 09:12:00+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
+
+# Dear translator: place your name here if you like.
+# You can use , to separate two names
+msgctxt "TRANSLATOR"
+msgid "lifegpc"
+msgstr ""
+
+msgctxt "TITLE"
+msgid "Genshin Impact Wish Url Exporter"
+msgstr ""
+
+msgctxt "ANALYSIS"
+msgid "Analysis output_log.txt"
+msgstr ""
+
+msgctxt "NO_FILE_FOUND"
+msgid "No file found. Please select a file."
+msgstr ""
+
+msgctxt "NO_GAME_DIR"
+msgid "Can't find game path in output_log.txt."
+msgstr ""
+
+msgctxt "OUTPUT"
+msgid "WishUrl is located in file \"<FILE>\". You need select it and click Anylysis."
+msgstr ""
+
+msgctxt "ANALYSIS2"
+msgid "Analysis"
+msgstr ""
+
+msgctxt "NO_WISH_URL"
+msgid "No wish url found."
+msgstr ""

@@ -35,6 +35,7 @@ from tools.mdToHtml import MdToHtml  # noqa: F401
 from proxy.manage import ProxyManage  # noqa: F401
 from pixiv.pixivproxy import PixivProxy  # noqa: F401
 from pixiv.pixivproxygen import PixivProxyGen  # noqa: F401
+from genshinExportWishUrl import GenshinExportWishUrl  # noqa: F401
 
 
 urls = (
@@ -65,6 +66,7 @@ urls = (
     '^/pixiv/proxy$', 'PixivProxy',
     '^/pixiv/proxy/(.*)$', 'PixivProxy',
     '^/pixiv/proxygen$', 'PixivProxyGen',
+    '^/genhinExportWishUrl$', 'GenshinExportWishUrl',
     '(/.*)', 'hello',
 )
 
