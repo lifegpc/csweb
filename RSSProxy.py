@@ -64,9 +64,16 @@ class RSSProxy:
             from json import loads
             ses.headers.update(loads(header))
         allow_redirects = parseBool(web.input().get("ar"), True)
+        return_redirect_as_json = parseBool(web.input().get("rraj"), False)
         re = ses.get(t, stream=True, allow_redirects=allow_redirects)
         if re.status_code != 200:
-            web.HTTPError(f"{re.status_code} {re.reason}")
+            if re.status_code in [301, 307] and return_redirect_as_json:
+                web.HTTPError(f"200 OK")
+                from json import dumps
+                from constants import jsonsep
+                return dumps({"code": re.status_code, "location": re.headers.get("Location")}, ensure_ascii=False, separators=jsonsep)  # noqa: E501
+            else:
+                web.HTTPError(f"{re.status_code} {re.reason}")
         h = re.headers
         for i in ['cache-control', 'content-length', 'content-type', 'date',
                   'last-modified', 'content-range', 'age', 'expires',
