@@ -13,6 +13,22 @@ from sign import verifySign
 from requests import Session, Response
 
 
+def parseBool(inp: str, default: bool) -> bool:
+    if inp is None:
+        return default
+    lo = inp.lower()
+    if lo == 'true':
+        return True
+    elif lo == 'false':
+        return False
+    try:
+        i = int(lo)
+        return bool(i)
+    except Exception:
+        pass
+    return bool(inp)
+
+
 class RSSProxy:
     def GET(self):
         web.header('Access-Control-Allow-Origin', '*')
@@ -47,7 +63,8 @@ class RSSProxy:
         if header is not None:
             from json import loads
             ses.headers.update(loads(header))
-        re = ses.get(t, stream=True)
+        allow_redirects = parseBool(web.input().get("ar"), True)
+        re = ses.get(t, stream=True, allow_redirects=allow_redirects)
         if re.status_code != 200:
             web.HTTPError(f"{re.status_code} {re.reason}")
         h = re.headers
