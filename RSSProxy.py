@@ -67,7 +67,7 @@ class RSSProxy:
         return_redirect_as_json = parseBool(web.input().get("rraj"), False)
         re = ses.get(t, stream=True, allow_redirects=allow_redirects)
         if re.status_code != 200:
-            if re.status_code in [301, 307] and return_redirect_as_json:
+            if re.status_code in [301, 302, 307] and return_redirect_as_json:
                 web.HTTPError(f"200 OK")
                 from json import dumps
                 from constants import jsonsep
