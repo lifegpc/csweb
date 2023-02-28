@@ -22,7 +22,7 @@ from tep import getTemplate
 
 
 class OnlyOfficeViewer:
-    def GET(self):
+    def GET(self, **k):
         te = getTemplate("onlyoffice_viewer.html")
         if te is None:
             web.HTTPError('500 Internal Server Error')
