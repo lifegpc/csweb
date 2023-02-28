@@ -9,3 +9,4 @@ cfw_profile/
 *.db
 *.db-journal
 *.txt
+venv/

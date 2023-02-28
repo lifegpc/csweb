@@ -1,6 +1,6 @@
 from os.path import exists
 from json import load as loadjson
-from typing import Dict
+from typing import Dict, List
 
 
 class settings:
@@ -397,3 +397,38 @@ class settings:
                 if v.isnumeric():
                     return int(v)
         return default
+
+    @property
+    def onlyOfficeEndpoint(self) -> str:
+        if self.__data is None:
+            return None
+        key = 'onlyOfficeEndpoint'
+        if key in self.__data and self.__data[key] and self.__data[key] != '':
+            return self.__data[key]
+        return None
+
+    @property
+    def onlyOfficeAllowOrigins(self) -> List[str]:
+        if self.__data is None:
+            return []
+        key = 'onlyOfficeAllowOrigins'
+        if key in self.__data:
+            v = self.__data[key]
+            if isinstance(v, str) and v != '':
+                return [v]
+            elif isinstance(v, list):
+                t = []
+                for i in v:
+                    if isinstance(i, str) and i != '':
+                        t.append(i)
+                return t
+        return []
+
+    @property
+    def onlyOfficeToken(self) -> str:
+        if self.__data is None:
+            return None
+        key = 'onlyOfficeToken'
+        if key in self.__data and self.__data[key] and self.__data[key] != '':
+            return self.__data[key]
+        return None

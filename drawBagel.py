@@ -7,7 +7,7 @@ if abspath(dirname(__file__)) not in sys.path:
     m = True
 else:
     m = False
-from drawSvg import Drawing, Rectangle, Mask, Group, Text, Raw
+from drawsvg import Drawing, Rectangle, Mask, Group, Text, Raw
 from cairo import (  # pylint: disable=no-name-in-module
     SVGSurface,
     Context,
