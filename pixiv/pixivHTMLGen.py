@@ -59,6 +59,9 @@ def genRSSItems(li: list, s, typ, include_tags: bool,
                 des += genImage(i['meta_single_page'], s.RSSProxySerects)
         if include_tags:
             tags = []
+            if 'illust_ai_type' in i:
+                if i['illust_ai_type'] == 2:
+                    tags.append("#AI")
             if 'tags' in i:
                 for tt in i['tags']:
                     tags.append(f"#{tt['name']}")
