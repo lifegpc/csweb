@@ -9,8 +9,9 @@ else:
     m = False
 import web
 from settings import settings
-from sign import verifySign
+from sign import genSign, verifySign
 from requests import Session, Response
+from urllib.parse import urlencode
 
 
 def parseBool(inp: str, default: bool) -> bool:
@@ -65,6 +66,7 @@ class RSSProxy:
             ses.headers.update(loads(header))
         allow_redirects = parseBool(web.input().get("ar"), True)
         return_redirect_as_json = parseBool(web.input().get("rraj"), False)
+        change_location = parseBool(web.input().get("cl"), False)
         re = ses.get(t, stream=True, allow_redirects=allow_redirects)
         if re.status_code != 200:
             if re.status_code in [301, 302, 307] and return_redirect_as_json:
@@ -82,7 +84,13 @@ class RSSProxy:
                 if 'content-encoding' in h and h['content-encoding'] != 'identity':  # noqa: E501
                     continue
             if i in h:
-                web.header(i, h[i])
+                if i == 'location' and change_location:
+                    te = {"t": [t], "cl": ["1"]}
+                    te['sign'] = genSign(s.RSSProxySerects, te)
+                    url = "/RSSProxy?" + urlencode(te, doseq=True)
+                    web.header(i, url)
+                else:
+                    web.header(i, h[i])
         return self.send(re)
 
     def send(self, r: Response):
