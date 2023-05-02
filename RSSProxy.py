@@ -67,6 +67,8 @@ class RSSProxy:
         allow_redirects = parseBool(web.input().get("ar"), True)
         return_redirect_as_json = parseBool(web.input().get("rraj"), False)
         change_location = parseBool(web.input().get("cl"), False)
+        if change_location:
+            allow_redirects = False
         re = ses.get(t, stream=True, allow_redirects=allow_redirects)
         if re.status_code != 200:
             if re.status_code in [301, 302, 307] and return_redirect_as_json:
@@ -85,7 +87,7 @@ class RSSProxy:
                     continue
             if i in h:
                 if i == 'location' and change_location:
-                    te = {"t": [t], "cl": ["1"]}
+                    te = {"t": [h[i]], "cl": ["1"]}
                     te['sign'] = genSign(s.RSSProxySerects, te)
                     url = "/RSSProxy?" + urlencode(te, doseq=True)
                     web.header(i, url)
