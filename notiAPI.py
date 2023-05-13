@@ -18,6 +18,22 @@ from time import strftime, gmtime
 from sign import verifySign
 
 
+def parseBool(inp: str, default: bool) -> bool:
+    if inp is None or inp == '':
+        return default
+    lo = inp.lower()
+    if lo == 'true':
+        return True
+    elif lo == 'false':
+        return False
+    try:
+        i = int(lo)
+        return bool(i)
+    except Exception:
+        pass
+    return bool(inp)
+
+
 class NotiAPI:
     def POST(self):
         s = settings()
@@ -26,7 +42,7 @@ class NotiAPI:
             if not verifySign(s.notiAPISecrets, True):
                 web.HTTPError('401 Unauthorized')
                 return ''
-        ignore_ongoing = web.input().get("io", True)
+        ignore_ongoing = parseBool(web.input().get("io"), True)
         data = web.data()
         if isinstance(data, bytes):
             d = data.decode('UTF-8')
