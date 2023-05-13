@@ -37,19 +37,26 @@ class NotiAPI:
             return ''
         j = loads(d)
         mes = textc()
-        if ignore_ongoing and 'ongoing' in j and j['ongoing']:
+        ONGOING = 'filterbox.field.ONGOING'
+        APP_NAME = 'filterbox.field.APP_NAME'
+        PACKAGE_NAME = 'filterbox.field.PACKAGE_NAME'
+        TITLE = 'android.title'
+        TEXT = 'android.text'
+        WHEN = 'filterbox.field.WHEN'
+        if ignore_ongoing and ONGOING in j and j[ONGOING]:
             return ''
-        if 'app_name' in j:
-            if 'package_name' in j:
-                pn = j['package_name']
-                mes.addtotext(f"<b>{escape(j['app_name'])} ({escape(pn)})</b>")
+        if APP_NAME in j:
+            if PACKAGE_NAME in j:
+                pn = j[PACKAGE_NAME]
+                mes.addtotext(f"<b>{escape(j[APP_NAME])} ({escape(pn)})</b>")
             else:
-                mes.addtotext(f"<b>{escape(j['app_name'])}</b>")
-        if 'title' in j:
-            mes.addtotext(f"<b>{escape(j['title'])}</b>")
-        if 'text' in j:
-            mes.addtotext(escape(j['text']))
-        mes.addtotext(strftime(ISO8601_FORMAT, gmtime(j['when'] / 1000)))
+                mes.addtotext(f"<b>{escape(j[APP_NAME])}</b>")
+        if TITLE in j:
+            mes.addtotext(f"<b>{escape(j[TITLE])}</b>")
+        if TEXT in j:
+            mes.addtotext(escape(j[TEXT]))
+        if WHEN in j:
+            mes.addtotext(strftime(ISO8601_FORMAT, gmtime(j[WHEN] / 1000)))
         while len(mes):
             sendMessage(s.notiAPITelegraBotChatId, mes.tostr(),
                         s.notiAPITelegramBotAPIKey, 'HTML', True)
