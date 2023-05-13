@@ -217,6 +217,7 @@ class settings:
             return self.__data[key]
         return None
 
+    @property
     def notiAPITelegramBotAPIKey(self) -> str:
         if self.__data is None:
             return None
