@@ -67,6 +67,7 @@ class RSSProxy:
         allow_redirects = parseBool(web.input().get("ar"), True)
         return_redirect_as_json = parseBool(web.input().get("rraj"), False)
         change_location = parseBool(web.input().get("cl"), False)
+        ignore_headers = web.input().get("ih", "").split(",")
         if change_location:
             allow_redirects = False
         re = ses.get(t, stream=True, allow_redirects=allow_redirects)
@@ -82,6 +83,8 @@ class RSSProxy:
         for i in ['cache-control', 'content-length', 'content-type', 'date',
                   'last-modified', 'content-range', 'age', 'expires',
                   'keep-alive', 'location', 'server']:
+            if i in ignore_headers:
+                continue
             if i == 'content-length':
                 if 'content-encoding' in h and h['content-encoding'] != 'identity':  # noqa: E501
                     continue
