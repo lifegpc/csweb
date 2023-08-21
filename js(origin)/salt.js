@@ -13,6 +13,7 @@ const sha512m = require("@stablelib/sha512");
 const { showElement, hideElement } = require('./element');
 const { copyToClipboard } = require('./clipboard');
 const { URLParams } = require('./url_params');
+const { basic_handle_darkmode } = require('./dark');
 
 /**
  * Calculate sha224
@@ -226,6 +227,7 @@ function genParaStr(para) {
 }
 
 window.addEventListener('load', () => {
+    basic_handle_darkmode();
     let bu = document.getElementById('bu');
     /**@type {HTMLInputElement}*/
     var pas = document.getElementById('pas');

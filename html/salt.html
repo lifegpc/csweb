@@ -17,6 +17,7 @@ $code:
         $:genLangLink('/salt', ['en', 'ja', 'zh_CN', 'zh_TW'])
         <script>console.log('$trans');var lan='$lan';var i18n=$i18n2;</script>
         $:embScr("salt")
+        <link rel="stylesheet" href="/css/salt.css">
     </head>
     <body>
         $i18n['PASS']<input id="pas" type="password" minlength="8" autocomplete="new-password" tabindex="1"><input class="showpas" target="pas" type="button" value="$i18n['SHOWX'].replace('<sth>', i18n['PAS'])" tran-key="PAS"><br/>

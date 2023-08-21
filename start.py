@@ -78,6 +78,11 @@ class JSFileMiddleware(StaticMiddleware):
         StaticMiddleware.__init__(self, app, "/js/")
 
 
+class CSSFileMiddleware(StaticMiddleware):
+    def __init__(self, app):
+        StaticMiddleware.__init__(self, app, "/css/")
+
+
 class mywebapp(web.application):
     def run(self, host: str = "127.0.0.1", port: int = 2600, middleware=None):
         "重写方法以支持指定host和port"
@@ -94,7 +99,7 @@ if __name__ == "__main__":
         if len(sys.argv) >= 3:
             k['host'] = sys.argv[1]
             k['port'] = int(sys.argv[2])
-        k['middleware'] = [JSFileMiddleware]
+        k['middleware'] = [JSFileMiddleware, CSSFileMiddleware]
         app.run(**k)
     except:
         from traceback import format_exc

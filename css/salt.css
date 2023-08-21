@@ -1,0 +1,14 @@
+:root {
+    --dark-backgroud: #343a40;
+    color-scheme: only light;
+}
+
+body {
+    background-color: white;
+}
+
+.dark-scheme {
+    background: var(--dark-backgroud);
+    color: white;
+    color-scheme: dark;
+}
