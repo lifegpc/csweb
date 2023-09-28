@@ -118,6 +118,24 @@ class settings:
         return default
 
     @property
+    def everyPushServer(self) -> str:
+        if self.__data is None:
+            return None
+        key = 'everyPushServer'
+        if key in self.__data and self.__data[key] and self.__data[key] != '':
+            return self.__data[key]
+        return None
+
+    @property
+    def everyPushToken(self) -> str:
+        if self.__data is None:
+            return None
+        key = 'everyPushToken'
+        if key in self.__data and self.__data[key] and self.__data[key] != '':
+            return self.__data[key]
+        return None
+
+    @property
     def fontLocationMap(self) -> Dict[str, str]:
         if self.__data is None:
             return None
@@ -433,3 +451,12 @@ class settings:
         if key in self.__data and self.__data[key] and self.__data[key] != '':
             return self.__data[key]
         return None
+
+    @property
+    def sendMsgToMeUseEveryPush(self) -> bool:
+        if self.__data is None:
+            return False
+        key = 'sendMsgToMeUseEveryPush'
+        if key in self.__data and self.__data[key]:
+            return True
+        return False

@@ -22,6 +22,7 @@ from lang import (
     getTranslator
 )
 from mycache import setCacheControl
+from requests import post
 
 
 class sendMsgToMe:
@@ -72,20 +73,46 @@ class sendMsgToMe:
         if not checked:
             inf['msg'] = info['msg']
         if checked:
-            if se.telegramchatid is None:
-                inf['code'] = -2
-                inf['debugInfo2'] = {'code': -1, 'msg': 'No Chat Id.'}
-            else:
-                try:
-                    ip = web.ctx['ip']
-                    if ip is None:
-                        ip = ''
-                except:
+            try:
+                ip = web.ctx['ip']
+                if ip is None:
                     ip = ''
-                ilan = web.input().get("lan")
-                if ilan is None:
-                    ilan = 'Unknown'
-                addt = f' ({ilan})' if ip == '' else f' ({ip}, {ilan})'
+            except:
+                ip = ''
+            ilan = web.input().get("lan")
+            if ilan is None:
+                ilan = 'Unknown'
+            addt = f' ({ilan})' if ip == '' else f' ({ip}, {ilan})'
+            if se.sendMsgToMeUseEveryPush:
+                if se.everyPushServer is None:
+                    inf['code'] = -2
+                    if se.debug:
+                        inf['debugInfo2'] = {'code': -1,
+                                             'msg': 'No EveryPush Server.'}
+                elif se.everyPushToken is None:
+                    inf['code'] = -2
+                    if se.debug:
+                        inf['debugInfo2'] = {'code': -2,
+                                             'msg': 'No EveryPush Token.'}
+                else:
+                    server = se.everyPushServer
+                    token = se.everyPushToken
+                    re = post(f"{server}/message/push",
+                              {"pushToken": token, "title": f"{name}{addt}",
+                               "text": content})
+                    info['code'] = 0 if re.ok else -4
+                    if not re.ok:
+                        try:
+                            info['msg'] = re.json()['message']
+                            if se.debug:
+                                info['debugInfo2'] = re.json()
+                        except Exception:
+                            info['msg'] = "Failed to get message."
+            elif se.telegramchatid is None:
+                inf['code'] = -2
+                if se.debug:
+                    inf['debugInfo2'] = {'code': -1, 'msg': 'No Chat Id.'}
+            else:
                 text = f"{name}{addt}: {content}"
                 sended, info = sendMessage(se.telegramchatid, text)
                 inf['code'] = 0 if sended else -4
