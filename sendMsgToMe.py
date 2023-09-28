@@ -74,9 +74,9 @@ class sendMsgToMe:
             inf['msg'] = info['msg']
         if checked:
             try:
-                ip = web.ctx['ip']
+                ip = web.ctx.env.get('HTTP_CF_CONNECTING_IP')
                 if ip is None:
-                    ip = web.ctx.env.get('HTTP_CF_CONNECTING_IP')
+                    ip = web.ctx['ip']
                 if ip is None:
                     ip = ''
             except:
