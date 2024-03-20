@@ -460,3 +460,12 @@ class settings:
         if key in self.__data and self.__data[key]:
             return True
         return False
+
+    @property
+    def geoDatabase(self) -> str:
+        if self.__data is None:
+            return None
+        key = 'geoDatabase'
+        if key in self.__data and self.__data[key] and self.__data[key] != '':
+            return self.__data[key]
+        return None

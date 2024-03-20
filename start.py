@@ -37,6 +37,7 @@ from pixiv.pixivproxy import PixivProxy  # noqa: F401
 from pixiv.pixivproxygen import PixivProxyGen  # noqa: F401
 from genshinExportWishUrl import GenshinExportWishUrl  # noqa: F401
 from onlyoffice_viewer import OnlyOfficeViewer  # noqa: F401
+from geoip import Geoip  # noqa: F401
 
 
 urls = (
@@ -69,6 +70,7 @@ urls = (
     '^/pixiv/proxygen$', 'PixivProxyGen',
     '^/genhinExportWishUrl$', 'GenshinExportWishUrl',
     '^/onlyoffice_viewer$', 'OnlyOfficeViewer',
+    '^/geoip/(.*)/(.*)$', 'Geoip',
     '(/.*)', 'hello',
 )
 
