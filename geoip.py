@@ -39,6 +39,11 @@ class Geoip:
             web.HTTPError('500 Internal Server Error')
             return t
 
+    def OPTIONS(self):
+        from cors import allowCors
+        allowCors(methods=['GET', 'OPTIONS'])
+        return ''
+
 
 if m:
     application = web.application(('(.*)/(.*)', 'Geoip'), globals()).wsgifunc()
