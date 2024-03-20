@@ -15,6 +15,7 @@ from traceback import format_exc
 
 class Geoip:
     def GET(self, type, code):
+        web.header('Access-Control-Allow-Origin', '*')
         s = settings()
         s.ReadSettings()
         if not s.geoDatabase:
